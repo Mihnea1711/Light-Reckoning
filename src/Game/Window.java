@@ -18,6 +18,8 @@ public class Window extends JFrame implements Runnable {
 
     private Scene currentScene = null;
 
+    //double buffering with graphics is used to show a img or frame while
+    //another img or frame is being buffered to be shown next
     private Image doubleBufferImg = null;           //img used to draw things onto and then draw this inside the window
     private Graphics doubleBufferGraph  = null;      //graphics handler for img
 
