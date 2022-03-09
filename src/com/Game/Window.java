@@ -1,12 +1,10 @@
-package Game;
+package com.Game;
 
-import Utilities.Constants;
-import Utilities.Time;
+import com.Utilities.Constants;
+import com.Utilities.Time;
 
 import javax.swing.JFrame;
-import javax.xml.stream.XMLEventReader;
 import java.awt.*;
-import java.awt.event.KeyEvent;
 
 //implement runnable because it is easier to stop the game
 public class Window extends JFrame implements Runnable {

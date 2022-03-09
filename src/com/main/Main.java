@@ -1,6 +1,6 @@
 package com.main;
 
-import Game.Window;
+import com.Game.Window;
 
 public class Main {
     //entry point for program

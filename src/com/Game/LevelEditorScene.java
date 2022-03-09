@@ -1,10 +1,16 @@
-package Game;
+package com.Game;
 
-import Utilities.Constants;
+import com.Components.BoxBounds;
+import com.DataStructures.Transform;
+import com.Utilities.Constants;
+import com.Utilities.TwoPair;
 
+import javax.swing.*;
 import java.awt.*;
 
 public class LevelEditorScene extends Scene{
+
+    GameObject testObj;
 
     public LevelEditorScene(String name){
         super.Scene(name);  //calls the superclass(Scene) constructor
@@ -12,12 +18,14 @@ public class LevelEditorScene extends Scene{
 
     @Override
     public void init() {
-
+        testObj = new GameObject("game obj", new Transform(new TwoPair(0.0f, 0.0f)));
+        testObj.addComponent(new BoxBounds("Box"));
     }
 
     @Override
     public void update(double dTime) {
-        System.out.println("in here");
+        System.out.println(testObj.getComp(BoxBounds.class).name);
+        testObj.update(dTime);
     }
 
     @Override

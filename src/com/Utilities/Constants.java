@@ -1,4 +1,4 @@
-package Utilities;
+package com.Utilities;
 
 public class Constants {
     public static final int ScreenWidth = 1280;

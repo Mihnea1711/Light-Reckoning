@@ -1,4 +1,4 @@
-package Utilities;
+package com.Utilities;
 
 //get the current time
 public class Time {
