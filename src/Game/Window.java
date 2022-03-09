@@ -1,9 +1,11 @@
 package Game;
 
+import Utilities.Constants;
 import Utilities.Time;
 
 import javax.swing.JFrame;
 import javax.xml.stream.XMLEventReader;
+import java.awt.*;
 import java.awt.event.KeyEvent;
 
 //implement runnable because it is easier to stop the game
@@ -16,13 +18,16 @@ public class Window extends JFrame implements Runnable {
 
     private Scene currentScene = null;
 
+    private Image doubleBufferImg = null;           //img used to draw things onto and then draw this inside the window
+    private Graphics doubleBufferGraph  = null;      //graphics handler for img
+
     //Constructor
     public Window(){
         this.mouseListener = new MouseListener();
         this.keyListener = new KeyListener();
 
-        this.setSize(1280, 720);        //screen size
-        this.setTitle("Light's Reckoning");         //screen title
+        this.setSize(Constants.ScreenWidth, Constants.ScreenHeight);        //screen size
+        this.setTitle(Constants.title);         //screen title
         this.setResizable(false);                   //no resize
         this.setVisible(true);                      //shows the window
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);    //closes window when exit
@@ -31,12 +36,12 @@ public class Window extends JFrame implements Runnable {
         this.addMouseListener(mouseListener);           //clicking and dragging
         this.addMouseMotionListener(mouseListener);     //movement
 
-        this.addKeyListener(keyListener);
+        this.addKeyListener(keyListener);           //keys
     }
 
     //initialize variables inside of window class
     public void init(){
-        changeScene(0);
+        changeScene(0);     //changes scene to 0 = level editor scene
     }
 
     //will tell which scene we need to change to
@@ -60,10 +65,29 @@ public class Window extends JFrame implements Runnable {
         return Window.window;
     }
 
-    public void update(double dt){
-        currentScene.update(dt);
+    //updates the window
+    public void update(double dTime){
+        currentScene.update(dTime);        //calls the currentScene update
+        draw(getGraphics());            //draws into the scene
     }
 
+    //used to draw
+    public void draw(Graphics g){
+        if(doubleBufferImg == null){
+            doubleBufferImg = createImage(getWidth(), getHeight());
+            doubleBufferGraph = doubleBufferImg.getGraphics();
+        }
+        renderOffScreen(doubleBufferGraph);
+
+        g.drawImage(doubleBufferImg,0, 0, getWidth(), getHeight(), null);
+    }
+
+    //helper method to render the img off screen and then to draw the img
+    public void renderOffScreen(Graphics g){
+        Graphics2D g2 = (Graphics2D)g;
+        currentScene.draw(g2);
+        //should draw what is being draw in the current scene
+    }
 
     //called by thread.start()
     @Override
