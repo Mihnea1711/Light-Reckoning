@@ -2,6 +2,7 @@ package com.Game;
 
 import com.DataStructures.Transform;
 
+import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -34,6 +35,7 @@ public class GameObject {
 
     public void addComponent(Component c){
         componentList.add(c);
+        c.gameObject = this;
     }
 
     //updating the whole object with all the components
@@ -41,5 +43,20 @@ public class GameObject {
         for(Component c : componentList){
             c.update(dTime);
         }
+    }
+
+    //used to draw every game object if any of the components has smth to be drawn(sprite)
+    public void draw(Graphics2D g2) {
+        for(Component c : componentList){
+            c.draw(g2);
+        }
+    }
+
+    public float getX() {
+        return transform.pos.x;
+    }
+
+    public float getY() {
+        return transform.pos.y;
     }
 }
