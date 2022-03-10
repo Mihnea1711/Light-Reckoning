@@ -28,7 +28,7 @@ public class Ground extends Component {
     public void draw(Graphics2D g2) {
         g2.setColor(Color.BLACK);
         //the ground will follow the camera and will be a rect along the screen
-        g2.drawRect((int)gameObject.getPosX(), (int)gameObject.getPosY(), Constants.ScreenWidth, Constants.ScreenHeight);
+        g2.drawRect((int)gameObject.getPosX() + Constants.GroundOffsetX, (int)gameObject.getPosY(), Constants.ScreenWidth + Constants.GroundOffsetScreenWidth, Constants.ScreenHeight);
 
     }
 }

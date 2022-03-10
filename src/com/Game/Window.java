@@ -43,7 +43,7 @@ public class Window extends JFrame implements Runnable {
 
     //initialize variables inside of window class
     public void init(){
-        changeScene(1);     //changes scene to 0 = level editor scene, 1 = levelScene
+        changeScene(0);     //changes scene to 0 = level editor scene, 1 = levelScene
     }
 
     public Scene getCurrentScene() {
@@ -56,10 +56,12 @@ public class Window extends JFrame implements Runnable {
             case 0:
                 isInEditor = true;
                 currentScene = new LevelEditorScene("Level Editor");        //switches the scene to level editor scene
+                currentScene.init();
                 break;
             case 1:
                 isInEditor = false;
                 currentScene = new LevelScene("Level 1");
+                currentScene.init();
                 break;
             default:
                 System.out.println("Don't know the scene");

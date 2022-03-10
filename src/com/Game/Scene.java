@@ -18,7 +18,6 @@ public abstract class Scene {
         this.camera = new Camera(new TwoPair());
         this.gameObjectList = new ArrayList<>();
         this.renderer = new Renderer(this.camera);
-        init();
     }
 
     public void init(){        //initializes update

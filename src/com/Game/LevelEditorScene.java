@@ -1,18 +1,18 @@
 package com.Game;
 
 import com.Components.*;
-import com.DataStructures.AssetPool;
 import com.DataStructures.Transform;
 import com.Utilities.Constants;
 import com.Utilities.TwoPair;
 
-import javax.swing.*;
 import java.awt.*;
 
 public class LevelEditorScene extends Scene{
 
     public GameObject player;
     GameObject ground;
+    Grid grid;
+    CameraControls cameraControls;
 
     public LevelEditorScene(String name){
         super.Scene(name);  //calls the superclass(Scene) constructor
@@ -20,7 +20,9 @@ public class LevelEditorScene extends Scene{
 
     @Override
     public void init() {
-        player = new GameObject("game obj", new Transform(new TwoPair(700.0f, 400.0f)));
+        grid = new Grid();
+        cameraControls = new CameraControls();
+        player = new GameObject("game obj", new Transform(new TwoPair(300.0f, 400.0f)));
         SpriteSheet layer1 = new SpriteSheet("Assets/PlayerSprites/layerOne.png", 42, 42, 2, 13, 13*5);
         SpriteSheet layer2 = new SpriteSheet("Assets/PlayerSprites/layerTwo.png", 42, 42, 2, 13, 13*5);
         SpriteSheet layer3 = new SpriteSheet("Assets/PlayerSprites/layerThree.png", 42, 42, 2, 13, 13*5);
@@ -37,18 +39,14 @@ public class LevelEditorScene extends Scene{
     //call different methods and attributes on the component
     @Override
     public void update(double dTime) {
-        if (player.getPosX() - camera.getPosX() > Constants.CameraX) {
-            camera.pos.x = player.getPosX() - Constants.CameraX;            //if the player is moving left/right, then move the camera with him
-        }
-        if(player.getPosY() - camera.getPosY() > Constants.CameraY){        //if the player is moving up/down, move the camera with him
-            camera.pos.y = player.getPosY() - Constants.CameraY;
-        }
         if(camera.getPosY() > Constants.CameraOffsetGroundY) {              //if the camera off to ground is > 150, just stop it there
             camera.pos.y = Constants.CameraOffsetGroundY;
         }
         for(GameObject g : gameObjectList) {        //update every game object
             g.update(dTime);
         }
+        cameraControls.update(dTime);
+        grid.update(dTime);
     }
 
     @Override
@@ -57,5 +55,6 @@ public class LevelEditorScene extends Scene{
         g2.fillRect(0, 0, Constants.ScreenWidth, Constants.ScreenHeight);
 
         renderer.render(g2);
+        grid.draw(g2);
     }
 }
