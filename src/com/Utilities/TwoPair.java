@@ -8,4 +8,9 @@ public class TwoPair {
         this.x = x;
         this.y = y;
     }
+
+    public TwoPair() {
+        this.x = 0;
+        this.y = 0;
+    }
 }

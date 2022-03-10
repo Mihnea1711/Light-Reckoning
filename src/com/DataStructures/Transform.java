@@ -5,10 +5,12 @@ import com.Utilities.TwoPair;
 public class Transform {
     public TwoPair pos;
     public TwoPair scale;
-    public TwoPair rotation;
+    public float rotation;
 
     public Transform(TwoPair pos) {
         this.pos = pos;
+        this.scale = new TwoPair(1.0f, 1.0f);
+        this.rotation = 0.0f;
     }
 
     //format the print of a transform
