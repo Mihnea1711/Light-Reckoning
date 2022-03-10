@@ -1,37 +1,38 @@
 package com.Game;
 
 import com.Components.*;
-import com.DataStructures.AssetPool;
 import com.DataStructures.Transform;
 import com.Utilities.Constants;
 import com.Utilities.TwoPair;
 
-import javax.swing.*;
 import java.awt.*;
 
-public class LevelEditorScene extends Scene{
+public class LevelScene extends Scene {
+    static LevelScene currentScene;
 
     public GameObject player;
-    GameObject ground;
 
-    public LevelEditorScene(String name){
+    public LevelScene(String name){
         super.Scene(name);  //calls the superclass(Scene) constructor
     }
 
     @Override
     public void init() {
-        player = new GameObject("game obj", new Transform(new TwoPair(700.0f, 400.0f)));
+        player = new GameObject("game obj", new Transform(new TwoPair(600.0f, 300.0f)));
         SpriteSheet layer1 = new SpriteSheet("Assets/PlayerSprites/layerOne.png", 42, 42, 2, 13, 13*5);
         SpriteSheet layer2 = new SpriteSheet("Assets/PlayerSprites/layerTwo.png", 42, 42, 2, 13, 13*5);
         SpriteSheet layer3 = new SpriteSheet("Assets/PlayerSprites/layerThree.png", 42, 42, 2, 13, 13*5);
-        Player playerComps = new Player(layer1.sprites.get(0), layer2.sprites.get(0), layer3.sprites.get(0), Color.RED, Color.GREEN);
-        player.addComponent(playerComps);
+        Player playerComp = new Player(layer1.sprites.get(0), layer2.sprites.get(0), layer3.sprites.get(0), Color.RED, Color.GREEN);
+        player.addComponent(playerComp);
+        player.addComponent(new RigidBody(new TwoPair(200f, 0f)));
+        player.addComponent(new BoxBounds(Constants.PlayerWidth, Constants.PlayerHeight));
 
+        GameObject ground;
         ground = new GameObject("Ground", new Transform(new TwoPair(0, Constants.GroundY)));
         ground.addComponent(new Ground());
 
-        addGameObject(ground);
         addGameObject(player);
+        addGameObject(ground);
     }
 
     //call different methods and attributes on the component

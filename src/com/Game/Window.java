@@ -1,5 +1,6 @@
 package com.Game;
 
+import com.Components.Player;
 import com.Utilities.Constants;
 import com.Utilities.Time;
 
@@ -10,6 +11,7 @@ import java.awt.*;
 public class Window extends JFrame implements Runnable {
     private static Window window = null;
     private boolean isRunning = true;
+    public boolean isInEditor = true;
 
     public MouseListener mouseListener;
     public KeyListener keyListener;
@@ -41,14 +43,23 @@ public class Window extends JFrame implements Runnable {
 
     //initialize variables inside of window class
     public void init(){
-        changeScene(0);     //changes scene to 0 = level editor scene
+        changeScene(1);     //changes scene to 0 = level editor scene, 1 = levelScene
+    }
+
+    public Scene getCurrentScene() {
+        return currentScene;
     }
 
     //will tell which scene we need to change to
     public void changeScene(int scene){
         switch(scene){
             case 0:
-                currentScene = LevelEditorScene.getScene();        //switches the scene to level editor scene
+                isInEditor = true;
+                currentScene = new LevelEditorScene("Level Editor");        //switches the scene to level editor scene
+                break;
+            case 1:
+                isInEditor = false;
+                currentScene = new LevelScene("Level 1");
                 break;
             default:
                 System.out.println("Don't know the scene");
@@ -63,6 +74,10 @@ public class Window extends JFrame implements Runnable {
             Window.window = new Window();
         }
         return Window.window;
+    }
+
+    public static float getWindowCamX() {
+        return Window.getWindow().getCurrentScene().camera.getPosX();
     }
 
     //updates the window
