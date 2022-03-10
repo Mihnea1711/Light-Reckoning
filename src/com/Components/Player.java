@@ -42,9 +42,10 @@ public class Player extends Component {
     @Override
     public void draw(Graphics2D g2) {
         AffineTransform transform = new AffineTransform();          //provides the fake coord system to modify the object
-        transform.setToIdentity();                                  //reseting the transform to be sure it is empty
+        transform.setToIdentity();                                  //resetting the transform to be sure it is empty
         transform.translate(gameObject.getPosX(), gameObject.getPosY());
-        transform.rotate(gameObject.getRotation(), width/2, height/2);
+        //anchor the object rotation to its width * scaleX, height * scaleY
+        transform.rotate(gameObject.getRotation(), width * gameObject.getScaleX() / 2, height * gameObject.getScaleY() / 2);
         transform.scale(gameObject.getScaleX(), gameObject.getScaleY());
 
         g2.drawImage(layer1.img, transform, null);

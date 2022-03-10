@@ -3,10 +3,11 @@ package com.Components;
 import com.Game.Component;
 
 public class BoxBounds extends Component {
-    public String name;
+    public float width, height;
 
-    public BoxBounds(String name){
-        this.name = name;
+    public BoxBounds (float width, float height){
+        this.width = width;
+        this.height = height;
     }
 
     @Override
