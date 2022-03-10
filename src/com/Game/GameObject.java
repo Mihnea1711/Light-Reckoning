@@ -52,11 +52,23 @@ public class GameObject {
         }
     }
 
-    public float getX() {
+    public float getPosX() {
         return transform.pos.x;
     }
 
-    public float getY() {
+    public float getPosY() {
         return transform.pos.y;
+    }
+
+    public float getScaleX() {
+        return transform.scale.x;
+    }
+
+    public float getScaleY() {
+        return transform.scale.y;
+    }
+
+    public float getRotation() {
+        return transform.rotation;
     }
 }

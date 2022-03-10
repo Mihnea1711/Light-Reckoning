@@ -41,6 +41,6 @@ public class Sprite extends Component {
     //draw sprite
     @Override
     public void draw(Graphics2D g2) {
-        g2.drawImage(img, (int)gameObject.getX(), (int)gameObject.getY(), width, height, null);
+        g2.drawImage(img, (int)gameObject.getPosX(), (int)gameObject.getPosY(), width, height, null);
     }
 }

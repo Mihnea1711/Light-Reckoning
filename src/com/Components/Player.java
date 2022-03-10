@@ -43,9 +43,9 @@ public class Player extends Component {
     public void draw(Graphics2D g2) {
         AffineTransform transform = new AffineTransform();          //provides the fake coord system to modify the object
         transform.setToIdentity();                                  //reseting the transform to be sure it is empty
-        transform.translate(gameObject.getX(), gameObject.getY());
-        transform.rotate(gameObject.transform.rotation, width/2, height/2);
-        transform.scale(gameObject.transform.scale.x, gameObject.transform.scale.y);
+        transform.translate(gameObject.getPosX(), gameObject.getPosY());
+        transform.rotate(gameObject.getRotation(), width/2, height/2);
+        transform.scale(gameObject.getScaleX(), gameObject.getScaleY());
 
         g2.drawImage(layer1.img, transform, null);
         g2.drawImage(layer2.img, transform, null);
