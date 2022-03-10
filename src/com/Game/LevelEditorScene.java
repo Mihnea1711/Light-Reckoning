@@ -1,6 +1,7 @@
 package com.Game;
 
 import com.Components.BoxBounds;
+import com.Components.SpriteSheet;
 import com.DataStructures.AssetPool;
 import com.DataStructures.Transform;
 import com.Utilities.Constants;
@@ -19,15 +20,14 @@ public class LevelEditorScene extends Scene{
 
     @Override
     public void init() {
-        testObj = new GameObject("game obj", new Transform(new TwoPair(0.0f, 0.0f)));
-        testObj.addComponent(new BoxBounds("Box"));
-        testObj.addComponent(AssetPool.getSprite("Assets/img1.png"));
+        testObj = new GameObject("game obj", new Transform(new TwoPair(200.0f, 500.0f)));
+        SpriteSheet spriteSheet = new SpriteSheet("Assets/PlayerSprites/layerOne.png", 42, 42, 2, 13, 13*5);
+        testObj.addComponent(spriteSheet.sprites.get(44));
     }
 
+    //call different methods and attributes on the component
     @Override
     public void update(double dTime) {
-        //call different methods and attributes on the component
-        System.out.println(testObj.getComp(BoxBounds.class).name);
         testObj.update(dTime);
     }
 

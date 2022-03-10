@@ -13,6 +13,7 @@ public class Sprite extends Component {
     public BufferedImage img; //actual img contained at the picture
     public int width, height;
 
+    //sprites that come directly from the picFile
     public Sprite(String picFile) {
         this.picFile = picFile;
         try {
@@ -27,6 +28,14 @@ public class Sprite extends Component {
             e.printStackTrace();
             System.exit(-1);
         }
+    }
+
+    //new constructor
+    //sprites that come directly from the buffered img
+    public Sprite(BufferedImage img) {
+        this.img = img;
+        this.width = img.getWidth();
+        this.height = img.getHeight();
     }
 
     //draw sprite
