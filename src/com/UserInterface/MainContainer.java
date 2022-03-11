@@ -2,6 +2,7 @@ package com.UserInterface;
 
 import com.Components.Sprite;
 import com.Components.SpriteSheet;
+import com.DataStructures.AssetPool;
 import com.DataStructures.Transform;
 import com.Game.Component;
 import com.Game.GameObject;
@@ -21,8 +22,8 @@ public class MainContainer extends Component {
     }
 
     public void init() {
-        SpriteSheet groundSprites = new SpriteSheet("Assets/Blocks.png", 42, 42, 2, 6, 12);
-        SpriteSheet buttonSprites = new SpriteSheet("Assets/buttonSprites.png", 60, 60, 2, 2, 2);
+        SpriteSheet groundSprites = AssetPool.getSpritesheet("Assets/Blocks.png");
+        SpriteSheet buttonSprites = AssetPool.getSpritesheet("Assets/buttonSprites.png");
 
         for(int i = 0; i < groundSprites.sprites.size(); i++) {
             Sprite currentSprite = groundSprites.sprites.get(i);
@@ -64,5 +65,10 @@ public class MainContainer extends Component {
     @Override
     public Component copy() {
         return null;
+    }
+
+    @Override
+    public String serialize(int tabSize) {
+        return "";
     }
 }

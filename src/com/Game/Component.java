@@ -1,9 +1,11 @@
 package com.Game;
 
+import com.File.Serialize;
+
 import java.awt.Graphics2D;
 
 //generic class = any class can override this
-public abstract class Component<T> {
+public abstract class Component<T> extends Serialize {
 
     //every component is created with a game object
     public GameObject gameObject;

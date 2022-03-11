@@ -1,15 +1,17 @@
 package com.Game;
 
 import com.DataStructures.Transform;
+import com.File.Serialize;
 
-import java.awt.*;
+import java.awt.Graphics2D;
 import java.util.ArrayList;
 import java.util.List;
 
-public class GameObject {
+public class GameObject extends Serialize {
     private List<Component> componentList;              //list of components attached to the object(have update & draw methods)
     private String name;                                //debugging purpose
     public Transform transform;                         //the transform of the object
+    private boolean isSerializable = true;
 
     public GameObject(String name, Transform transform) {           //transform = position + properties
         this.name = name;
@@ -69,6 +71,10 @@ public class GameObject {
         }
     }
 
+    public void setNonserializable() {
+        isSerializable = false;
+    }
+
     //used to draw every game object if any of the components has smth to be drawn(sprite)
     public void draw(Graphics2D g2) {
         for(Component c : componentList){
@@ -94,5 +100,47 @@ public class GameObject {
 
     public float getRotation() {
         return transform.rotation;
+    }
+
+    @Override
+    public String serialize(int tabSize) {
+        if(!isSerializable) return "";
+        StringBuilder builder = new StringBuilder(); //slightly faster than the normal way to concatenate strings
+        //game object
+        builder.append(beginObjectProperty("GameObject", tabSize));
+
+        //transform
+        builder.append(transform.serialize(tabSize + 1));
+        builder.append(addEnding(true, true));
+
+        //name
+        if(componentList.size() > 0) {
+            builder.append(addStringProperty("Name", name, tabSize + 1, true, true));
+            builder.append(beginObjectProperty("Components", tabSize + 1));
+        } else {
+            builder.append(addStringProperty("Name", name, tabSize + 1, true, false));
+        }
+
+        int i = 0;
+        for (Component c : componentList) {
+            String str = c.serialize(tabSize + 2);
+            if(str.compareTo("") != 0) {
+                builder.append(str);
+                if(i != componentList.size() - 1) {
+                    builder.append(addEnding(true, true));
+                } else {
+                    builder.append(addEnding(true, false));
+                }
+            }
+            i++;
+        }
+        if(componentList.size() > 0) {
+            builder.append(closeObjectProperty(tabSize + 1));
+        }
+
+        builder.append(addEnding(true, false));
+        builder.append(closeObjectProperty(tabSize));
+
+        return builder.toString();
     }
 }

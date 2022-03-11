@@ -11,9 +11,11 @@ import java.awt.Graphics2D;
 import java.awt.event.MouseEvent;
 
 public class MenuItem extends Component {
-    int x, y, width, height;
-    Sprite buttonSprite, hoverSprite, Selected;
+    private int x, y, width, height;
+    private Sprite buttonSprite, hoverSprite, Selected;
     public boolean isSelected = false;
+
+    private int bufferX, bufferY;
 
     public MenuItem(int x, int y, int width, int height, Sprite buttonSprite, Sprite hoverSprite) {
         this.x = x;
@@ -27,6 +29,9 @@ public class MenuItem extends Component {
     @Override
     public void start() {       //called after the whole game object is constructed and has all its components attached
         Selected = gameObject.getComp(Sprite.class);
+        //the img should be centred on the button
+        this.bufferX = (int)((this.width / 2.0) - (Selected.width / 2.0));
+        this.bufferY = (int)((this.height / 2.0) - (Selected.height / 2.0));
     }
 
     @Override
@@ -51,7 +56,7 @@ public class MenuItem extends Component {
     @Override
     public void draw(Graphics2D g2) {
         g2.drawImage(this.buttonSprite.img, this.x, this.y, this.width, this.height, null);
-        g2.drawImage(Selected.img, this.x, this.y, Selected.width, Selected.height, null);
+        g2.drawImage(Selected.img, this.x + bufferX, this.y + bufferY, Selected.width, Selected.height, null);
         if(isSelected) {
             g2.drawImage(hoverSprite.img, this.x, this.y, this.width, this.height, null);
         }
@@ -60,5 +65,10 @@ public class MenuItem extends Component {
     @Override
     public Component copy() {
         return null;
+    }
+
+    @Override
+    public String serialize(int tabSize) {
+        return "";
     }
 }

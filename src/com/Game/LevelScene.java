@@ -1,6 +1,7 @@
 package com.Game;
 
 import com.Components.*;
+import com.DataStructures.AssetPool;
 import com.DataStructures.Transform;
 import com.Utilities.Constants;
 import com.Utilities.TwoPair;
@@ -18,10 +19,12 @@ public class LevelScene extends Scene {
 
     @Override
     public void init() {
+        initAssetPool();
+
         player = new GameObject("game obj", new Transform(new TwoPair(600.0f, 300.0f)));
-        SpriteSheet layer1 = new SpriteSheet("Assets/PlayerSprites/layerOne.png", 42, 42, 2, 13, 13*5);
-        SpriteSheet layer2 = new SpriteSheet("Assets/PlayerSprites/layerTwo.png", 42, 42, 2, 13, 13*5);
-        SpriteSheet layer3 = new SpriteSheet("Assets/PlayerSprites/layerThree.png", 42, 42, 2, 13, 13*5);
+        SpriteSheet layer1 = AssetPool.getSpritesheet("Assets/PlayerSprites/layerOne.png");
+        SpriteSheet layer2 = AssetPool.getSpritesheet("Assets/PlayerSprites/layerTwo.png");
+        SpriteSheet layer3 = AssetPool.getSpritesheet("Assets/PlayerSprites/layerThree.png");
         Player playerComp = new Player(layer1.sprites.get(0), layer2.sprites.get(0), layer3.sprites.get(0), Color.RED, Color.GREEN);
         player.addComponent(playerComp);
         player.addComponent(new RigidBody(new TwoPair(200f, 0f)));
@@ -33,6 +36,14 @@ public class LevelScene extends Scene {
 
         addGameObject(player);
         addGameObject(ground);
+    }
+
+    public void initAssetPool() {
+        AssetPool.addSpritesheet("Assets/PlayerSprites/layerOne.png", 42, 42, 2, 13, 13*5);
+        AssetPool.addSpritesheet("Assets/PlayerSprites/layerTwo.png", 42, 42, 2, 13, 13*5);
+        AssetPool.addSpritesheet("Assets/PlayerSprites/layerThree.png", 42, 42, 2, 13, 13*5);
+
+        AssetPool.addSpritesheet("Assets/Blocks.png", 42, 42, 2, 6, 12);
     }
 
     //call different methods and attributes on the component
