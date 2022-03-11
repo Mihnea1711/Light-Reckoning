@@ -1,6 +1,7 @@
 package com.Components;
 
 import com.DataStructures.AssetPool;
+import com.File.Parser;
 import com.Game.Component;
 
 import javax.imageio.ImageIO;
@@ -87,5 +88,34 @@ public class Sprite extends Component {
             builder.append(closeObjectProperty(tabSize));
             return builder.toString();
         }
+    }
+
+    public static Sprite deserialize() {
+        boolean isSubSprite = Parser.consumeBooleanProperty("isSubSprite");
+        Parser.consume(',');
+        String filepath = Parser.consumeStringProperty("FilePath");
+
+        if(isSubSprite) {
+            Parser.consume(',');
+            Parser.consumeIntProperty("Row");
+            Parser.consume(',');
+            Parser.consumeIntProperty("Column");
+            Parser.consume(',');
+            int index = Parser.consumeIntProperty("Index");
+
+            if(!AssetPool.hasSpriteSheet(filepath)) {
+                System.out.println("Spritesheet " + filepath + "has not been loaded yet!");
+                System.exit(-1);
+            }
+
+            Parser.consumeEndObjectProperty();
+            return (Sprite)AssetPool.getSpritesheet(filepath).sprites.get(index).copy();
+        }
+        if(!AssetPool.hasSprite(filepath)) {
+            System.out.println("Sprite " + filepath + "has not been loaded yet!");
+            System.exit(-1);
+        }
+        Parser.consumeEndObjectProperty();
+        return (Sprite)AssetPool.getSprite(filepath).copy();
     }
 }

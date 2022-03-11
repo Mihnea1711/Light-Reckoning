@@ -16,11 +16,13 @@ public class AssetPool {
 
     //true/false whether or not we have a sprite
     public static boolean hasSprite(String pictureFile) {
-        return AssetPool.sprites.containsKey(pictureFile);
+        File tmp = new File(pictureFile);
+        return AssetPool.sprites.containsKey(tmp.getAbsolutePath());
     }
 
     public static boolean hasSpriteSheet(String picFile) {
-        return AssetPool.spritesheets.containsKey(picFile);
+        File tmp = new File(picFile);
+        return AssetPool.spritesheets.containsKey(tmp.getAbsolutePath());
     }
 
     //returns the sprite

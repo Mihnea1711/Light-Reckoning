@@ -1,6 +1,7 @@
 package com.Game;
 
 import com.DataStructures.Transform;
+import com.File.Parser;
 import com.File.Serialize;
 
 import java.awt.Graphics2D;
@@ -142,5 +143,29 @@ public class GameObject extends Serialize {
         builder.append(closeObjectProperty(tabSize));
 
         return builder.toString();
+    }
+
+    public static GameObject deserialize() {
+        Parser.consumeBeginObjectProperty("GameObject");
+
+        Transform transform = Transform.deserialize();
+        Parser.consume(',');
+        String name = Parser.consumeStringProperty("Name");
+
+        GameObject obj = new GameObject(name, transform);
+        if(Parser.peek() == ',') {                          //if we have components, then we will have , after name
+            Parser.consume(',');
+            Parser.consumeBeginObjectProperty("Components");
+            obj.addComponent(Parser.parseComponent());
+
+            while(Parser.peek() == ',') {
+                Parser.consume(',');
+                obj.addComponent(Parser.parseComponent());
+            }
+            Parser.consumeEndObjectProperty();
+        }
+        Parser.consumeEndObjectProperty();
+
+        return obj;
     }
 }

@@ -3,6 +3,7 @@ package com.Game;
 import com.Components.*;
 import com.DataStructures.AssetPool;
 import com.DataStructures.Transform;
+import com.File.Parser;
 import com.UserInterface.MainContainer;
 import com.Utilities.Constants;
 import com.Utilities.TwoPair;
@@ -79,7 +80,19 @@ public class LevelEditorScene extends Scene{
         mouseCursor.update(dTime);
 
         if(Window.getWindow().keyListener.isKeyPressed(KeyEvent.VK_F1)) {
-            export("test");
+            export("Test");
+        } else if(Window.getWindow().keyListener.isKeyPressed((KeyEvent.VK_F2))) {
+            importLvl("Test");
+        }
+    }
+
+    private void importLvl(String filename) {
+        Parser.openFile(filename);
+
+        GameObject obj = Parser.parseGameObject();
+        while(obj != null) {
+            addGameObject(obj);
+            obj = Parser.parseGameObject();
         }
     }
 

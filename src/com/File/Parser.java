@@ -1,5 +1,9 @@
 package com.File;
 
+import com.Components.Sprite;
+import com.Game.Component;
+import com.Game.GameObject;
+
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
@@ -124,5 +128,88 @@ public class Parser {
             System.exit(-1);
         }
         return builder.toString().compareTo("true") == 0;
+    }
+
+    public static void consumeBeginObjectProperty(String name) {
+        skipWhiteSpaces();
+        checkString(name);
+        skipWhiteSpaces();
+        consume(':');
+        skipWhiteSpaces();
+        consume('{');
+    }
+
+    public static void consumeEndObjectProperty() {
+        skipWhiteSpaces();
+        consume('}');
+    }
+
+    public static String consumeStringProperty(String name) {
+        skipWhiteSpaces();
+        checkString(name);
+        consume(':');
+        return parseString();
+    }
+
+    public static int consumeIntProperty(String name) {
+        skipWhiteSpaces();
+        checkString(name);
+        consume(':');
+        return parseInt();
+    }
+
+    public static float consumeFloatProperty(String name) {
+        skipWhiteSpaces();
+        checkString(name);
+        consume(':');
+        return parseFloat();
+    }
+
+    public static double consumeDoubleProperty(String name) {
+        skipWhiteSpaces();
+        checkString(name);
+        consume(':');
+        return parseDouble();
+    }
+
+    public static boolean consumeBooleanProperty(String name) {
+        skipWhiteSpaces();
+        checkString(name);
+        consume(':');
+        return parseBoolean();
+    }
+
+    public static GameObject parseGameObject() {
+        if(bytes.length == 0 || atEnd()) return null;
+
+        if(peek() == ',') Parser.consume(',');
+        skipWhiteSpaces();
+        if(atEnd()) return null;
+
+        return GameObject.deserialize();
+    }
+
+    public static Component parseComponent() {
+        String compTitle = Parser.parseString();
+        switch (compTitle) {
+            case "Sprite":
+                skipWhiteSpaces();
+                Parser.consume(':');
+                skipWhiteSpaces();
+                Parser.consume('{');
+                return Sprite.deserialize();
+            default:
+                System.out.println("Could not find component " + compTitle + "at line " + Parser.line);
+                System.exit(-1);
+        }
+        return null;
+    }
+
+    private static void checkString(String str) {
+        String title = Parser.parseString();
+        if(title.compareTo(str) != 0) {
+            System.out.println("Expected " + str + "but instead got " + title + " at line " + Parser.line);
+            System.exit(-1);
+        }
     }
 }

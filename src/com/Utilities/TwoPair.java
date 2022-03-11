@@ -1,5 +1,6 @@
 package com.Utilities;
 
+import com.File.Parser;
 import com.File.Serialize;
 
 //(x, y)
@@ -28,5 +29,13 @@ public class TwoPair extends Serialize {
         builder.append(addFloatProperty("y", y, tabSize, true, false));
 
         return builder.toString();
+    }
+
+    public static TwoPair deserialize() {
+        float x = Parser.consumeFloatProperty("x");
+        Parser.consume(',');
+        float y = Parser.consumeFloatProperty("y");
+
+        return new TwoPair(x, y);
     }
 }

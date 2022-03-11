@@ -1,5 +1,6 @@
 package com.DataStructures;
 
+import com.File.Parser;
 import com.File.Serialize;
 import com.Utilities.TwoPair;
 
@@ -46,7 +47,28 @@ public class Transform extends Serialize {
         builder.append(closeObjectProperty(tabSize));
 
         return builder.toString();
+    }
 
+    public static Transform deserialize() {
+        Parser.consumeBeginObjectProperty("Transform");
+        Parser.consumeBeginObjectProperty("Position");
+        TwoPair pos = TwoPair.deserialize();
+        Parser.consumeEndObjectProperty();
+        Parser.consume(',');
+
+        Parser.consumeBeginObjectProperty("Scale");
+        TwoPair scale = TwoPair.deserialize();
+        Parser.consumeEndObjectProperty();
+        Parser.consume(',');
+
+        float rotation = Parser.consumeFloatProperty("Rotation");
+        Parser.consumeEndObjectProperty();
+
+        Transform t = new Transform(pos);
+        t.scale = scale;
+        t.rotation = rotation;
+
+        return t;
     }
 }
 
