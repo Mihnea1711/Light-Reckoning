@@ -51,8 +51,8 @@ public class LevelEditorScene extends Scene{
 
         ground.setNonserializable();
         player.setNonserializable();
-        addGameObject(ground);
         addGameObject(player);
+        addGameObject(ground);
     }
 
     public void initAssetPool() {
