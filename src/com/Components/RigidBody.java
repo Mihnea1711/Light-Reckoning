@@ -23,4 +23,9 @@ public class RigidBody extends Component {
             speed.y = Math.signum(speed.y) * Constants.Terminal_Speed;          //negative stays negative, positive stays positive
         }
     }
+
+    @Override
+    public Component copy() {
+        return null;
+    }
 }

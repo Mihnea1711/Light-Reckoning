@@ -13,4 +13,8 @@ public class TwoPair {
         this.x = 0;
         this.y = 0;
     }
+
+    public TwoPair copy() {
+        return new TwoPair(this.x, this.y);
+    }
 }

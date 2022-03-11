@@ -5,7 +5,8 @@ import com.DataStructures.Transform;
 import com.Utilities.Constants;
 import com.Utilities.TwoPair;
 
-import java.awt.*;
+import java.awt.Graphics2D;
+import java.awt.Color;
 
 public class LevelEditorScene extends Scene{
 
@@ -13,6 +14,7 @@ public class LevelEditorScene extends Scene{
     GameObject ground;
     Grid grid;
     CameraControls cameraControls;
+    GameObject mouseCursor;
 
     public LevelEditorScene(String name){
         super.Scene(name);  //calls the superclass(Scene) constructor
@@ -22,6 +24,12 @@ public class LevelEditorScene extends Scene{
     public void init() {
         grid = new Grid();
         cameraControls = new CameraControls();
+        SpriteSheet objects = new SpriteSheet("Assets/Blocks.png", Constants.TileWidth, Constants.TileWidth, 2, 6, 12);
+        Sprite mouseSprite = objects.sprites.get(0);
+        mouseCursor = new GameObject("Mouse Cursor", new Transform(new TwoPair()));
+        mouseCursor.addComponent(new SnapToGrid(Constants.TileWidth, Constants.TileWidth));
+        mouseCursor .addComponent(mouseSprite);
+
         player = new GameObject("game obj", new Transform(new TwoPair(300.0f, 400.0f)));
         SpriteSheet layer1 = new SpriteSheet("Assets/PlayerSprites/layerOne.png", 42, 42, 2, 13, 13*5);
         SpriteSheet layer2 = new SpriteSheet("Assets/PlayerSprites/layerTwo.png", 42, 42, 2, 13, 13*5);
@@ -47,6 +55,7 @@ public class LevelEditorScene extends Scene{
         }
         cameraControls.update(dTime);
         grid.update(dTime);
+        mouseCursor.update(dTime);
     }
 
     @Override
@@ -56,5 +65,6 @@ public class LevelEditorScene extends Scene{
 
         renderer.render(g2);
         grid.draw(g2);
+        mouseCursor.draw(g2);
     }
 }

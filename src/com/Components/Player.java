@@ -52,4 +52,9 @@ public class Player extends Component {
         g2.drawImage(layer2.img, transform, null);
         g2.drawImage(layer3.img, transform, null);
     }
+
+    @Override
+    public Component copy() {
+        return null;
+    }
 }

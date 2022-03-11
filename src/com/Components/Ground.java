@@ -31,4 +31,9 @@ public class Ground extends Component {
         g2.drawRect((int)gameObject.getPosX() + Constants.GroundOffsetX, (int)gameObject.getPosY(), Constants.ScreenWidth + Constants.GroundOffsetScreenWidth, Constants.ScreenHeight);
 
     }
+
+    @Override
+    public Component copy() {
+        return null;
+    }
 }

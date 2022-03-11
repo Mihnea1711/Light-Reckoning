@@ -1,11 +1,12 @@
 package com.Game;
 
-import com.Components.Player;
 import com.Utilities.Constants;
 import com.Utilities.Time;
 
 import javax.swing.JFrame;
-import java.awt.*;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
+import java.awt.Image;
 
 //implement runnable because it is easier to stop the game
 public class Window extends JFrame implements Runnable {
@@ -80,6 +81,9 @@ public class Window extends JFrame implements Runnable {
 
     public static float getWindowCamX() {
         return Window.getWindow().getCurrentScene().camera.getPosX();
+    }
+    public static float getWindowCamY() {
+        return Window.getWindow().getCurrentScene().camera.getPosY();
     }
 
     //updates the window

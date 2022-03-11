@@ -33,9 +33,29 @@ public class GameObject {
         return null;        //indicator that there was no object to be found inside the gameobject of that class
     }
 
+    public <T extends Component> void removeComponent(Class<T> componentClass) {
+        for(Component c : componentList) {
+            if(componentClass.isAssignableFrom(c.getClass())){
+                componentList.remove(c);
+                return;
+            }
+        }
+    }
+
     public void addComponent(Component c){
         componentList.add(c);
         c.gameObject = this;
+    }
+
+    public GameObject copy() {
+        GameObject newGameObject = new GameObject("Generated", transform.copy());
+        for(Component c : componentList) {
+            Component copy = c.copy();
+            if(copy != null) {
+                newGameObject.addComponent(copy);
+            }
+        }
+        return newGameObject;
     }
 
     //updating the whole object with all the components

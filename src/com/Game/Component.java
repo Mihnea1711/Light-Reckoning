@@ -9,11 +9,13 @@ public abstract class Component<T> {
     public GameObject gameObject;
 
     //method that does nothing, so you can override it or not
-    public void update(double dTime){
+    public void update(double dTime) {
         return; //doing nothing
     }
 
-    public void draw(Graphics2D g2){
+    public void draw(Graphics2D g2) {
         return;
     }
+
+    public abstract Component copy();
 }

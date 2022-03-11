@@ -18,5 +18,14 @@ public class Transform {
     public String toString() {
         return "Position (" + pos.x + ", " + pos.y + ")";
     }
+
+    public Transform copy() {
+        Transform transform = new Transform(this.pos.copy());
+        transform.scale = this.scale.copy();
+        transform.rotation = this.rotation;
+        return transform;
+    }
 }
+
+
 
