@@ -2,6 +2,7 @@ package com.Game;
 
 import com.Components.*;
 import com.DataStructures.Transform;
+import com.UserInterface.MainContainer;
 import com.Utilities.Constants;
 import com.Utilities.TwoPair;
 
@@ -9,12 +10,13 @@ import java.awt.Graphics2D;
 import java.awt.Color;
 
 public class LevelEditorScene extends Scene{
-
     public GameObject player;
-    GameObject ground;
-    Grid grid;
-    CameraControls cameraControls;
-    GameObject mouseCursor;
+    public GameObject mouseCursor;
+
+    private GameObject ground;
+    private Grid grid;
+    private CameraControls cameraControls;
+    private MainContainer editingButtons = new MainContainer();
 
     public LevelEditorScene(String name){
         super.Scene(name);  //calls the superclass(Scene) constructor
@@ -24,11 +26,10 @@ public class LevelEditorScene extends Scene{
     public void init() {
         grid = new Grid();
         cameraControls = new CameraControls();
-        SpriteSheet objects = new SpriteSheet("Assets/Blocks.png", Constants.TileWidth, Constants.TileWidth, 2, 6, 12);
-        Sprite mouseSprite = objects.sprites.get(0);
+        editingButtons.start();
+
         mouseCursor = new GameObject("Mouse Cursor", new Transform(new TwoPair()));
         mouseCursor.addComponent(new SnapToGrid(Constants.TileWidth, Constants.TileWidth));
-        mouseCursor .addComponent(mouseSprite);
 
         player = new GameObject("game obj", new Transform(new TwoPair(300.0f, 400.0f)));
         SpriteSheet layer1 = new SpriteSheet("Assets/PlayerSprites/layerOne.png", 42, 42, 2, 13, 13*5);
@@ -55,6 +56,7 @@ public class LevelEditorScene extends Scene{
         }
         cameraControls.update(dTime);
         grid.update(dTime);
+        editingButtons.update(dTime);
         mouseCursor.update(dTime);
     }
 
@@ -65,6 +67,7 @@ public class LevelEditorScene extends Scene{
 
         renderer.render(g2);
         grid.draw(g2);
-        mouseCursor.draw(g2);
+        editingButtons.draw(g2);        //important before the mouse cursor
+        mouseCursor.draw(g2);           //should be drawn last
     }
 }

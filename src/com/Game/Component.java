@@ -11,11 +11,15 @@ public abstract class Component<T> {
     //method that does nothing, so you can override it or not
     public void update(double dTime) {
         return; //doing nothing
-    }
+    }           //java removes stuff like this to now waste time
 
     public void draw(Graphics2D g2) {
         return;
     }
 
     public abstract Component copy();
+
+    public void start() {
+        return;
+    }
 }

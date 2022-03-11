@@ -27,6 +27,9 @@ public abstract class Scene {
     public void addGameObject(GameObject gameObject) {
         gameObjectList.add(gameObject);
         renderer.submit(gameObject);
+        for(Component c : gameObject.getAllComponents()) {
+            c.start();
+        }
     }
     public abstract void update(double deltaTime);  //updates the scene
     public abstract void draw(Graphics2D g);        //draw onto the screen

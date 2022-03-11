@@ -3,6 +3,7 @@ package com.Components;
 import com.Game.Component;
 import com.Game.GameObject;
 import com.Game.Window;
+import com.Utilities.Constants;
 import com.Utilities.TwoPair;
 
 import java.awt.AlphaComposite;
@@ -12,7 +13,7 @@ import java.awt.event.MouseEvent;
 
 public class SnapToGrid extends Component {
 
-    private float debounceTime = 0.1f;      //every 0.2 sec we will register one click -> no spamming blocks
+    private float debounceTime = 0.1f;      //every 0.1 sec we will register one click -> no spamming blocks
     private float debounceLeft = 0.0f;
     int gridWidth, gridHeight;
 
@@ -31,7 +32,9 @@ public class SnapToGrid extends Component {
             this.gameObject.transform.pos.x = x * gridWidth - Window.getWindowCamX();       //transforms it to be local to the window
             this.gameObject.transform.pos.y = y * gridHeight - Window.getWindowCamY();
 
-            if(Window.getWindow().mouseListener.mousePressed && Window.getWindow().mouseListener.mouseButton == MouseEvent.BUTTON1 && debounceLeft < 0) {
+            if(Window.getWindow().mouseListener.y < Constants.ButtonOffsetY &&
+               Window.getWindow().mouseListener.mousePressed &&
+               Window.getWindow().mouseListener.mouseButton == MouseEvent.BUTTON1 && debounceLeft < 0) {
                 debounceLeft = debounceTime;
                 GameObject obj = gameObject.copy();
                 obj.transform.pos = new TwoPair(x * gridWidth, y * gridHeight);

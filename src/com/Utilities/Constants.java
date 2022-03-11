@@ -21,4 +21,11 @@ public class Constants {
 
     public static final int TileHeight = 42;
     public static final int TileWidth = 42;
+
+    public static final int ButtonOffsetX = 420;
+    public static final int ButtonOffsetY = 560;
+    public static final int ButtonSpacingHz = 10;
+    public static final int ButtonSpacingVt = 5;
+    public static final int ButtonWidth = 60;
+    public static final int ButtonHeight = 60;
 }
