@@ -17,6 +17,8 @@ public class Ground extends Component {
 
             if(player.getPosY() + player.getComp(BoxBounds.class).height > gameObject.getPosY()) {
                 player.transform.pos.y = gameObject.getPosY() - player.getComp(BoxBounds.class).height;
+
+                player.getComp(Player.class).onGround = true;       //we hit the ground, make onGround true
             }
             gameObject.transform.pos.x = scene.camera.getPosX();
         } else {

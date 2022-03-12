@@ -1,15 +1,18 @@
 package com.Components;
 
 import com.Game.Component;
+import com.Game.Window;
 import com.Utilities.Constants;
 
 import java.awt.Graphics2D;
 import java.awt.Color;
+import java.awt.event.KeyEvent;
 import java.awt.geom.AffineTransform;
 
 public class Player extends Component {
     Sprite layer1, layer2, layer3;          //layer sprites
     public int width, height;               //player width, height
+    public boolean onGround  = true;
 
     public Player(Sprite layer1, Sprite layer2, Sprite layer3, Color c1, Color c2) {
         this.width = Constants.PlayerWidth;
@@ -36,6 +39,34 @@ public class Player extends Component {
                 }
             }
         }
+    }
+
+    @Override
+    public void update(double dTime) {
+        if(onGround && Window.getWindow().keyListener.isKeyPressed(KeyEvent.VK_SPACE)) {
+            addJumpForce();
+            this.onGround = false;
+        }
+        if(!onGround) {
+            gameObject.transform.rotation += 8.0f * dTime;            //will be smooth
+        } else {
+            gameObject.transform.rotation = (int)gameObject.transform.rotation % 360;       //snap it so the rotation is between 0 360
+            if(gameObject.transform.rotation > 180 && gameObject.transform.rotation < 360) {
+                gameObject.transform.rotation = 0;
+            } else if(gameObject.transform.rotation > 0 && gameObject.transform.rotation < 180) {
+                gameObject.transform.rotation = 0;
+            }
+        }
+    }
+
+    private void addJumpForce() {
+        gameObject.getComp(RigidBody.class).speed.y = Constants.JumpForce;
+    }
+
+    public void die() {
+        gameObject.transform.pos.x = 0;
+        gameObject.transform.pos.y = 0;
+        Window.getWindow().getCurrentScene().camera.pos.x = 0;
     }
 
     //draw the picture
