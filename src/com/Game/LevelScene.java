@@ -25,25 +25,56 @@ public class LevelScene extends Scene {
     public void init() {
         initAssetPool();
 
-        player = new GameObject("game obj", new Transform(new TwoPair(150.0f, 400.0f)));
+        player = new GameObject("game obj", new Transform(new TwoPair(150.0f, 350.0f)));
         SpriteSheet layer1 = AssetPool.getSpritesheet("Assets/PlayerSprites/layerOne.png");
         SpriteSheet layer2 = AssetPool.getSpritesheet("Assets/PlayerSprites/layerTwo.png");
         SpriteSheet layer3 = AssetPool.getSpritesheet("Assets/PlayerSprites/layerThree.png");
         Player playerComp = new Player(layer1.sprites.get(0), layer2.sprites.get(0), layer3.sprites.get(0), Color.RED, Color.GREEN);
         player.addComponent(playerComp);
-        player.addComponent(new RigidBody(new TwoPair(350f, 0f)));
+        player.addComponent(new RigidBody(new TwoPair(Constants.PlayerSpeed, 0f)));
         player.addComponent(new BoxBounds(Constants.PlayerWidth, Constants.PlayerHeight));
         playerBounds = new BoxBounds(Constants.TileWidth, Constants.TileHeight);            //or playerwidth, playerheight
         player.addComponent(playerBounds);
 
+        renderer.submit(player);
+
+        initBackGrounds();
+
+        importLvl("Test");
+    }
+
+    public void initBackGrounds() {
         GameObject ground;
         ground = new GameObject("Ground", new Transform(new TwoPair(0, Constants.GroundY)));
         ground.addComponent(new Ground());
-
-        renderer.submit(player);
         addGameObject(ground);
 
-        importLvl("Test");
+        int numBackGrounds = 7;
+        GameObject[] backgrounds = new GameObject[numBackGrounds];
+        GameObject[] groundBgs = new GameObject[numBackGrounds];
+
+        for(int i = 0; i < numBackGrounds; i++) {
+            ParallaxBG bg = new ParallaxBG("Assets/BackGround/bg01.png", backgrounds, ground.getComp(Ground.class), false);
+            int x = i * bg.sprite.width;
+            int y = 0;
+
+            GameObject obj = new GameObject("BackGround", new Transform(new TwoPair(x, y)));
+            obj.setUI(true);
+            obj.addComponent(bg);
+            backgrounds[i] = obj;
+
+            ParallaxBG groundBg = new ParallaxBG("Assets/Ground/ground01.png", groundBgs, ground.getComp(Ground.class), true);
+            x = i * groundBg.sprite.width;
+            y = bg.sprite.height;
+
+            GameObject groundObj = new GameObject("GroundBG", new Transform((new TwoPair(x, y))));
+            groundObj.addComponent(groundBg);
+            groundObj.setUI(true);
+            groundBgs[i] = groundObj;
+
+            addGameObject(obj);
+            addGameObject(groundObj);
+        }
     }
 
     public void initAssetPool() {
@@ -93,7 +124,7 @@ public class LevelScene extends Scene {
 
     @Override
     public void draw(Graphics2D g2) {
-        g2.setColor((Color.CYAN));
+        g2.setColor((Constants.BgColor));
         g2.fillRect(0, 0, Constants.ScreenWidth, Constants.ScreenHeight);
 
         renderer.render(g2);

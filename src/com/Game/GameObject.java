@@ -14,6 +14,8 @@ public class GameObject extends Serialize {
     public Transform transform;                         //the transform of the object
     private boolean isSerializable = true;
 
+    public boolean isUI = false;
+
     public GameObject(String name, Transform transform) {           //transform = position + properties
         this.name = name;
         this.transform = transform;
@@ -167,5 +169,9 @@ public class GameObject extends Serialize {
         Parser.consumeEndObjectProperty();
 
         return obj;
+    }
+
+    public void setUI(boolean val) {
+        this.isUI = val;
     }
 }

@@ -1,5 +1,7 @@
 package com.Utilities;
 
+import java.awt.Color;
+
 public class Constants {
     public static final int ScreenWidth = 1280;
     public static final int ScreenHeight = 720;
@@ -8,6 +10,7 @@ public class Constants {
     public static final int PlayerWidth = 42;
     public static final int PlayerHeight = 42;
     public static final float JumpForce = -470;
+    public static final float PlayerSpeed = 350;
 
     public static final int GroundY = 672;                  //should be 714 ! check the placing blocks above ground!  or above menu items
     public static final int GroundOffsetX = -100;
@@ -29,4 +32,7 @@ public class Constants {
     public static final int ButtonSpacingVt = 5;
     public static final int ButtonWidth = 60;
     public static final int ButtonHeight = 60;
+
+    public static final Color BgColor = new Color(15.0f / 255.0f, 98.0f / 255.0f, 212.0f / 255.0f, 1.0f);
+    public static final Color GroundColor = new Color(28.0f / 255.0f, 70 / 255.0f, 148.0f / 255.0f, 1.0f);
 }
