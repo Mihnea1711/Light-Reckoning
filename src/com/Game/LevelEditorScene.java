@@ -83,6 +83,8 @@ public class LevelEditorScene extends Scene{
             export("Test");
         } else if(Window.getWindow().keyListener.isKeyPressed((KeyEvent.VK_F2))) {
             importLvl("Test");
+        } else if(Window.getWindow().keyListener.isKeyPressed((KeyEvent.VK_F3))) {
+            Window.getWindow().changeScene(1);
         }
     }
 

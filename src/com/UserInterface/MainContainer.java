@@ -1,5 +1,6 @@
 package com.UserInterface;
 
+import com.Components.BoxBounds;
 import com.Components.Sprite;
 import com.Components.SpriteSheet;
 import com.DataStructures.AssetPool;
@@ -35,6 +36,7 @@ public class MainContainer extends Component {
             obj.addComponent(currentSprite.copy());
             MenuItem menuItem = new MenuItem(x, y, Constants.ButtonWidth, Constants.ButtonHeight, buttonSprites.sprites.get(0), buttonSprites.sprites.get(1));
             obj.addComponent(menuItem);
+            obj.addComponent(new BoxBounds(Constants.TileWidth, Constants.TileHeight));
             menuItems.add(obj);
         }
     }

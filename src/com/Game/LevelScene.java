@@ -3,15 +3,19 @@ package com.Game;
 import com.Components.*;
 import com.DataStructures.AssetPool;
 import com.DataStructures.Transform;
+import com.File.Parser;
 import com.Utilities.Constants;
 import com.Utilities.TwoPair;
 
-import java.awt.*;
+import java.awt.Color;
+import java.awt.Graphics2D;
+
 
 public class LevelScene extends Scene {
     static LevelScene currentScene;
 
     public GameObject player;
+    public BoxBounds playerBounds;      //we are only checking playerBounds, so we don't want to be doing getComponent every frame => save CPU cycles
 
     public LevelScene(String name){
         super.Scene(name);  //calls the superclass(Scene) constructor
@@ -21,14 +25,16 @@ public class LevelScene extends Scene {
     public void init() {
         initAssetPool();
 
-        player = new GameObject("game obj", new Transform(new TwoPair(600.0f, 300.0f)));
+        player = new GameObject("game obj", new Transform(new TwoPair(300.0f, 400.0f)));
         SpriteSheet layer1 = AssetPool.getSpritesheet("Assets/PlayerSprites/layerOne.png");
         SpriteSheet layer2 = AssetPool.getSpritesheet("Assets/PlayerSprites/layerTwo.png");
         SpriteSheet layer3 = AssetPool.getSpritesheet("Assets/PlayerSprites/layerThree.png");
         Player playerComp = new Player(layer1.sprites.get(0), layer2.sprites.get(0), layer3.sprites.get(0), Color.RED, Color.GREEN);
         player.addComponent(playerComp);
-        player.addComponent(new RigidBody(new TwoPair(200f, 0f)));
+        player.addComponent(new RigidBody(new TwoPair(300f, 0f)));
         player.addComponent(new BoxBounds(Constants.PlayerWidth, Constants.PlayerHeight));
+        playerBounds = new BoxBounds(Constants.TileWidth, Constants.TileHeight);            //or playerwidth, playerheight
+        player.addComponent(playerBounds);
 
         GameObject ground;
         ground = new GameObject("Ground", new Transform(new TwoPair(0, Constants.GroundY)));
@@ -36,6 +42,8 @@ public class LevelScene extends Scene {
 
         addGameObject(player);
         addGameObject(ground);
+
+        importLvl("Test");
     }
 
     public void initAssetPool() {
@@ -60,6 +68,23 @@ public class LevelScene extends Scene {
         }
         for(GameObject g : gameObjectList) {        //update every game object
             g.update(dTime);
+
+            Bounds b = g.getComp(Bounds.class);
+            if(g != player && b != null) {
+                if (Bounds.checkCollision(playerBounds, b)) {
+                    System.out.println("Colliding!!");
+                }
+            }
+        }
+    }
+
+    private void importLvl(String filename) {               //could abstract it to the Scene
+        Parser.openFile(filename);
+
+        GameObject obj = Parser.parseGameObject();
+        while(obj != null) {
+            addGameObject(obj);
+            obj = Parser.parseGameObject();
         }
     }
 
