@@ -13,13 +13,15 @@ public class GameObject extends Serialize {
     private String name;                                //debugging purpose
     public Transform transform;                         //the transform of the object
     private boolean isSerializable = true;
+    public int zIndex;
 
     public boolean isUI = false;
 
-    public GameObject(String name, Transform transform) {           //transform = position + properties
+    public GameObject(String name, Transform transform, int zIndex) {           //transform = position + properties
         this.name = name;
         this.transform = transform;
         this.componentList = new ArrayList<>();
+        this.zIndex = zIndex;
     }
 
     //generic method
@@ -57,7 +59,7 @@ public class GameObject extends Serialize {
     }
 
     public GameObject copy() {
-        GameObject newGameObject = new GameObject("Generated", transform.copy());
+        GameObject newGameObject = new GameObject("Generated", transform.copy(), this.zIndex);
         for(Component c : componentList) {
             Component copy = c.copy();
             if(copy != null) {
@@ -116,12 +118,14 @@ public class GameObject extends Serialize {
         builder.append(transform.serialize(tabSize + 1));
         builder.append(addEnding(true, true));
 
-        //name
+        builder.append(addStringProperty("Name", name, tabSize + 1, true, true));
+
+        //Name
         if(componentList.size() > 0) {
-            builder.append(addStringProperty("Name", name, tabSize + 1, true, true));
+            builder.append(addIntProperty("ZIndex", this.zIndex, tabSize + 1, true, true));
             builder.append(beginObjectProperty("Components", tabSize + 1));
         } else {
-            builder.append(addStringProperty("Name", name, tabSize + 1, true, false));
+            builder.append(addIntProperty("ZIndex", this.zIndex, tabSize + 1, true, false));
         }
 
         int i = 0;
@@ -153,8 +157,10 @@ public class GameObject extends Serialize {
         Transform transform = Transform.deserialize();
         Parser.consume(',');
         String name = Parser.consumeStringProperty("Name");
+        Parser.consume(',');
+        int zIndex = Parser.consumeIntProperty("ZIndex");
 
-        GameObject obj = new GameObject(name, transform);
+        GameObject obj = new GameObject(name, transform, zIndex);
         if(Parser.peek() == ',') {                          //if we have components, then we will have , after name
             Parser.consume(',');
             Parser.consumeBeginObjectProperty("Components");

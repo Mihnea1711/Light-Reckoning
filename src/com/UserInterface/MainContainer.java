@@ -32,7 +32,7 @@ public class MainContainer extends Component {
             int x = Constants.ButtonOffsetX + (currentSprite.column * Constants.ButtonWidth) + (currentSprite.column * Constants.ButtonSpacingHz);
             int y = Constants.ButtonOffsetY + (currentSprite.row * Constants.ButtonHeight) + (currentSprite.row * Constants.ButtonSpacingVt);
 
-            GameObject obj = new GameObject("Generated", new Transform(new TwoPair(x, y)));
+            GameObject obj = new GameObject("Generated", new Transform(new TwoPair(x, y)), -1);
             obj.addComponent(currentSprite.copy());
             MenuItem menuItem = new MenuItem(x, y, Constants.ButtonWidth, Constants.ButtonHeight, buttonSprites.sprites.get(0), buttonSprites.sprites.get(1));
             obj.addComponent(menuItem);

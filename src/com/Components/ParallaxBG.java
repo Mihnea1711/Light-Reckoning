@@ -26,7 +26,8 @@ public class ParallaxBG extends Component {
         this.backgrounds = backgrounds;
         this.ground = ground;
 
-        if(followGround) this.speed = Constants.PlayerSpeed - 35;           //tweak here !!
+        if(followGround) this.speed = Constants.PlayerSpeed - 25;           //tweak here !!
+        this.followGround = followGround;
     }
 
     @Override

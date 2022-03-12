@@ -25,7 +25,7 @@ public class LevelScene extends Scene {
     public void init() {
         initAssetPool();
 
-        player = new GameObject("game obj", new Transform(new TwoPair(150.0f, 350.0f)));
+        player = new GameObject("game obj", new Transform(new TwoPair(150.0f, 350.0f)), 0);
         SpriteSheet layer1 = AssetPool.getSpritesheet("Assets/PlayerSprites/layerOne.png");
         SpriteSheet layer2 = AssetPool.getSpritesheet("Assets/PlayerSprites/layerTwo.png");
         SpriteSheet layer3 = AssetPool.getSpritesheet("Assets/PlayerSprites/layerThree.png");
@@ -45,7 +45,7 @@ public class LevelScene extends Scene {
 
     public void initBackGrounds() {
         GameObject ground;
-        ground = new GameObject("Ground", new Transform(new TwoPair(0, Constants.GroundY)));
+        ground = new GameObject("Ground", new Transform(new TwoPair(0, Constants.GroundY)), 1);
         ground.addComponent(new Ground());
         addGameObject(ground);
 
@@ -58,7 +58,7 @@ public class LevelScene extends Scene {
             int x = i * bg.sprite.width;
             int y = 0;
 
-            GameObject obj = new GameObject("BackGround", new Transform(new TwoPair(x, y)));
+            GameObject obj = new GameObject("BackGround", new Transform(new TwoPair(x, y)), -10);
             obj.setUI(true);
             obj.addComponent(bg);
             backgrounds[i] = obj;
@@ -67,7 +67,7 @@ public class LevelScene extends Scene {
             x = i * groundBg.sprite.width;
             y = bg.sprite.height;
 
-            GameObject groundObj = new GameObject("GroundBG", new Transform((new TwoPair(x, y))));
+            GameObject groundObj = new GameObject("GroundBG", new Transform((new TwoPair(x, y))), -9);
             groundObj.addComponent(groundBg);
             groundObj.setUI(true);
             groundBgs[i] = groundObj;
