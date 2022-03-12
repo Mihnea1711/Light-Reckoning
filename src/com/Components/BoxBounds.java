@@ -2,6 +2,7 @@ package com.Components;
 
 import com.File.Parser;
 import com.Game.Component;
+import com.Game.GameObject;
 import com.Utilities.TwoPair;
 
 public class BoxBounds extends Bounds {
@@ -46,6 +47,42 @@ public class BoxBounds extends Bounds {
             return Math.abs(dy) < combinedHalfHeights;          //return whether or not they collide on the y axis
         }
         return false;       //if not colliding
+    }
+
+    public void resolveCollision(GameObject player) {
+        BoxBounds playerBounds = player.getComp(BoxBounds.class);
+        playerBounds.calculateCentre();
+        this.calculateCentre();
+
+        float dx = this.centre.x - playerBounds.centre.x;
+        float dy = this.centre.y - playerBounds.centre.y;
+
+        float combinedHalfWidths = playerBounds.halfWidth + this.halfWidth;
+        float combinedHalfHeights = playerBounds.halfHeight + this.halfHeight;
+
+        float overlapX = combinedHalfWidths - Math.abs(dx);
+        float overlapY = combinedHalfHeights - Math.abs(dy);
+
+        if(overlapX >= overlapY) {
+            if(dy > 0) {
+                //collision on the top of the player
+                player.transform.pos.y = gameObject.getPosY() - playerBounds.getHeight();
+                player.getComp(RigidBody.class).speed.y = 0;
+                player.getComp(Player.class).onGround = true;
+            } else {
+                //collision on the bottom of the player
+                player.getComp(Player.class).die();
+            }
+        } else {
+            //collision on the left or right
+            if(dx < 0 && dy <= 0.3) {
+                player.transform.pos.y = gameObject.getPosY() - playerBounds.getHeight();
+                player.getComp(RigidBody.class).speed.y = 0;
+                player.getComp(Player.class).onGround = true;
+            } else {
+                player.getComp(Player.class).die();
+            }
+        }
     }
 
     @Override

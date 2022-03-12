@@ -7,7 +7,7 @@ public class Constants {
 
     public static final int PlayerWidth = 42;
     public static final int PlayerHeight = 42;
-    public static final float JumpForce = -550;
+    public static final float JumpForce = -470;
 
     public static final int GroundY = 672;                  //should be 714 ! check the placing blocks above ground!  or above menu items
     public static final int GroundOffsetX = -100;

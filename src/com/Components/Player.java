@@ -47,6 +47,7 @@ public class Player extends Component {
             addJumpForce();
             this.onGround = false;
         }
+        //cand cade si nu apasam space exista un bug cand cade prost
         if(!onGround) {
             gameObject.transform.rotation += 8.0f * dTime;            //will be smooth
         } else {

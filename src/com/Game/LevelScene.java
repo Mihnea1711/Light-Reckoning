@@ -25,13 +25,13 @@ public class LevelScene extends Scene {
     public void init() {
         initAssetPool();
 
-        player = new GameObject("game obj", new Transform(new TwoPair(300.0f, 400.0f)));
+        player = new GameObject("game obj", new Transform(new TwoPair(150.0f, 400.0f)));
         SpriteSheet layer1 = AssetPool.getSpritesheet("Assets/PlayerSprites/layerOne.png");
         SpriteSheet layer2 = AssetPool.getSpritesheet("Assets/PlayerSprites/layerTwo.png");
         SpriteSheet layer3 = AssetPool.getSpritesheet("Assets/PlayerSprites/layerThree.png");
         Player playerComp = new Player(layer1.sprites.get(0), layer2.sprites.get(0), layer3.sprites.get(0), Color.RED, Color.GREEN);
         player.addComponent(playerComp);
-        player.addComponent(new RigidBody(new TwoPair(300f, 0f)));
+        player.addComponent(new RigidBody(new TwoPair(350f, 0f)));
         player.addComponent(new BoxBounds(Constants.PlayerWidth, Constants.PlayerHeight));
         playerBounds = new BoxBounds(Constants.TileWidth, Constants.TileHeight);            //or playerwidth, playerheight
         player.addComponent(playerBounds);
@@ -40,7 +40,7 @@ public class LevelScene extends Scene {
         ground = new GameObject("Ground", new Transform(new TwoPair(0, Constants.GroundY)));
         ground.addComponent(new Ground());
 
-        addGameObject(player);
+        renderer.submit(player);
         addGameObject(ground);
 
         importLvl("Test");
@@ -66,13 +66,16 @@ public class LevelScene extends Scene {
         if(camera.getPosY() > Constants.CameraOffsetGroundY) {              //if the camera off to ground is > 150, just stop it there
             camera.pos.y = Constants.CameraOffsetGroundY;
         }
+
+        player.update(dTime);
+        player.getComp(Player.class).onGround = false;
         for(GameObject g : gameObjectList) {        //update every game object
             g.update(dTime);
 
             Bounds b = g.getComp(Bounds.class);
-            if(g != player && b != null) {
+            if(b != null) {
                 if (Bounds.checkCollision(playerBounds, b)) {
-                    System.out.println("Colliding!!");
+                    Bounds.resolveCollision(b, player);
                 }
             }
         }
@@ -90,7 +93,7 @@ public class LevelScene extends Scene {
 
     @Override
     public void draw(Graphics2D g2) {
-        g2.setColor((Color.WHITE));
+        g2.setColor((Color.CYAN));
         g2.fillRect(0, 0, Constants.ScreenWidth, Constants.ScreenHeight);
 
         renderer.render(g2);
