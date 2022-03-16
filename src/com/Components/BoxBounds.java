@@ -75,7 +75,7 @@ public class BoxBounds extends Bounds {
             }
         } else {
             //collision on the left or right
-            if(dx < 0 && dy <= 0.3) {
+            if(dx < 0 && dy <= 0.2) {
                 player.transform.pos.y = gameObject.getPosY() - playerBounds.getHeight();
                 player.getComp(RigidBody.class).speed.y = 0;
                 player.getComp(Player.class).onGround = true;

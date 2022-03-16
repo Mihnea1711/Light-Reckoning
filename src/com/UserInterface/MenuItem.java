@@ -13,17 +13,21 @@ import java.awt.event.MouseEvent;
 public class MenuItem extends Component {
     private int x, y, width, height;
     private Sprite buttonSprite, hoverSprite, Selected;
-    public boolean isSelected = false;
+    public boolean isSelected;
 
     private int bufferX, bufferY;
 
-    public MenuItem(int x, int y, int width, int height, Sprite buttonSprite, Sprite hoverSprite) {
+    private MainContainer parentContainer;
+
+    public MenuItem(int x, int y, int width, int height, Sprite buttonSprite, Sprite hoverSprite, MainContainer parent) {
         this.x = x;
         this.y = y;
         this.height = height;
         this.width = width;
         this.buttonSprite = buttonSprite;
         this.hoverSprite = hoverSprite;
+        this.isSelected = false;
+        this.parentContainer = parent;
     }
 
     @Override
@@ -36,19 +40,20 @@ public class MenuItem extends Component {
 
     @Override
     public void update(double dTime) {
-        if(!isSelected &&
-           Window.getWindow().mouseListener.x > this.x && Window.getWindow().mouseListener.x <= this.x + this.width &&
-           Window.getWindow().mouseListener.y > this.y && Window.getWindow().mouseListener.y <= this.y + this.height) {
-            if(Window.getWindow().mouseListener.mousePressed && Window.getWindow().mouseListener.mouseButton == MouseEvent.BUTTON1) {
+        if(Window.getWindow().mouseListener.mousePressed && Window.getWindow().mouseListener.mouseButton == MouseEvent.BUTTON1) {
+            if (!isSelected &&
+                Window.getWindow().mouseListener.x > this.x && Window.getWindow().mouseListener.x <= this.x + this.width &&
+                Window.getWindow().mouseListener.y > this.y && Window.getWindow().mouseListener.y <= this.y + this.height) {
                 //clicked inside the button
-                GameObject obj = gameObject.copy();
-                obj.removeComponent(MenuItem.class);        //don t want to have the MenuItem class
-                LevelEditorScene scene = (LevelEditorScene)Window.getWindow().getCurrentScene();
+                    GameObject obj = gameObject.copy();
+                    obj.removeComponent(MenuItem.class);        //don t want to have the MenuItem class
+                    LevelEditorScene scene = (LevelEditorScene) Window.getWindow().getCurrentScene();
 
-                SnapToGrid snapToGrid = scene.mouseCursor.getComp(SnapToGrid.class);
-                obj.addComponent(snapToGrid);               //want to preserve the snapToGrid
-                scene.mouseCursor = obj;
-                isSelected = true;
+                    SnapToGrid snapToGrid = scene.mouseCursor.getComp(SnapToGrid.class);
+                    obj.addComponent(snapToGrid);               //want to preserve the snapToGrid
+                    scene.mouseCursor = obj;
+                    isSelected = true;
+                    this.parentContainer.setHotButton(gameObject);
             }
         }
     }
@@ -56,15 +61,15 @@ public class MenuItem extends Component {
     @Override
     public void draw(Graphics2D g2) {
         g2.drawImage(this.buttonSprite.img, this.x, this.y, this.width, this.height, null);
-        g2.drawImage(Selected.img, this.x + bufferX, this.y + bufferY, Selected.width, Selected.height, null);
+        g2.drawImage(this.Selected.img, this.x + bufferX, this.y + bufferY, Selected.width, Selected.height, null);
         if(isSelected) {
             g2.drawImage(hoverSprite.img, this.x, this.y, this.width, this.height, null);
         }
     }
 
     @Override
-    public Component copy() {
-        return null;
+    public MenuItem copy() {
+        return new MenuItem(this.x, this.y, this.width, this.height, (Sprite)this.buttonSprite.copy(), (Sprite)this.hoverSprite.copy(), parentContainer);
     }
 
     @Override

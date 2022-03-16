@@ -1,10 +1,13 @@
 package com.Components;
 
-import com.Game.*;
+import com.Game.Component;
+import com.Game.GameObject;
+import com.Game.LevelScene;
+import com.Game.Window;
 import com.Utilities.Constants;
 
-import java.awt.Graphics2D;
 import java.awt.Color;
+import java.awt.Graphics2D;
 
 
 public class Ground extends Component {

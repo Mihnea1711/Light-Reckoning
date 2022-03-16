@@ -32,6 +32,10 @@ public class ParallaxBG extends Component {
 
     @Override
     public void update(double dTime) {
+        if(backgrounds == null) {
+            return;
+        }
+
         this.timeStep++;
 
         this.gameObject.transform.pos.x -= dTime * speed;

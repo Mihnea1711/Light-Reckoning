@@ -2,6 +2,7 @@ package com.Components;
 
 import com.Game.Component;
 import com.Game.Window;
+import com.Utilities.Constants;
 
 import java.awt.event.MouseEvent;
 
@@ -21,6 +22,9 @@ public class CameraControls extends Component {
 
             Window.getWindow().getCurrentScene().camera.pos.x -= dx;
             Window.getWindow().getCurrentScene().camera.pos.y -= dy;
+
+            if (Window.getWindow().getCurrentScene().camera.pos.y > Constants.CameraY + 30)
+                Window.getWindow().getCurrentScene().camera.pos.y = Constants.CameraY + 30;
         }
 
         prevMouseX = Window.getWindow().mouseListener.x + Window.getWindow().mouseListener.dx;

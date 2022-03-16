@@ -35,4 +35,11 @@ public class Constants {
 
     public static final Color BgColor = new Color(15.0f / 255.0f, 98.0f / 255.0f, 212.0f / 255.0f, 1.0f);
     public static final Color GroundColor = new Color(28.0f / 255.0f, 70 / 255.0f, 148.0f / 255.0f, 1.0f);
+
+    public static final int ContainerOffY = 535;
+    public static final int TabWidth = 75;
+    public static final int TabHeight = 38;
+    public static final int TabOffX = 380;
+    public static final int TabOffY = 497;
+    public static final int TabHzPlace= 10;
 }

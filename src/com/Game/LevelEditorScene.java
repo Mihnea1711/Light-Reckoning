@@ -47,29 +47,64 @@ public class LevelEditorScene extends Scene{
         Player playerComps = new Player(layer1.sprites.get(0), layer2.sprites.get(0), layer3.sprites.get(0), Color.RED, Color.GREEN);
         player.addComponent(playerComps);
 
-        ground = new GameObject("Ground", new Transform(new TwoPair(0, Constants.GroundY)), 1);
-        ground.addComponent(new Ground());
-
-        ground.setNonserializable();
         player.setNonserializable();
         addGameObject(player);
-        addGameObject(ground);
+
+        initBackGrounds();
     }
 
     public void initAssetPool() {
-        AssetPool.addSpritesheet("Assets/PlayerSprites/layerOne.png", 42, 42, 2, 13, 13*5);
-        AssetPool.addSpritesheet("Assets/PlayerSprites/layerTwo.png", 42, 42, 2, 13, 13*5);
-        AssetPool.addSpritesheet("Assets/PlayerSprites/layerThree.png", 42, 42, 2, 13, 13*5);
+        AssetPool.addSpritesheet("Assets/PlayerSprites/layerOne.png", Constants.PlayerWidth, Constants.PlayerHeight, 2, 13, 13*5);
+        AssetPool.addSpritesheet("Assets/PlayerSprites/layerTwo.png", Constants.PlayerWidth, Constants.PlayerHeight, 2, 13, 13*5);
+        AssetPool.addSpritesheet("Assets/PlayerSprites/layerThree.png", Constants.PlayerWidth, Constants.PlayerHeight, 2, 13, 13*5);
 
-        AssetPool.addSpritesheet("Assets/Blocks.png", 42, 42, 2, 6, 12);
-        AssetPool.addSpritesheet("Assets/buttonSprites.png", 60, 60, 2, 2, 2);
+        AssetPool.addSpritesheet("Assets/Blocks.png", Constants.TileWidth, Constants.TileHeight, 2, 6, 12);
+        AssetPool.addSpritesheet("Assets/UI/buttonSprites.png", 60, 60, 2, 2, 2);
+        AssetPool.addSpritesheet("Assets/UI/tabs.png", Constants.TabWidth, Constants.TabHeight, 2, 6, 6);
+        AssetPool.addSpritesheet("Assets/spikes.png", Constants.TileWidth, Constants.TileHeight, 2, 6, 4);
+        AssetPool.addSpritesheet("Assets/bigSprites.png", 84, 84, 2, 2, 2);
+        AssetPool.addSpritesheet("Assets/smallBlocks.png", Constants.TileWidth, Constants.TileHeight, 2, 6, 1);
+        AssetPool.addSpritesheet("Assets/portal.png", 44, 85, 2,2, 2);
+    }
+
+    public void initBackGrounds() {
+        ground = new GameObject("Ground", new Transform(new TwoPair(0, Constants.GroundY)), 1);
+        ground.addComponent(new Ground());
+        addGameObject(ground);
+
+        int numBackGrounds = 5;
+        GameObject[] backgrounds = new GameObject[numBackGrounds];
+        GameObject[] groundBgs = new GameObject[numBackGrounds];
+
+        for(int i = 0; i < numBackGrounds; i++) {
+            ParallaxBG bg = new ParallaxBG("Assets/BackGround/bg01.png", null, ground.getComp(Ground.class), false);
+            int x = i * bg.sprite.width;
+            int y = 0;
+
+            GameObject obj = new GameObject("BackGround", new Transform(new TwoPair(x, y)), -10);
+            obj.setUI(true);
+            obj.addComponent(bg);
+            backgrounds[i] = obj;
+
+            ParallaxBG groundBg = new ParallaxBG("Assets/Ground/ground01.png", null, ground.getComp(Ground.class), true);
+            x = i * groundBg.sprite.width;
+            y = (int)ground.transform.pos.y;
+
+            GameObject groundObj = new GameObject("GroundBG", new Transform((new TwoPair(x, y))), -9);
+            groundObj.addComponent(groundBg);
+            groundObj.setUI(true);
+            groundBgs[i] = groundObj;
+
+            addGameObject(obj);
+            addGameObject(groundObj);
+        }
     }
 
     //call different methods and attributes on the component
     @Override
     public void update(double dTime) {
-        if(camera.getPosY() > Constants.CameraOffsetGroundY) {              //if the camera off to ground is > 150, just stop it there
-            camera.pos.y = Constants.CameraOffsetGroundY;
+        if(camera.getPosY() > Constants.CameraOffsetGroundY + 35) {              //if the camera off to ground is > 150, just stop it there
+            camera.pos.y = Constants.CameraOffsetGroundY + 36;
         }
         for(GameObject g : gameObjectList) {        //update every game object
             g.update(dTime);
@@ -127,7 +162,7 @@ public class LevelEditorScene extends Scene{
 
     @Override
     public void draw(Graphics2D g2) {
-        g2.setColor((Color.WHITE));
+        g2.setColor(Constants.BgColor);
         g2.fillRect(0, 0, Constants.ScreenWidth, Constants.ScreenHeight);
 
         renderer.render(g2);
