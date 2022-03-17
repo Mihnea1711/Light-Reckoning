@@ -38,7 +38,7 @@ public class LevelEditorScene extends Scene{
         editingButtons.start();
 
         mouseCursor = new GameObject("Mouse Cursor", new Transform(new TwoPair()), 10);
-        mouseCursor.addComponent(new SnapToGrid(Constants.TileWidth, Constants.TileWidth));
+        mouseCursor.addComponent(new LevelEditorControls(Constants.TileWidth, Constants.TileWidth));
 
         player = new GameObject("game obj", new Transform(new TwoPair(300.0f, 400.0f)), 0);
         SpriteSheet layer1 = AssetPool.getSpritesheet("Assets/PlayerSprites/layerOne.png");
@@ -123,6 +123,14 @@ public class LevelEditorScene extends Scene{
             importLvl("Test");
         } else if(Window.getWindow().keyListener.isKeyPressed((KeyEvent.VK_F3))) {
             Window.getWindow().changeScene(1);
+        }
+
+        if(objsToRemove.size() > 0) {
+            for (GameObject obj : objsToRemove) {
+                gameObjectList.remove(obj);
+                renderer.gameObjectList.get(obj.zIndex).remove(obj);
+            }
+            objsToRemove.clear();
         }
     }
 

@@ -2,10 +2,13 @@ package com.Components;
 
 import com.File.Parser;
 import com.Game.Component;
+import com.Game.Window;
 import com.Utilities.Constants;
 import com.Utilities.TwoPair;
 
+import java.awt.Color;
 import java.awt.Graphics2D;
+import java.awt.geom.Line2D;
 
 public class TriangleBounds extends Bounds{
     private float base, height, halfWidth, halfHeight;
@@ -164,7 +167,7 @@ public class TriangleBounds extends Bounds{
         return new TwoPair(newX + o.x, newY + o.y);
     }
 
-    private void calculateTransform() {
+    public void calculateTransform() {
         double rAngle = Math.toRadians(gameObject.getRotation());
         TwoPair p1 = new TwoPair(gameObject.getPosX(), gameObject.getPosY() + height);
         TwoPair p2 = new TwoPair(gameObject.getPosX() + halfWidth, gameObject.getPosY());
@@ -194,12 +197,54 @@ public class TriangleBounds extends Bounds{
         return this.height;
     }
 
+    public float dot(TwoPair v1, TwoPair v2) {
+        return v1.x * v2.x + v1.y * v2.y;
+    }
+
+    @Override
+    public boolean rayCast(TwoPair pos) {
+        //Compute Vectors
+        TwoPair v0 = new TwoPair(x3 - x1, y3 - y1);
+        TwoPair v1 = new TwoPair(x2 - x1, y2 - y1);
+        TwoPair v2 = new TwoPair(pos.x - x1, pos.y - y1);
+
+        //Compute dot products
+        float dot00 = dot(v0, v0);
+        float dot01 = dot(v0, v1);
+        float dot02 = dot(v0, v2);
+        float dot11 = dot(v1, v1);
+        float dot12 = dot(v1, v2);
+
+        //Compute barycentric coords
+        float invDenom = 1 / (dot00 * dot11 - dot01 * dot01);
+        float u = (dot11 * dot02 - dot01 * dot12) * invDenom;
+        float v = (dot00 * dot12 - dot01 * dot02) * invDenom;
+
+        return (u >= 0.0f) && (v >= 0.0f) && (u + v < 1.0f);
+    }
+
     @Override
     public void draw(Graphics2D g2) {
-//        g2.setColor(Color.GREEN);
-//        g2.draw(new Line2D.Float(this.x1, this.y1, this.x2, this.y2));
-//        g2.draw(new Line2D.Float(this.x1, this.y1, this.x3, this.y3));
-//        g2.draw(new Line2D.Float(this.x3, this.y3, this.x2, this.y2));
+        if(isSelected) {
+            g2.setStroke(Constants.ThickLine);
+            g2.setColor(Color.GREEN);
+            g2.draw(new Line2D.Float(
+                    this.x1 - Window.getWindowCamX(),
+                    this.y1 - Window.getWindowCamY(),
+                    this.x2 - Window.getWindowCamX(),
+                    this.y2 - Window.getWindowCamY()));
+            g2.draw(new Line2D.Float(
+                    this.x1 - Window.getWindowCamX(),
+                    this.y1 - Window.getWindowCamY(),
+                    this.x3 - Window.getWindowCamX(),
+                    this.y3 - Window.getWindowCamY()));
+            g2.draw(new Line2D.Float(
+                    this.x3 - Window.getWindowCamX(),
+                    this.y3 - Window.getWindowCamY(),
+                    this.x2 - Window.getWindowCamX(),
+                    this.y2 - Window.getWindowCamY()));
+            g2.setStroke(Constants.Line);
+        }
     }
 
     @Override

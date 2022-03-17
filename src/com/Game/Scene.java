@@ -11,17 +11,27 @@ public abstract class Scene {
     String name;
     public Camera camera;
     List<GameObject> gameObjectList;
+    List<GameObject> objsToRemove;
     Renderer renderer;
 
     public void Scene(String name){
         this.name = name;
         this.camera = new Camera(new TwoPair());
         this.gameObjectList = new ArrayList<>();
+        this.objsToRemove = new ArrayList<>();
         this.renderer = new Renderer(this.camera);
     }
 
     public void init(){        //initializes update
 
+    }
+
+    public List<GameObject> getAllGameObjects() {
+        return gameObjectList;
+    }
+
+    public void removeGameObject(GameObject obj) {
+        objsToRemove.add(obj);
     }
 
     public void addGameObject(GameObject gameObject) {

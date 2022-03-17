@@ -1,6 +1,8 @@
 package com.Utilities;
 
+import java.awt.BasicStroke;
 import java.awt.Color;
+import java.awt.Stroke;
 
 public class Constants {
     public static final int ScreenWidth = 1280;
@@ -42,4 +44,8 @@ public class Constants {
     public static final int TabOffX = 380;
     public static final int TabOffY = 497;
     public static final int TabHzPlace= 10;
+
+    public static final Stroke Line = new BasicStroke(1.0f);
+    public static final Stroke ThickLine = new BasicStroke(3.0f);
+
 }

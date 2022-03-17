@@ -6,6 +6,7 @@ import com.Game.Component;
 
 import javax.imageio.ImageIO;
 import java.awt.Graphics2D;
+import java.awt.geom.AffineTransform;
 import java.awt.image.BufferedImage;
 import java.io.File;
 
@@ -57,7 +58,13 @@ public class Sprite extends Component {
     //draw sprite
     @Override
     public void draw(Graphics2D g2) {
-        g2.drawImage(img, (int)gameObject.getPosX(), (int)gameObject.getPosY(), width, height, null);
+        AffineTransform transform = new AffineTransform();          //provides the fake coord system to modify the object
+        transform.setToIdentity();                                  //resetting the transform to be sure it is empty
+        transform.translate(gameObject.getPosX(), gameObject.getPosY());
+        //anchor the object rotation to its width * scaleX, height * scaleY
+        transform.rotate(Math.toRadians(gameObject.getRotation()), width * gameObject.getScaleX() / 2.0f, height * gameObject.getScaleY() / 2.0f);
+        transform.scale(gameObject.getScaleX(), gameObject.getScaleY());
+        g2.drawImage(img, transform, null);
     }
 
     @Override

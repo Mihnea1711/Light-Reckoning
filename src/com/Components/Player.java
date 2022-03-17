@@ -79,7 +79,7 @@ public class Player extends Component {
         transform.setToIdentity();                                  //resetting the transform to be sure it is empty
         transform.translate(gameObject.getPosX(), gameObject.getPosY());
         //anchor the object rotation to its width * scaleX, height * scaleY
-        transform.rotate(gameObject.getRotation(), width * gameObject.getScaleX() / 2, height * gameObject.getScaleY() / 2);
+        transform.rotate(gameObject.getRotation(), width * gameObject.getScaleX() / 2.0f, height * gameObject.getScaleY() / 2.0f);
         transform.scale(gameObject.getScaleX(), gameObject.getScaleY());
 
         g2.drawImage(layer1.img, transform, null);
