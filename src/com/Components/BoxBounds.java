@@ -10,11 +10,14 @@ public class BoxBounds extends Bounds {
     public float halfWidth, halfHeight;     //calculate them once, so we don't waste cpu calculating everytime
     public TwoPair centre = new TwoPair();                  //we will change the obj every frame
 
+    public float enclosingRadius;
+
     public BoxBounds (float width, float height){
         this.width = width;
         this.height = height;
         this.halfHeight = height / 2;
         this.halfWidth = width / 2;
+        this.enclosingRadius = (float)Math.sqrt((this.halfWidth * this.halfWidth) + (this.halfHeight * this.halfHeight));
         this.type = BoundsType.Box;
     }
 
@@ -75,7 +78,7 @@ public class BoxBounds extends Bounds {
             }
         } else {
             //collision on the left or right
-            if(dx < 0 && dy <= 0.2) {
+            if(dx < 0 && dy <= 0.3) {
                 player.transform.pos.y = gameObject.getPosY() - playerBounds.getHeight();
                 player.getComp(RigidBody.class).speed.y = 0;
                 player.getComp(Player.class).onGround = true;

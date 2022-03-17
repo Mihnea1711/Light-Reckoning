@@ -70,6 +70,7 @@ public class LevelEditorScene extends Scene{
     public void initBackGrounds() {
         ground = new GameObject("Ground", new Transform(new TwoPair(0, Constants.GroundY)), 1);
         ground.addComponent(new Ground());
+        ground.setNonserializable();
         addGameObject(ground);
 
         int numBackGrounds = 5;
@@ -84,6 +85,7 @@ public class LevelEditorScene extends Scene{
             GameObject obj = new GameObject("BackGround", new Transform(new TwoPair(x, y)), -10);
             obj.setUI(true);
             obj.addComponent(bg);
+            obj.setNonserializable();
             backgrounds[i] = obj;
 
             ParallaxBG groundBg = new ParallaxBG("Assets/Ground/ground01.png", null, ground.getComp(Ground.class), true);
@@ -93,6 +95,7 @@ public class LevelEditorScene extends Scene{
             GameObject groundObj = new GameObject("GroundBG", new Transform((new TwoPair(x, y))), -9);
             groundObj.addComponent(groundBg);
             groundObj.setUI(true);
+            groundObj.setNonserializable();
             groundBgs[i] = groundObj;
 
             addGameObject(obj);

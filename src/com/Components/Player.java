@@ -49,7 +49,7 @@ public class Player extends Component {
         }
         //cand cade si nu apasam space exista un bug cand cade prost
         if(!onGround) {
-            gameObject.transform.rotation += 7.4f * dTime;            //will be smooth
+            gameObject.transform.rotation += 10f * dTime;            //will be smooth
         } else {
             gameObject.transform.rotation = (int)(gameObject.transform.rotation % 360);       //snap it so the rotation is between 0 360
             if(gameObject.transform.rotation > 180 && gameObject.transform.rotation < 360) {
@@ -65,8 +65,10 @@ public class Player extends Component {
     }
 
     public void die() {
-        gameObject.transform.pos.x = 0;
-        gameObject.transform.pos.y = 200;
+        gameObject.transform.pos.x = 100;
+        gameObject.transform.pos.y = 350;
+        gameObject.getComp(RigidBody.class).speed.y = 0;
+        gameObject.transform.rotation = 0;
         Window.getWindow().getCurrentScene().camera.pos.x = 0;
     }
 

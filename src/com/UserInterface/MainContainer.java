@@ -3,6 +3,7 @@ package com.UserInterface;
 import com.Components.BoxBounds;
 import com.Components.Sprite;
 import com.Components.SpriteSheet;
+import com.Components.TriangleBounds;
 import com.DataStructures.AssetPool;
 import com.DataStructures.Transform;
 import com.Game.Component;
@@ -47,6 +48,7 @@ public class MainContainer extends Component {
 
             GameObject obj = new GameObject("Tab", new Transform(new TwoPair(x, y)), 10);
             obj.setUI(true);
+            obj.setNonserializable();
             TabItem item = new TabItem(x, y, Constants.TabWidth, Constants.TabHeight, currentTab, this);
             obj.addComponent(item);
 
@@ -84,8 +86,7 @@ public class MainContainer extends Component {
             MenuItem menuItem = new MenuItem(x, y, Constants.ButtonWidth, Constants.ButtonHeight,
                     buttonSprites.sprites.get(0), buttonSprites.sprites.get(1), this);
             obj.addComponent(menuItem);
-            obj.addComponent(new BoxBounds(Constants.TileWidth, Constants.TileHeight));
-            //obj.addComponent(menuItem);
+            obj.addComponent(new BoxBounds(Constants.TileWidth, Constants.TileHeight));;
             this.tabMaps.get(this.tabs.get(0)).add(obj);
 
             //add second tab container objs
@@ -112,6 +113,7 @@ public class MainContainer extends Component {
                 obj.addComponent(menuItem);
 
                 //TODO:: add triangleBounds comp here
+                obj.addComponent(new TriangleBounds(42, 42));
 
                 this.tabMaps.get(tabs.get(3)).add(obj);
             }
