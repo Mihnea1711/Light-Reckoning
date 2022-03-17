@@ -12,7 +12,7 @@ public class GameObject extends Serialize {
     private List<Component> componentList;              //list of components attached to the object(have update & draw methods)
     private String name;                                //debugging purpose
     public Transform transform;                         //the transform of the object
-    private boolean isSerializable = true;
+    public boolean isSerializable = true;
     public int zIndex;
 
     public boolean isUI = false;

@@ -20,9 +20,10 @@ public class Parser {
 
     public static void openFile(String filename) {
         File tmp = new File("levels/" + filename + ".zip");
-        if(!tmp.exists()) {
-            return;
-        }
+        if(!tmp.exists()) { return; }
+        offset = 0;
+        line = 1;
+
         try {
             ZipFile zipFile = new ZipFile("levels/" + filename + ".zip");
             ZipEntry jsonFile = zipFile.getEntry(filename + ".json");

@@ -20,7 +20,7 @@ public class Constants {
     public static final int GroundOffsetScreenWidth = 500;
 
     public static final int CameraX = 200;
-    public static final int CameraY = 500;
+    public static final int CameraY = 350;
     public static final int CameraOffsetGroundY = 150;
 
     public static final float Gravity = 1500;

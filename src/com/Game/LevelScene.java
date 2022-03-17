@@ -92,9 +92,10 @@ public class LevelScene extends Scene {
         if (player.getPosX() - camera.getPosX() > Constants.CameraX) {
             camera.pos.x = player.getPosX() - Constants.CameraX;            //if the player is moving left/right, then move the camera with him
         }
-        if(player.getPosY() - camera.getPosY() > Constants.CameraY){        //if the player is moving up/down, move the camera with him
-            camera.pos.y = player.getPosY() - Constants.CameraY;
-        }
+
+        //if the player is moving up/down, move the camera with him
+        camera.pos.y = player.getPosY() - Constants.CameraY;
+
         if(camera.getPosY() > Constants.CameraOffsetGroundY) {              //if the camera off to ground is > 150, just stop it there
             camera.pos.y = Constants.CameraOffsetGroundY;
         }

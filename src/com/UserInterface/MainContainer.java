@@ -95,7 +95,9 @@ public class MainContainer extends Component {
                 obj.addComponent(smallBlocks.sprites.get(i));
                 obj.addComponent(menuItem);
                 if(i == 0) {
-                    obj.addComponent(new BoxBounds(Constants.TileWidth, 16));
+                    BoxBounds boxBounds = new BoxBounds(Constants.TileWidth, 16);
+                    boxBounds.yBuffer = 26;
+                    obj.addComponent(boxBounds);
                 }
                 this.tabMaps.get(tabs.get(1)).add(obj);
             }
