@@ -17,13 +17,24 @@ public class BoxBounds extends Bounds {
 
     public float enclosingRadius;
 
+    public boolean isTrigger;
+
     public BoxBounds (float width, float height){
+        init(width, height, false);
+    }
+
+    public BoxBounds(float width, float height, boolean isTrigger) {
+        init(width, height, isTrigger);
+    }
+
+    public void init(float width, float height, boolean isTrigger) {
         this.width = width;
         this.height = height;
-        this.halfHeight = height / 2;
-        this.halfWidth = width / 2;
+        this.halfHeight = height / 2.0f;
+        this.halfWidth = width / 2.0f;
         this.enclosingRadius = (float)Math.sqrt((this.halfWidth * this.halfWidth) + (this.halfHeight * this.halfHeight));
         this.type = BoundsType.Box;
+        this.isTrigger = isTrigger;
     }
 
     @Override
@@ -58,6 +69,9 @@ public class BoxBounds extends Bounds {
     }
 
     public void resolveCollision(GameObject player) {
+        if(isTrigger) {
+            return;
+        }
         BoxBounds playerBounds = player.getComp(BoxBounds.class);
         playerBounds.calculateCentre();
         this.calculateCentre();
@@ -95,7 +109,7 @@ public class BoxBounds extends Bounds {
 
     @Override
     public Component copy() {
-        return new BoxBounds(width, height);
+        return new BoxBounds(width, height, isTrigger);
     }
 
     @Override
@@ -104,7 +118,8 @@ public class BoxBounds extends Bounds {
 
         builder.append(beginObjectProperty("BoxBounds", tabSize));
         builder.append(addFloatProperty("Width", this.width, tabSize + 1, true, true));
-        builder.append(addFloatProperty("Height", this.height, tabSize + 1, true, false));
+        builder.append(addFloatProperty("Height", this.height, tabSize + 1, true, true));
+        builder.append(addBooleanProperty("isTrigger", this.isTrigger, tabSize + 1, true, false));
         builder.append(closeObjectProperty(tabSize));
 
         return builder.toString();
@@ -114,9 +129,10 @@ public class BoxBounds extends Bounds {
         float width = Parser.consumeFloatProperty("Width");
         Parser.consume(',');
         float height = Parser.consumeFloatProperty("Height");
+        Parser.consume(',');
+        boolean isTrigger = Parser.consumeBooleanProperty("isTrigger");
         Parser.consumeEndObjectProperty();
-
-        return new BoxBounds(width, height);
+        return new BoxBounds(width, height, isTrigger);
     }
 
     @Override

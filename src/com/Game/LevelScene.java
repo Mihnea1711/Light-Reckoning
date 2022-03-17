@@ -82,6 +82,8 @@ public class LevelScene extends Scene {
         AssetPool.addSpritesheet("Assets/PlayerSprites/layerThree.png", 42, 42, 2, 13, 13*5);
 
         AssetPool.addSpritesheet("Assets/Blocks.png", 42, 42, 2, 6, 12);
+
+        AssetPool.getSprite("Assets/PlayerSprites/spaceship.png");
     }
 
     //call different methods and attributes on the component
