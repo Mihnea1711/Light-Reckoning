@@ -5,19 +5,31 @@ import com.DataStructures.AssetPool;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Class that handles the sprite sheets
+ */
 public class SpriteSheet {
-    public List<Sprite> sprites;
-    public int tileWidth, tileHeight, spacing;
+    public List<Sprite> sprites;        //sprites attached
+    public int tileWidth, tileHeight, spacing;  //properties of the sprites
 
+    /**
+     * Constructor for the class
+     * @param picFile the file from where this sprite sheet is loading
+     * @param tileWidth how big each individual sprite is
+     * @param tileHeight how big each individual sprite is
+     * @param spacing spacing between each sprite in the sprite sheet
+     * @param columns number of columns in the sprite sheet
+     * @param size number of sprites in the sprite sheet
+     */
     public SpriteSheet(String picFile, int tileWidth, int tileHeight, int spacing, int columns, int size) {
         this.tileWidth = tileWidth;
         this.tileHeight = tileHeight;
         this.spacing = spacing;
 
-        Sprite parent = AssetPool.getSprite(picFile);
+        Sprite parent = AssetPool.getSprite(picFile);   //should return us the sprite that contains all the sub-sprites
 
         sprites = new ArrayList<>();
-        int row = 0, count = 0;         //row nr and nr of sprites loaded
+        int row = 0, count = 0;         //row nr we are starting on and nr of sprites loaded
 
         while(count < size) {
             for(int column = 0; column < columns; column++) {           //column wise

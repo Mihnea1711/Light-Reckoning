@@ -3,17 +3,24 @@ package com.Components;
 import com.File.Parser;
 import com.Game.Component;
 import com.Game.GameObject;
+import com.Game.Window;
 import com.Utilities.Constants;
-import com.Utilities.TwoPair;
+import com.Utilities.Pair;
 
 import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.geom.Rectangle2D;
 
+/**
+ * Class for the bounds of a box(square) objects
+ */
 public class BoxBounds extends Bounds {
     public float width, height;
     public float halfWidth, halfHeight;     //calculate them once, so we don't waste cpu calculating everytime
-    public TwoPair centre = new TwoPair();                  //we will change the obj every frame
+    public Pair centre = new Pair();                  //we will change the obj contents every frame
+
+    //these vars are for the objects that don't respect the standard block size, so we can draw them correctly.
+    //used in the main container as a sort of "Prefabs"
     public float xBuffer = 0.0f;
     public float yBuffer = 0.0f;
 
@@ -21,14 +28,31 @@ public class BoxBounds extends Bounds {
 
     public boolean isTrigger;
 
+    /**
+     * Constructor for box bounds
+     * @param width width of bounds
+     * @param height height of bounds
+     */
     public BoxBounds (float width, float height){
         init(width, height, false);
     }
 
+    /**
+     * Constructor for box bounds if we want to create a box bounds with a trigger effect
+     * @param width width of bounds
+     * @param height height of bounds
+     * @param isTrigger flag for the portal trigger
+     */
     public BoxBounds(float width, float height, boolean isTrigger) {
         init(width, height, isTrigger);
     }
 
+    /**
+     * Initialization method for box bounds
+     * @param width width of bounds
+     * @param height height of bounds
+     * @param isTrigger flag for the portal trigger
+     */
     public void init(float width, float height, boolean isTrigger) {
         this.width = width;
         this.height = height;
@@ -39,21 +63,35 @@ public class BoxBounds extends Bounds {
         this.isTrigger = isTrigger;
     }
 
+    /**
+     * Calculates the centre after the game object is created
+     */
     @Override
-    public void start() {           //the boxBounds is attached to the gameobject
+    public void start() {           //the boxBounds is attached to the game object
         this.calculateCentre();
     }
 
+    /**
+     * Calculates the centre of the object
+     */
     public void calculateCentre() {
         this.centre.x = this.gameObject.transform.pos.x + this.halfWidth + this.xBuffer;
         this.centre.y = this.gameObject.transform.pos.y + this.halfHeight + this.yBuffer;
     }
 
+    /**
+     * No need to update the bounds
+     * @param dTime frames
+     */
     @Override
-    public void update(double dTime) {
+    public void update(double dTime) {    }
 
-    }
-
+    /**
+     * Checks the collision between 2 square objects.
+     * @param b1 first object's bounds
+     * @param b2 second object's bounds
+     * @return whether they are colliding or not
+     */
     public static boolean checkCollision(BoxBounds b1, BoxBounds b2) {
         b1.calculateCentre();
         b2.calculateCentre();
@@ -64,14 +102,18 @@ public class BoxBounds extends Bounds {
         float combinedHalfWidths = b1.halfWidth + b2.halfWidth;
         float combinedHalfHeights = b1.halfHeight + b2.halfHeight;
 
-        if(Math.abs(dx) <= combinedHalfWidths) {            //if they are colliding on the x axis
-            return Math.abs(dy) < combinedHalfHeights;          //return whether or not they collide on the y axis
+        if(Math.abs(dx) <= combinedHalfWidths) {            //if they are colliding on the x-axis
+            return Math.abs(dy) <= combinedHalfHeights;          //return whether they collide on the y-axis or not
         }
         return false;       //if not colliding
     }
 
+    /**
+     * Resolves the collisions between the player and a box(square)
+     * @param player the player
+     */
     public void resolveCollision(GameObject player) {
-        if(isTrigger) {
+        if (isTrigger) {
             return;
         }
         BoxBounds playerBounds = player.getComp(BoxBounds.class);
@@ -95,7 +137,9 @@ public class BoxBounds extends Bounds {
                 player.getComp(Player.class).onGround = true;
             } else {
                 //collision on the bottom of the player
+                System.out.println("here1");
                 player.getComp(Player.class).die();
+                Window.getWindow().changeScene(0);
             }
         } else {
             //collision on the left or right
@@ -104,11 +148,18 @@ public class BoxBounds extends Bounds {
                 player.getComp(RigidBody.class).speed.y = 0;
                 player.getComp(Player.class).onGround = true;
             } else {
+                //TODO:: COLLISION BUG
+                System.out.println("here2");
                 player.getComp(Player.class).die();
+                Window.getWindow().changeScene(0);
             }
         }
     }
 
+    /**
+     * Creates a new object with bounds component instead of passing the reference around
+     * @return new object = copy of bounds
+     */
     @Override
     public Component copy() {
         BoxBounds bounds = new BoxBounds(width, height, isTrigger);
@@ -117,6 +168,11 @@ public class BoxBounds extends Bounds {
         return bounds;
     }
 
+    /**
+     * Serializes the box bounds.
+     * @param tabSize number of tabs to be indented correctly
+     * @return the bounds as a string
+     */
     @Override
     public String serialize(int tabSize) {
         StringBuilder builder = new StringBuilder();
@@ -132,6 +188,10 @@ public class BoxBounds extends Bounds {
         return builder.toString();
     }
 
+    /**
+     * Deserializes the bound property of an object.
+     * @return a new BoxBounds object with the deserialized properties
+     */
     public static BoxBounds deserialize() {
         float width = Parser.consumeFloatProperty("Width");
         Parser.consume(',');
@@ -150,22 +210,39 @@ public class BoxBounds extends Bounds {
         return bounds;
     }
 
+    /**
+     * helper method
+     * @return width of bounds
+     */
     @Override
     public float getWidth() {
         return this.width;
     }
 
+    /**
+     * helper method
+     * @return height of bounds
+     */
     @Override
     public float getHeight() {
         return this.height;
     }
 
+    /**
+     * Checks if a point is inside a box.
+     * @param pos position of point
+     * @return true/false
+     */
     @Override
-    public boolean rayCast(TwoPair pos) {
+    public boolean rayCast(Pair pos) {
         return pos.x > this.gameObject.getPosX() + xBuffer && pos.x < this.gameObject.getPosX() + this.width + xBuffer &&
                 pos.y > this.gameObject.getPosY() + yBuffer && pos.y < this.gameObject.getPosY() + this.height + yBuffer;
     }
 
+    /**
+     * Draws the bounds of the box selected
+     * @param g2 graphics handler
+     */
     @Override
     public void draw(Graphics2D g2) {
         if(isSelected) {

@@ -6,7 +6,7 @@ import com.DataStructures.Transform;
 import com.File.Parser;
 import com.UserInterface.MainContainer;
 import com.Utilities.Constants;
-import com.Utilities.TwoPair;
+import com.Utilities.Pair;
 
 import java.awt.Color;
 import java.awt.Graphics2D;
@@ -16,19 +16,28 @@ import java.io.IOException;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipOutputStream;
 
+/**
+ * This is the Editor Scene where we can create levels
+ */
 public class LevelEditorScene extends Scene{
     public GameObject player;
     public GameObject mouseCursor;
 
-    private GameObject ground;
     private Grid grid;
     private CameraControls cameraControls;
     private MainContainer editingButtons;
 
+    /**
+     * Calls the superclass(Scene) constructor
+     * @param name name of the Scene
+     */
     public LevelEditorScene(String name){
-        super.Scene(name);  //calls the superclass(Scene) constructor
+        super.Scene(name);
     }
 
+    /**
+     * Initializes the Editor.
+     */
     @Override
     public void init() {
         initAssetPool();
@@ -37,14 +46,14 @@ public class LevelEditorScene extends Scene{
         cameraControls = new CameraControls();
         editingButtons.start();
 
-        mouseCursor = new GameObject("Mouse Cursor", new Transform(new TwoPair()), 10);
-        mouseCursor.addComponent(new LevelEditorControls(Constants.TileWidth, Constants.TileWidth));
+        mouseCursor = new GameObject("Mouse Cursor", new Transform(new Pair()), 10);
+        mouseCursor.addComponent(new LevelEditorControls(Constants.TileWidth, Constants.TileHeight));
 
-        player = new GameObject("game obj", new Transform(new TwoPair(300.0f, 400.0f)), 0);
+        player = new GameObject("game obj", new Transform(new Pair(Constants.PlayerEditorX, Constants.PlayerEditorY)), 0);
         SpriteSheet layer1 = AssetPool.getSpritesheet("Assets/PlayerSprites/layerOne.png");
         SpriteSheet layer2 = AssetPool.getSpritesheet("Assets/PlayerSprites/layerTwo.png");
         SpriteSheet layer3 = AssetPool.getSpritesheet("Assets/PlayerSprites/layerThree.png");
-        Player playerComps = new Player(layer1.sprites.get(0), layer2.sprites.get(0), layer3.sprites.get(0), Color.RED, Color.GREEN);
+        Player playerComps = new Player(layer1.sprites.get(20), layer2.sprites.get(20), layer3.sprites.get(20), Color.RED, Color.GREEN);
         player.addComponent(playerComps);
 
         player.setNonserializable();
@@ -53,6 +62,9 @@ public class LevelEditorScene extends Scene{
         initBackGrounds();
     }
 
+    /**
+     * Loads all the sprites and sprite sheets that we need in the Editor.
+     */
     public void initAssetPool() {
         AssetPool.addSpritesheet("Assets/PlayerSprites/layerOne.png", Constants.PlayerWidth, Constants.PlayerHeight, 2, 13, 13*5);
         AssetPool.addSpritesheet("Assets/PlayerSprites/layerTwo.png", Constants.PlayerWidth, Constants.PlayerHeight, 2, 13, 13*5);
@@ -68,7 +80,7 @@ public class LevelEditorScene extends Scene{
     }
 
     public void initBackGrounds() {
-        ground = new GameObject("Ground", new Transform(new TwoPair(0, Constants.GroundY)), 1);
+        GameObject ground = new GameObject("Ground", new Transform(new Pair(0, Constants.GroundY)), 1);
         ground.addComponent(new Ground());
         ground.setNonserializable();
         addGameObject(ground);
@@ -78,11 +90,11 @@ public class LevelEditorScene extends Scene{
         GameObject[] groundBgs = new GameObject[numBackGrounds];
 
         for(int i = 0; i < numBackGrounds; i++) {
-            ParallaxBG bg = new ParallaxBG("Assets/BackGround/bg01.png", null, ground.getComp(Ground.class), false);
+            ParallaxBG bg = new ParallaxBG("Assets/BackGround/bg05.png", null, ground.getComp(Ground.class), false);
             int x = i * bg.sprite.width;
             int y = 0;
 
-            GameObject obj = new GameObject("BackGround", new Transform(new TwoPair(x, y)), -10);
+            GameObject obj = new GameObject("BackGround", new Transform(new Pair(x, y)), -10);
             obj.setUI(true);
             obj.addComponent(bg);
             obj.setNonserializable();
@@ -90,9 +102,10 @@ public class LevelEditorScene extends Scene{
 
             ParallaxBG groundBg = new ParallaxBG("Assets/Ground/ground01.png", null, ground.getComp(Ground.class), true);
             x = i * groundBg.sprite.width;
-            y = (int)ground.transform.pos.y;
+            y = (int) ground.transform.pos.y;
+            groundBg.setGroundColor(Constants.GroundColor);
 
-            GameObject groundObj = new GameObject("GroundBG", new Transform((new TwoPair(x, y))), -9);
+            GameObject groundObj = new GameObject("GroundBG", new Transform((new Pair(x, y))), -9);
             groundObj.addComponent(groundBg);
             groundObj.setUI(true);
             groundObj.setNonserializable();
@@ -103,11 +116,14 @@ public class LevelEditorScene extends Scene{
         }
     }
 
-    //call different methods and attributes on the component
+    /**
+     * Calls different methods and attributes on the component. Updates the Editor scene.
+     * @param dTime frames
+     */
     @Override
     public void update(double dTime) {
-        if(camera.getPosY() > Constants.CameraOffsetGroundY + 35) {              //if the camera off to ground is > 150, just stop it there
-            camera.pos.y = Constants.CameraOffsetGroundY + 36;
+        if(camera.getPosY() > Constants.CameraOffsetGroundY + 35) {              //to move past the bottom of the ground
+            camera.pos.y = Constants.CameraOffsetGroundY + 36;  //fixes the dragging below ground bug
         }
         for(GameObject g : gameObjectList) {        //update every game object
             g.update(dTime);
@@ -117,6 +133,9 @@ public class LevelEditorScene extends Scene{
         editingButtons.update(dTime);
         mouseCursor.update(dTime);
 
+        //F1 - exporting the level
+        //F2 - importing the level
+        //F3 - plays the level
         if(Window.getWindow().keyListener.isKeyPressed(KeyEvent.VK_F1)) {
             export("Test");
         } else if(Window.getWindow().keyListener.isKeyPressed((KeyEvent.VK_F2))) {
@@ -134,19 +153,26 @@ public class LevelEditorScene extends Scene{
         }
     }
 
-    private void importLvl(String filename) {
+    /**
+     * Imports the level created with the "filename" name
+     * @param filename the file from where we are importing the level
+     */
+    @Override
+    protected void importLvl(String filename) {
+        //removes the objects from the scene first
         for(GameObject obj : gameObjectList) {
             if(obj.isSerializable) {
                 objsToRemove.add(obj);
             }
         }
+        //removes the objects from the renderer
         for(GameObject obj : objsToRemove) {
             renderer.gameObjectList.remove(obj.zIndex, obj);
             gameObjectList.remove(obj);
         }
 
+        //reads from the file
         Parser.openFile(filename);
-
         GameObject obj = Parser.parseGameObject();
         while(obj != null) {
             addGameObject(obj);
@@ -154,33 +180,44 @@ public class LevelEditorScene extends Scene{
         }
     }
 
+    /**
+     * Exports the level to the zipped file created.
+     * Zipping it up to save more space.
+     * @param filename name of the file to create when exporting the level.
+     */
     private void export(String filename) {
         try {
             FileOutputStream fileOutputStream = new FileOutputStream("levels/" + filename + ".zip");    //zipping it up to save more space
-            ZipOutputStream zipOutputStream = new ZipOutputStream(fileOutputStream);
+            ZipOutputStream zipOutputStream = new ZipOutputStream(fileOutputStream);    //creating a zip file in java
 
-            zipOutputStream.putNextEntry(new ZipEntry(filename + ".json")); //putting a file inside the zip
+            zipOutputStream.putNextEntry(new ZipEntry(filename + ".json")); //putting a file.json inside the zip
 
+            //writing to the file
             int i = 0;
             for(GameObject obj : gameObjectList) {
+                //serialize all the game objects in the level
                 String str = obj.serialize(0);      //0 is the tab size
                 if(str.compareTo("") != 0) {        //empty string is the flag for a game object we don't want to serialize
                     zipOutputStream.write(str.getBytes());      //writing in zip files
                     if(i != gameObjectList.size() - 1) {
-                        zipOutputStream.write(",\n".getBytes());
+                        zipOutputStream.write(",\n".getBytes());    //write a comma to separate all the game objects
                     }
                 }
                 i++;
             }
-            zipOutputStream.closeEntry();
-            zipOutputStream.close();
-            fileOutputStream.close();
+            zipOutputStream.closeEntry();       //close the entry for the zip file
+            zipOutputStream.close();            //close the zip file output stream
+            fileOutputStream.close();           //close the file output stream
         } catch(IOException e) {
             e.printStackTrace();
             System.exit(-1);
         }
     }
 
+    /**
+     * Draws into the level editor scene
+     * @param g2 graphics handler
+     */
     @Override
     public void draw(Graphics2D g2) {
         g2.setColor(Constants.BgColor);
@@ -188,7 +225,7 @@ public class LevelEditorScene extends Scene{
 
         renderer.render(g2);
         grid.draw(g2);
-        editingButtons.draw(g2);        //important before the mouse cursor
-        mouseCursor.draw(g2);           //should be drawn last
+        editingButtons.draw(g2);
+        mouseCursor.draw(g2);           //should be drawn last, on top of everything
     }
 }

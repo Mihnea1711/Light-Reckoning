@@ -10,12 +10,23 @@ import java.awt.Color;
 import java.awt.event.KeyEvent;
 import java.awt.geom.AffineTransform;
 
+/**
+ * Class for the player
+ */
 public class Player extends Component {
     Sprite layer1, layer2, layer3, spaceship;          //layer sprites
     public int width, height;               //player width, height
     public boolean onGround  = true;
     public PlayerState state;
 
+    /**
+     * Constructor for coloring the player
+     * @param layer1    first layer of the player
+     * @param layer2    second layer of the player
+     * @param layer3    third layer of the player
+     * @param c1    first color
+     * @param c2    second color
+     */
     public Player(Sprite layer1, Sprite layer2, Sprite layer3, Color c1, Color c2) {
         this.spaceship = AssetPool.getSprite("Assets/PlayerSprites/spaceship.png");
         this.width = Constants.PlayerWidth;
@@ -31,7 +42,7 @@ public class Player extends Component {
             for(int x = 0; x < layer1.img.getHeight(); x++) {   //row wise
                 Color color = new Color(layer1.img.getRGB(x, y));       //get the color at this pixel
                 if(color.getRed() > threshold && color.getGreen() > threshold && color.getBlue() > threshold) {     //if rgb values are correct
-                    layer1.img.setRGB(x, y, c1.getRGB());       //changes the pixel color at that x,y coord with the color we got
+                    layer1.img.setRGB(x, y, c1.getRGB());       //changes the pixel color at that x,y coordinate with the color we passed
                 }
             }
         }
@@ -39,31 +50,37 @@ public class Player extends Component {
             for(int x = 0; x < layer2.img.getHeight(); x++) {   //row wise
                 Color color = new Color(layer2.img.getRGB(x, y));       //get the color at this pixel
                 if(color.getRed() > threshold && color.getGreen() > threshold && color.getBlue() > threshold) {     //if rgb values are correct
-                    layer2.img.setRGB(x, y, c2.getRGB());       //changes the pixel color at that x,y coord with the color we got
+                    layer2.img.setRGB(x, y, c2.getRGB());       //changes the pixel color at that x,y coordinate with the color we passed
                 }
             }
         }
     }
 
+    /**
+     * Checking whether the player is jumping or not and adding the jump forces.
+     * @param dTime frames
+     */
     @Override
     public void update(double dTime) {
-        if(onGround && Window.getWindow().keyListener.isKeyPressed(KeyEvent.VK_SPACE)) {
+        if(onGround && Window.getWindow().keyListener.isKeyPressed(KeyEvent.VK_SPACE) && !Window.getWindow().isInEditor) {
             if(state == PlayerState.Normal) {
                 addJumpForce();
+                //isJumping = true;
             }
             this.onGround = false;
         }
 
-        if(PlayerState.Flying == this.state && Window.keyListener().isKeyPressed(KeyEvent.VK_SPACE)) {
+        if(PlayerState.Flying == this.state && Window.keyListener().isKeyPressed(KeyEvent.VK_SPACE) && !Window.getWindow().isInEditor) {
             addFlyForce();
             this.onGround = false;
         }
 
+        //TODO:: check the rotation not snapping correctly and dying bug
         if(this.state != PlayerState.Flying && !onGround) {
-            gameObject.transform.rotation += 10f * dTime;            //will be smooth
+            gameObject.transform.rotation += 5.8f * dTime;            //will be smooth if there is a varying frame rate
         } else if(this.state != PlayerState.Flying) {
             gameObject.transform.rotation = (int)gameObject.transform.rotation % 360;       //snap it so the rotation is between 0 360
-            if(gameObject.transform.rotation > 180 && gameObject.transform.rotation < 360) {
+            if(gameObject.transform.rotation > 180) {
                 gameObject.transform.rotation = 0;
             } else if(gameObject.transform.rotation > 0 && gameObject.transform.rotation < 180) {
                 gameObject.transform.rotation = 0;
@@ -71,29 +88,42 @@ public class Player extends Component {
         }
     }
 
+    /**
+     * Add the force necessary for the player to jump
+     */
     private void addJumpForce() {
         gameObject.getComp(RigidBody.class).speed.y = Constants.JumpForce;
     }
 
+    /**
+     * Add the force necessary for the player to fly
+     */
     private void addFlyForce() {
         gameObject.getComp(RigidBody.class).speed.y = Constants.FlyForce;
     }
 
+    /**
+     * Method called whenever the player dies.
+     */
     public void die() {
         gameObject.transform.pos.x = 100;
         gameObject.transform.pos.y = 350;
-        gameObject.getComp(RigidBody.class).speed.y = 0;
-        gameObject.transform.rotation = 0;
+        gameObject.getComp(RigidBody.class).speed.y = 0;        //player won't continue to jump after he dies
+        gameObject.transform.rotation = 0;                      //resetting the transform
         Window.getWindow().getCurrentScene().camera.pos.x = 0;
+        gameObject.getComp(Player.class).state = PlayerState.Normal;
     }
 
-    //draw the picture
+    /**
+     * Draws the player, depending on its state
+     * @param g2 graphics handler
+     */
     @Override
     public void draw(Graphics2D g2) {
-        AffineTransform transform = new AffineTransform();          //provides the fake coord system to modify the object
+        AffineTransform transform = new AffineTransform();          //provides the fake coordinate system to modify the object
         transform.setToIdentity();                                  //resetting the transform to be sure it is empty
-        transform.translate(gameObject.getPosX(), gameObject.getPosY());
-        //anchor the object rotation to its width * scaleX, height * scaleY
+        transform.translate(gameObject.getPosX(), gameObject.getPosY());        //we move it to the x,y of the game object
+        //anchor the object rotation to its width * scaleX /2, height * scaleY /2
         transform.rotate(gameObject.getRotation(), width * gameObject.getScaleX() / 2.0f, height * gameObject.getScaleY() / 2.0f);
         transform.scale(gameObject.getScaleX(), gameObject.getScaleY());
 
@@ -122,11 +152,20 @@ public class Player extends Component {
         }
     }
 
+    /**
+     * Don't need to copy the player, since we have only one instance of it.
+     * @return nothing
+     */
     @Override
     public Component copy() {
         return null;
     }
 
+    /**
+     * Don't need to save, we will be building it anyway.
+     * @param tabSize   number of tabs to be indented correctly
+     * @return nothing
+     */
     @Override
     public String serialize(int tabSize) {
         return "";

@@ -2,25 +2,51 @@ package com.DataStructures;
 
 import com.File.Parser;
 import com.File.Serialize;
-import com.Utilities.TwoPair;
+import com.Utilities.Pair;
 
+/**
+ * Will hold the stats of the object
+ */
 public class Transform extends Serialize {
-    public TwoPair pos;
-    public TwoPair scale;
+    public Pair pos;
+    public Pair scale;
     public float rotation;
 
-    public Transform(TwoPair pos) {
+    /**
+     * Constructor
+     * @param pos object position
+     */
+    public Transform(Pair pos) {
         this.pos = pos;
-        this.scale = new TwoPair(1.0f, 1.0f);
-        this.rotation = 0.0f;
+        this.scale = new Pair(1.0f, 1.0f);       //no rescaling
+        this.rotation = 0.0f;                   //default rotation
     }
 
-    //format the print of a transform
+    /**
+     * Constructor
+     * @param pos object position
+     * @param scale object scale
+     * @param rotation  object rotation
+     */
+    public Transform(Pair pos, Pair scale, float rotation) {
+        this.pos = pos;
+        this.scale = scale;
+        this.rotation = rotation;
+    }
+
+    /**
+     * Format the print of a transform
+     * @return the transform as a string
+     */
     @Override
     public String toString() {
         return "Position (" + pos.x + ", " + pos.y + ")";
     }
 
+    /**
+     * Creates a new object with the same properties, instead of passing a reference around
+     * @return new object = copy of a transform
+     */
     public Transform copy() {
         Transform transform = new Transform(this.pos.copy());
         transform.scale = this.scale.copy();
@@ -28,6 +54,11 @@ public class Transform extends Serialize {
         return transform;
     }
 
+    /**
+     * Serializes the transform
+     * @param tabSize   number of tabs to be indented correctly
+     * @return the transform as a string
+     */
     @Override
     public String serialize(int tabSize) {
         StringBuilder builder = new StringBuilder();
@@ -49,24 +80,26 @@ public class Transform extends Serialize {
         return builder.toString();
     }
 
+    /**
+     * Deserializes the transform
+     * @return a new Transform object with the deserialized properties.
+     */
     public static Transform deserialize() {
         Parser.consumeBeginObjectProperty("Transform");
         Parser.consumeBeginObjectProperty("Position");
-        TwoPair pos = TwoPair.deserialize();
+        Pair pos = Pair.deserialize();
         Parser.consumeEndObjectProperty();
         Parser.consume(',');
 
         Parser.consumeBeginObjectProperty("Scale");
-        TwoPair scale = TwoPair.deserialize();
+        Pair scale = Pair.deserialize();
         Parser.consumeEndObjectProperty();
         Parser.consume(',');
 
         float rotation = Parser.consumeFloatProperty("Rotation");
         Parser.consumeEndObjectProperty();
 
-        Transform t = new Transform(pos);
-        t.scale = scale;
-        t.rotation = rotation;
+        Transform t = new Transform(pos, scale, rotation);
 
         return t;
     }

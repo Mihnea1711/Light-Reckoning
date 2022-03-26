@@ -1,39 +1,65 @@
 package com.Game;
 
-import com.Utilities.TwoPair;
+import com.Utilities.Pair;
 
 import java.awt.Graphics2D;
 import java.util.ArrayList;
 import java.util.List;
 
-//hold the methods that all diff scenes will need
+/**
+ * Abstract class that
+ * holds the methods that all the scenes will need
+ */
 public abstract class Scene {
-    String name;
-    public Camera camera;
-    List<GameObject> gameObjectList;
+    String name;        //helpful for debugging
+    public Camera camera;   //camera for the scene
+    List<GameObject> gameObjectList;    //all the game objects in the scene
+    //prepares the objects that are going to be removed, because it will be called in the middle of an update loop.
+    //if we delete objects and then we try to update them, it will cause problems, so we will wait till the end of the frame.
     List<GameObject> objsToRemove;
-    Renderer renderer;
+    Renderer renderer;      //renderer for the scene
 
+    //protected Music SceneSoundTrack = null;
+
+    /**
+     * Constructor for the Scene
+     * @param name name of the scene
+     */
     public void Scene(String name){
         this.name = name;
-        this.camera = new Camera(new TwoPair());
+        this.camera = new Camera(new Pair());
         this.gameObjectList = new ArrayList<>();
         this.objsToRemove = new ArrayList<>();
         this.renderer = new Renderer(this.camera);
     }
 
-    public void init(){        //initializes update
+    /**
+     * Initializes update
+     */
+    public void init(){
 
     }
 
+    /**
+     * Helper method
+     * @return list of all the game objects inside a scene
+     */
     public List<GameObject> getAllGameObjects() {
         return gameObjectList;
     }
 
+    /**
+     * Removes an object from the scene, putting it inside a list of object to be removed
+     * @param obj object to be removed
+     */
     public void removeGameObject(GameObject obj) {
         objsToRemove.add(obj);
     }
 
+    /**
+     * Method to add the game object to the renderer and to the list
+     * @param gameObject the object
+     */
     public void addGameObject(GameObject gameObject) {
         gameObjectList.add(gameObject);
         renderer.submit(gameObject);
@@ -41,7 +67,22 @@ public abstract class Scene {
             c.start();
         }
     }
-    public abstract void update(double deltaTime);  //updates the scene
-    public abstract void draw(Graphics2D g);        //draw onto the screen
 
+    /**
+     * Updates the scene
+     * @param dTime keeps track of frames
+     */
+    public abstract void update(double dTime);
+
+    /**
+     * Draws on the screen
+     * @param g2 graphics handler
+     */
+    public abstract void draw(Graphics2D g2);
+
+    /**
+     * Imports the level
+     * @param filename the file from where we take our serialized level.
+     */
+    protected abstract void importLvl(String filename);
 }

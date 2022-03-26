@@ -2,19 +2,30 @@ package com.Components;
 
 import com.Game.Component;
 import com.Utilities.Constants;
-import com.Utilities.TwoPair;
+import com.Utilities.Pair;
 
-//the way the player reacts to any physical constraints
+/**
+ * The way the player reacts to any physical constraints
+ */
 public class RigidBody extends Component {
 
-    public TwoPair speed;
+    public Pair speed;   //velocity
 
-    public RigidBody(TwoPair speed) {
+    /**
+     * Constructor for the rigid body
+     * @param speed the speed of the object
+     */
+    public RigidBody(Pair speed) {
         this.speed = speed;
     }
 
+    /**
+     * Updates the velocity
+     * @param dTime frames
+     */
     @Override
     public void update(double dTime) {
+        //first add velocity, then add acceleration
         gameObject.transform.pos.y += speed.y * dTime;
         gameObject.transform.pos.x += speed.x * dTime;
 
@@ -24,11 +35,17 @@ public class RigidBody extends Component {
         }
     }
 
+    //TODO:: might need to implement it for the enemy (the player won't be the only rigid body anymore)
     @Override
     public Component copy() {
         return null;
     }
 
+    /**
+     * Don't need to save, we will be building it anyway.
+     * @param tabSize   number of tabs to be indented correctly
+     * @return nothing
+     */
     @Override
     public String serialize(int tabSize) {
         return "";
