@@ -75,8 +75,10 @@ public class Constants {
     public static final int GridXLines = 20;
 
     //MainMenu properties
-    //public static final Color Bg_Color = new Color(12f / 255.0f, 240f / 255.0f, 16f / 255.0f, 1.0f);
-    public static final Color Bg_Color = new Color(174f / 255.0f, 38f / 255.0f, 176f / 255.0f, 1.0f);
-    public static final Color Ground_Color = new Color(131f / 255.0f, 13f / 255.0f, 133f / 255.0f, 0.8f);
-    public static final int Ground_Y = 600;
+    public static final Color MenuBg_Color = new Color(174f / 255.0f, 38f / 255.0f, 176f / 255.0f, 1.0f);
+    //public static final Color MenuGround_Color = new Color(131f / 255.0f, 13f / 255.0f, 133f / 255.0f, 0.8f);
+    public static final int MenuGround_Y = 600;
+    public static final int MenuPlayerX = 835;
+    public static final int MenuPlayerY = 600 - PlayerHeight;
+
 }

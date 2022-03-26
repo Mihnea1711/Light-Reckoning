@@ -55,7 +55,7 @@ public class Window extends JFrame implements Runnable {
      * Tells which scene to start with.
      */
     public void init(){
-        changeScene(0);     //changes scene to 0 = level editor scene, 1 = levelScene
+        changeScene(2);     //changes scene to 0 = level editor scene, 1 = levelScene
     }
 
     /**
