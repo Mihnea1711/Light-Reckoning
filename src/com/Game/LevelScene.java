@@ -101,6 +101,7 @@ public class LevelScene extends Scene {
         AssetPool.addSpritesheet("Assets/Blocks.png", 42, 42, 2, 6, 12);
 
         AssetPool.getSprite("Assets/PlayerSprites/spaceship.png");
+        AssetPool.getSprite("Assets/PlayerSprites/ufo.png");
     }
 
     /**

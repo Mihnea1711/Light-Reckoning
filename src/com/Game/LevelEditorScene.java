@@ -13,6 +13,8 @@ import java.awt.Graphics2D;
 import java.awt.event.KeyEvent;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipOutputStream;
 
@@ -27,12 +29,17 @@ public class LevelEditorScene extends Scene{
     private CameraControls cameraControls;
     private MainContainer editingButtons;
 
+    private Sprite backButton;
+
+    private List<GameObject> buttons;
+
     /**
      * Calls the superclass(Scene) constructor
      * @param name name of the Scene
      */
     public LevelEditorScene(String name){
         super.Scene(name);
+        this.buttons = new ArrayList<>();
     }
 
     /**
@@ -60,6 +67,8 @@ public class LevelEditorScene extends Scene{
         addGameObject(player);
 
         initBackGrounds();
+
+        initButtons();
     }
 
     /**
@@ -77,6 +86,19 @@ public class LevelEditorScene extends Scene{
         AssetPool.addSpritesheet("Assets/bigSprites.png", 84, 84, 2, 2, 2);
         AssetPool.addSpritesheet("Assets/smallBlocks.png", Constants.TileWidth, Constants.TileHeight, 2, 6, 1);
         AssetPool.addSpritesheet("Assets/portal.png", 44, 85, 2,2, 2);
+
+        AssetPool.addSpritesheet("Assets/MainMenu/back.png", 75, 75, 0,1, 1);
+        this.backButton = AssetPool.getSprite("Assets/MainMenu/back.png");
+    }
+
+    public void initButtons() {
+        GameObject BackButton = new GameObject("Back", new Transform(new Pair(1150, 50)), 10);
+        SceneChangerButton back = new SceneChangerButton(75, 75, backButton, backButton, 2);
+        BackButton.addComponent(back);
+        BackButton.setUI(true);
+        BackButton.setNonserializable();
+        gameObjectList.add(BackButton);
+        addGameObject(BackButton);
     }
 
     public void initBackGrounds() {

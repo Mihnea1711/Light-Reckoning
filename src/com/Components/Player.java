@@ -28,7 +28,7 @@ public class Player extends Component {
      * @param c2    second color
      */
     public Player(Sprite layer1, Sprite layer2, Sprite layer3, Color c1, Color c2) {
-        this.spaceship = AssetPool.getSprite("Assets/PlayerSprites/spaceship.png");
+        this.spaceship = AssetPool.getSprite("Assets/PlayerSprites/ufo.png");
         this.width = Constants.PlayerWidth;
         this.height = Constants.PlayerHeight;
         this.layer1 = layer1;
@@ -77,7 +77,7 @@ public class Player extends Component {
 
         //TODO:: check the rotation not snapping correctly and dying bug
         if(this.state != PlayerState.Flying && !onGround) {
-            gameObject.transform.rotation += 5.8f * dTime;            //will be smooth if there is a varying frame rate
+            gameObject.transform.rotation += 4.8f * dTime;            //will be smooth if there is a varying frame rate
         } else if(this.state != PlayerState.Flying) {
             gameObject.transform.rotation = (int)gameObject.transform.rotation % 360;       //snap it so the rotation is between 0 360
             if(gameObject.transform.rotation > 180) {
@@ -136,7 +136,7 @@ public class Player extends Component {
             transform.setToIdentity();
             transform.translate(gameObject.getPosX(), gameObject.getPosY());
             transform.rotate(gameObject.getRotation(), width * gameObject.getScaleX() / 4.0f, height * gameObject.getScaleY() / 4.0f);
-            transform.translate(11, 9);
+            transform.translate(15, 9);
             transform.scale(gameObject.getScaleX() / 2, gameObject.getScaleY() / 2);
 
             g2.drawImage(layer1.img, transform, null);

@@ -70,7 +70,7 @@ public class Window extends JFrame implements Runnable {
      * Will tell which scene we need to change to
      * @param scene index of the Scene we want to change to
      */
-    public void changeScene(int scene){
+    public void changeScene(int scene) {
         switch(scene){
             case 0:
                 isInEditor = true;
@@ -94,6 +94,9 @@ public class Window extends JFrame implements Runnable {
                 isInEditor = true;
                 currentScene = new MainMenuScene("Main Menu");
                 currentScene.init();
+                if(stereoMadness != null) {
+                    stereoMadness.stop();
+                }
                 break;
             default:
                 System.out.println("Don't know the scene");

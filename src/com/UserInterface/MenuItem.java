@@ -44,6 +44,16 @@ public class MenuItem extends Component {
         this.parentContainer = parent;
     }
 
+    public MenuItem(int x, int y, int width, int height, Sprite buttonSprite, Sprite hoverSprite) {
+        this.x = x;
+        this.y = y;
+        this.height = height;
+        this.width = width;
+        this.buttonSprite = buttonSprite;
+        this.hoverSprite = hoverSprite;
+        this.isSelected = false;
+    }
+
     /**
      * It is called after the whole game object is constructed and has all its components attached
      */

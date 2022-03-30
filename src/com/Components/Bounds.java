@@ -68,7 +68,7 @@ public abstract class Bounds extends Component {
             box.resolveCollision(player);
         } else if (b.type == BoundsType.Triangle) {
             player.getComp(Player.class).die();
-            Window.getWindow().changeScene(0);
+            Window.getWindow().changeScene(2);
         }
     }
 }

@@ -18,7 +18,7 @@ public class Constants {
     public static final int PlayerWidth = 42;
     public static final int PlayerHeight = 42;
     public static final float JumpForce = -480;
-    public static final float FlyForce = -200;
+    public static final float FlyForce = -380;
     public static final float PlayerSpeed = 300;
 
     //Ground properties
@@ -80,5 +80,12 @@ public class Constants {
     public static final int MenuGround_Y = 600;
     public static final int MenuPlayerX = 835;
     public static final int MenuPlayerY = 600 - PlayerHeight;
+    public static final int MenuPlayButtonX = 460;
+    public static final int MenuPlayButtonY = 289;
+    public static final int MenuEditorButtonX = 640;
+    public static final int MenuEditorButtonY = 289;
+
+    public static final int LogoSize = 40;
+
 
 }

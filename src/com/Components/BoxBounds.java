@@ -139,7 +139,7 @@ public class BoxBounds extends Bounds {
                 //collision on the bottom of the player
                 System.out.println("here1");
                 player.getComp(Player.class).die();
-                Window.getWindow().changeScene(0);
+                Window.getWindow().changeScene(2);
             }
         } else {
             //collision on the left or right
@@ -151,7 +151,7 @@ public class BoxBounds extends Bounds {
                 //TODO:: COLLISION BUG
                 System.out.println("here2");
                 player.getComp(Player.class).die();
-                Window.getWindow().changeScene(0);
+                Window.getWindow().changeScene(2);
             }
         }
     }
