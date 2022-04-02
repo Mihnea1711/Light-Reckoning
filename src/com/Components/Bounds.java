@@ -2,7 +2,6 @@ package com.Components;
 
 import com.Game.Component;
 import com.Game.GameObject;
-import com.Game.Window;
 import com.Utilities.Pair;
 
 /**
@@ -68,7 +67,6 @@ public abstract class Bounds extends Component {
             box.resolveCollision(player);
         } else if (b.type == BoundsType.Triangle) {
             player.getComp(Player.class).die();
-            Window.getWindow().changeScene(2);
         }
     }
 }

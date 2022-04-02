@@ -301,7 +301,7 @@ public class Parser {
             case "Portal":
                 return Portal.deserialize();
             default:
-                System.out.println("Could not find component " + compTitle + "at line " + Parser.line);
+                System.out.println("Could not find component " + compTitle + " at line " + Parser.line);
                 System.exit(-1);
         }
         return null;

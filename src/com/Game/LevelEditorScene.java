@@ -79,21 +79,21 @@ public class LevelEditorScene extends Scene{
         AssetPool.addSpritesheet("Assets/PlayerSprites/layerTwo.png", Constants.PlayerWidth, Constants.PlayerHeight, 2, 13, 13*5);
         AssetPool.addSpritesheet("Assets/PlayerSprites/layerThree.png", Constants.PlayerWidth, Constants.PlayerHeight, 2, 13, 13*5);
 
-        AssetPool.addSpritesheet("Assets/Blocks.png", Constants.TileWidth, Constants.TileHeight, 2, 6, 12);
+        AssetPool.addSpritesheet("Assets/Blocks/Blocks.png", Constants.TileWidth, Constants.TileHeight, 2, 6, 12);
         AssetPool.addSpritesheet("Assets/UI/buttonSprites.png", 60, 60, 2, 2, 2);
         AssetPool.addSpritesheet("Assets/UI/tabs.png", Constants.TabWidth, Constants.TabHeight, 2, 6, 6);
-        AssetPool.addSpritesheet("Assets/spikes.png", Constants.TileWidth, Constants.TileHeight, 2, 6, 4);
-        AssetPool.addSpritesheet("Assets/bigSprites.png", 84, 84, 2, 2, 2);
-        AssetPool.addSpritesheet("Assets/smallBlocks.png", Constants.TileWidth, Constants.TileHeight, 2, 6, 1);
-        AssetPool.addSpritesheet("Assets/portal.png", 44, 85, 2,2, 2);
+        AssetPool.addSpritesheet("Assets/Blocks/spikes.png", Constants.TileWidth, Constants.TileHeight, 2, 6, 4);
+        AssetPool.addSpritesheet("Assets/Blocks/bigSprites.png", 84, 84, 2, 2, 2);
+        AssetPool.addSpritesheet("Assets/Blocks/smallBlocks.png", Constants.TileWidth, Constants.TileHeight, 2, 6, 1);
+        AssetPool.addSpritesheet("Assets/Portals/portal.png", 44, 85, 2,2, 2);
 
-        AssetPool.addSpritesheet("Assets/MainMenu/back.png", 75, 75, 0,1, 1);
-        this.backButton = AssetPool.getSprite("Assets/MainMenu/back.png");
+        AssetPool.addSpritesheet("Assets/Global/back.png", 70, 74, 0,1, 1);
+        this.backButton = AssetPool.getSprite("Assets/Global/back.png");
     }
 
     public void initButtons() {
         GameObject BackButton = new GameObject("Back", new Transform(new Pair(1150, 50)), 10);
-        SceneChangerButton back = new SceneChangerButton(75, 75, backButton, backButton, 2);
+        SceneChangerButton back = new SceneChangerButton(70, 74, backButton, backButton, 2);
         BackButton.addComponent(back);
         BackButton.setUI(true);
         BackButton.setNonserializable();

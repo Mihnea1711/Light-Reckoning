@@ -58,44 +58,39 @@ public class MainMenuScene extends Scene {
         AssetPool.addSpritesheet("Assets/PlayerSprites/layerTwo.png", Constants.PlayerWidth, Constants.PlayerHeight, 2, 13, 13*5);
         AssetPool.addSpritesheet("Assets/PlayerSprites/layerThree.png", Constants.PlayerWidth, Constants.PlayerHeight, 2, 13, 13*5);
 
-        AssetPool.addSpritesheet("Assets/MainMenu/Buttons/play.png", 121, 121, 0, 1, 1);
+        AssetPool.addSpritesheet("Assets/MainMenu/Buttons/play.png", 114, 115, 0, 1, 1);
         AssetPool.addSpritesheet("Assets/MainMenu/Buttons/editor.png", 126, 115, 0, 1, 1);
-        AssetPool.addSpritesheet("Assets/MainMenu/Buttons/playPressed.png", 121, 121, 0, 1, 1);
-        AssetPool.addSpritesheet("Assets/MainMenu/Buttons/editorPressed.png", 126, 115, 0, 1, 1);
 
         AssetPool.addSpritesheet("Assets/MainMenu/Logos/LogoLevel0.png", Constants.LogoSize, Constants.LogoSize, 0, 1, 1);
         AssetPool.addSpritesheet("Assets/MainMenu/Logos/LogoLevel1.png", Constants.LogoSize, Constants.LogoSize, 0, 1, 1);
         AssetPool.addSpritesheet("Assets/MainMenu/Logos/LogoLevel2.png", Constants.LogoSize, Constants.LogoSize, 0, 1, 1);
         AssetPool.addSpritesheet("Assets/MainMenu/Logos/LogoLevel3.png", Constants.LogoSize, Constants.LogoSize, 0, 1, 1);
 
-        AssetPool.addSpritesheet("Assets/MainMenu/title.png", 800, 91, 0, 1, 1);
+        AssetPool.addSpritesheet("Assets/MainMenu/Logos/title.png", 664, 115, 0, 1, 1);
 
-        AssetPool.addSpritesheet("Assets/spikes.png", Constants.TileWidth, Constants.TileHeight, 2, 6, 4);
+        AssetPool.addSpritesheet("Assets/Blocks/spikes.png", Constants.TileWidth, Constants.TileHeight, 2, 6, 4);
 
         this.ButtonPlay = AssetPool.getSprite("Assets/MainMenu/Buttons/play.png");
         this.ButtonEditor = AssetPool.getSprite("Assets/MainMenu/Buttons/editor.png");
-        this.ButtonPlayPressed = AssetPool.getSprite("Assets/MainMenu/Buttons/playPressed.png");
-        this.ButtonEditorPressed = AssetPool.getSprite("Assets/MainMenu/Buttons/editorPressed.png");
 
         this.logo0 = AssetPool.getSprite("Assets/MainMenu/Logos/LogoLevel0.png");
         this.logo1 = AssetPool.getSprite("Assets/MainMenu/Logos/LogoLevel1.png");
         this.logo2 = AssetPool.getSprite("Assets/MainMenu/Logos/LogoLevel2.png");
         this.logo3 = AssetPool.getSprite("Assets/MainMenu/Logos/LogoLevel3.png");
 
-        this.Title = AssetPool.getSprite("Assets/MainMenu/title.png");
+        this.Title = AssetPool.getSprite("Assets/MainMenu/Logos/title.png");
     }
 
     public void initButtons() {
-
         GameObject play = new GameObject("SceneChangerButton", new Transform(new Pair(Constants.MenuPlayButtonX, Constants.MenuPlayButtonY)), 10);
-        SceneChangerButton playButton = new SceneChangerButton(ButtonPlay.width, ButtonPlay.height, ButtonPlay, ButtonPlayPressed, 1);
+        SceneChangerButton playButton = new SceneChangerButton(ButtonPlay.width, ButtonPlay.height, ButtonPlay, ButtonPlay, 3);
         play.addComponent(playButton);
         play.setUI(true);
         play.setNonserializable();
         buttons.add(play);
 
         GameObject editor = new GameObject("SceneChangerButton", new Transform(new Pair(Constants.MenuEditorButtonX, Constants.MenuEditorButtonY)), 10);
-        SceneChangerButton editorButton = new SceneChangerButton(ButtonEditor.width, ButtonEditor.height, ButtonEditor, ButtonEditorPressed, 0);
+        SceneChangerButton editorButton = new SceneChangerButton(ButtonEditor.width, ButtonEditor.height, ButtonEditor, ButtonEditor, 0);
         editor.addComponent(editorButton);
         editor.setUI(true);
         editor.setNonserializable();
@@ -134,8 +129,8 @@ public class MainMenuScene extends Scene {
         demon.setNonserializable();
         addGameObject(demon);
 
-        GameObject title = new GameObject("Title", new Transform(new Pair(240, 50)), -5);
-        title.addComponent(new Sprite(Title.img, "Assets/MainMenu/title.png"));
+        GameObject title = new GameObject("Title", new Transform(new Pair(300, 50)), 4);
+        title.addComponent(new Sprite(Title.img, "Assets/MainMenu/Logos/title2.png"));
         title.setNonserializable();
         addGameObject(title);
 

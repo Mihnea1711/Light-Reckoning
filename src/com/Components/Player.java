@@ -112,6 +112,7 @@ public class Player extends Component {
         gameObject.transform.rotation = 0;                      //resetting the transform
         Window.getWindow().getCurrentScene().camera.pos.x = 0;
         gameObject.getComp(Player.class).state = PlayerState.Normal;
+        Window.getMusic().restartClip();
     }
 
     /**

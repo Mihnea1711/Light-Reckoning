@@ -76,13 +76,13 @@ public class MainContainer extends Component {
      * Pretty cluttered function, but its one purpose is to add the tab objects.
      */
     private void addTabObjects() {
-        SpriteSheet groundSprites = AssetPool.getSpritesheet("Assets/Blocks.png");
+        SpriteSheet groundSprites = AssetPool.getSpritesheet("Assets/Blocks/Blocks.png");
         SpriteSheet buttonSprites = AssetPool.getSpritesheet("Assets/UI/buttonSprites.png");
 
-        SpriteSheet spikesSprites = AssetPool.getSpritesheet("Assets/spikes.png");
-        SpriteSheet bigSprites = AssetPool.getSpritesheet("Assets/bigSprites.png");
-        SpriteSheet smallBlocks = AssetPool.getSpritesheet("Assets/smallBlocks.png");
-        SpriteSheet portalSprites = AssetPool.getSpritesheet("Assets/portal.png");
+        SpriteSheet spikesSprites = AssetPool.getSpritesheet("Assets/Blocks/spikes.png");
+        SpriteSheet bigSprites = AssetPool.getSpritesheet("Assets/Blocks/bigSprites.png");
+        SpriteSheet smallBlocks = AssetPool.getSpritesheet("Assets/Blocks/smallBlocks.png");
+        SpriteSheet portalSprites = AssetPool.getSpritesheet("Assets/Portals/portal.png");
 
         for(int i = 0; i < groundSprites.sprites.size(); i++) {
             Sprite currentSprite = groundSprites.sprites.get(i);

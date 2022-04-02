@@ -146,7 +146,7 @@ public class Sprite extends Component {
             int index = Parser.consumeIntProperty("Index");
 
             if(!AssetPool.hasSpriteSheet(filepath)) {
-                System.out.println("Spritesheet " + filepath + "has not been loaded yet!");
+                System.out.println("Spritesheet " + filepath + " has not been loaded yet!");
                 System.exit(-1);
             }
 
@@ -154,7 +154,7 @@ public class Sprite extends Component {
             return (Sprite)AssetPool.getSpritesheet(filepath).sprites.get(index).copy();
         }
         if(!AssetPool.hasSprite(filepath)) {
-            System.out.println("Sprite " + filepath + "has not been loaded yet!");
+            System.out.println("Sprite " + filepath + " has not been loaded yet!");
             System.exit(-1);
         }
         Parser.consumeEndObjectProperty();

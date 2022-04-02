@@ -75,7 +75,7 @@ public class AssetPool {
         if(AssetPool.hasSpriteSheet((file.getAbsolutePath()))) {
             return AssetPool.spritesheets.get(file.getAbsolutePath());
         } else {
-            System.out.println("Spritesheet " + picFile + "Doesn't exist.");
+            System.out.println("Spritesheet " + picFile + " doesn't exist.");
             System.exit(-1);
         }
         return null;

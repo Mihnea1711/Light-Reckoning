@@ -3,7 +3,6 @@ package com.Components;
 import com.File.Parser;
 import com.Game.Component;
 import com.Game.GameObject;
-import com.Game.Window;
 import com.Utilities.Constants;
 import com.Utilities.Pair;
 
@@ -139,7 +138,6 @@ public class BoxBounds extends Bounds {
                 //collision on the bottom of the player
                 System.out.println("here1");
                 player.getComp(Player.class).die();
-                Window.getWindow().changeScene(2);
             }
         } else {
             //collision on the left or right
@@ -151,7 +149,6 @@ public class BoxBounds extends Bounds {
                 //TODO:: COLLISION BUG
                 System.out.println("here2");
                 player.getComp(Player.class).die();
-                Window.getWindow().changeScene(2);
             }
         }
     }

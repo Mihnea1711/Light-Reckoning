@@ -16,6 +16,12 @@ import java.awt.Graphics2D;
 public class LevelScene extends Scene {
     public GameObject player;
     public BoxBounds playerBounds;      //we are only checking playerBounds, so we don't want to be doing getComponent every frame => save CPU cycles
+    private Sprite backButton;
+    private ProgressBar progressBar;
+
+    private float startX = Float.MAX_VALUE;
+    private float finishX = Float.MIN_VALUE;
+    private float levelLength = 0;
 
     /**
      * Constructor
@@ -23,6 +29,8 @@ public class LevelScene extends Scene {
      */
     public LevelScene(String name){
         super.Scene(name);  //calls the superclass(Scene) constructor
+        progressBar = new ProgressBar();
+        Window.getWindow().addProgressBar(progressBar);
     }
 
     /**
@@ -36,7 +44,7 @@ public class LevelScene extends Scene {
         SpriteSheet layer1 = AssetPool.getSpritesheet("Assets/PlayerSprites/layerOne.png");
         SpriteSheet layer2 = AssetPool.getSpritesheet("Assets/PlayerSprites/layerTwo.png");
         SpriteSheet layer3 = AssetPool.getSpritesheet("Assets/PlayerSprites/layerThree.png");
-        Player playerComp = new Player(layer1.sprites.get(20), layer2.sprites.get(20), layer3.sprites.get(20), Color.RED, Color.CYAN);
+        Player playerComp = new Player(layer1.sprites.get(20), layer2.sprites.get(20), layer3.sprites.get(20), Color.RED, Color.GREEN);
         player.addComponent(playerComp);
         player.addComponent(new RigidBody(new Pair(Constants.PlayerSpeed, 0f)));
         playerBounds = new BoxBounds(Constants.PlayerWidth - 2, Constants.PlayerHeight - 2);
@@ -44,9 +52,11 @@ public class LevelScene extends Scene {
 
         renderer.submit(player);
         //TODO:: check why not working properly
-        //addGameObject(player);        //should be like this
+//        player.setNonserializable();
+//        addGameObject(player);        //should be like this
 
         initBackGrounds();
+        initButtons();
 
         importLvl("Test");
     }
@@ -90,6 +100,16 @@ public class LevelScene extends Scene {
         }
     }
 
+    public void initButtons() {
+        GameObject BackButton = new GameObject("Back", new Transform(new Pair(1200, 50)), 10);
+        SceneChangerButton back = new SceneChangerButton(70, 74, backButton, backButton, 3);
+        BackButton.addComponent(back);
+        BackButton.setUI(true);
+        BackButton.setNonserializable();
+        gameObjectList.add(BackButton);
+        addGameObject(BackButton);
+    }
+
     /**
      * Loads all the sprites and sprite sheets into the Level.
      */
@@ -98,10 +118,13 @@ public class LevelScene extends Scene {
         AssetPool.addSpritesheet("Assets/PlayerSprites/layerTwo.png", 42, 42, 2, 13, 13*5);
         AssetPool.addSpritesheet("Assets/PlayerSprites/layerThree.png", 42, 42, 2, 13, 13*5);
 
-        AssetPool.addSpritesheet("Assets/Blocks.png", 42, 42, 2, 6, 12);
+        AssetPool.addSpritesheet("Assets/Blocks/Blocks.png", 42, 42, 2, 6, 12);
 
         AssetPool.getSprite("Assets/PlayerSprites/spaceship.png");
         AssetPool.getSprite("Assets/PlayerSprites/ufo.png");
+
+        AssetPool.addSpritesheet("Assets/Global/back.png", 70, 74, 0,1, 1);
+        this.backButton = AssetPool.getSprite("Assets/Global/back.png");
     }
 
     /**
@@ -122,7 +145,13 @@ public class LevelScene extends Scene {
         }
 
         player.update(dTime);       //update the state of player
+
+        //Remove this if it is too frustrating
+        progressBar.setCounterValue(((player.getPosX() - startX) / levelLength) * 100);
+        //progressBar.counter = new BigDecimal(String.format("%.2f", (player.getPosX() - startX) / levelLength));
+
         player.getComp(Player.class).onGround = false;      //don't know if the player is on ground or not
+
 
         for(GameObject g : gameObjectList) {        //update every game object
             g.update(dTime);
@@ -133,6 +162,7 @@ public class LevelScene extends Scene {
                 }
             }
         }
+        progressBar.update(dTime);      //update the progress bar
     }
 
     /**
@@ -146,6 +176,13 @@ public class LevelScene extends Scene {
 
         GameObject obj = Parser.parseGameObject();
         while(obj != null) {
+            if(obj.getPosX() < startX) {
+                startX = obj.getPosX();
+            }
+            if(obj.getPosX() > finishX) {
+                finishX = obj.getPosX();
+                levelLength = finishX - startX;
+            }
             addGameObject(obj);
             obj = Parser.parseGameObject();
         }

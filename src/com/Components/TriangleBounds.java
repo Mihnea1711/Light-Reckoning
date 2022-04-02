@@ -294,7 +294,7 @@ public class TriangleBounds extends Bounds{
     }
 
     /**
-     * Draws the bounds of the triangle selected
+     * Draws the bounds of the triangle selected in relation with world coordinates.
      * @param g2 graphics handler
      */
     @Override

@@ -1,6 +1,7 @@
 package com.Game;
 
 import com.Components.Music;
+import com.Components.ProgressBar;
 import com.Utilities.Constants;
 import com.Utilities.Time;
 
@@ -30,6 +31,8 @@ public class Window extends JFrame implements Runnable {
 
     private Music stereoMadness = null;
 
+    private ProgressBar progressBar;
+
     /**
      * Constructor that sets the window properties
      */
@@ -48,6 +51,8 @@ public class Window extends JFrame implements Runnable {
         this.addMouseMotionListener(mouseListener);     //movement
 
         this.addKeyListener(keyListener);           //keys
+
+        this.progressBar = new ProgressBar();
     }
 
     /**
@@ -85,7 +90,7 @@ public class Window extends JFrame implements Runnable {
                 currentScene = new LevelScene("Level 1");
                 currentScene.init();
                 if(stereoMadness == null) {
-                    stereoMadness = new Music("Assets/LevelSoundTracks/Deadlocked.wav");
+                    stereoMadness = new Music("Assets/LevelSoundTracks/stereoMadness.wav");
                 } else {
                     stereoMadness.restartClip();
                 }
@@ -93,6 +98,14 @@ public class Window extends JFrame implements Runnable {
             case 2:
                 isInEditor = true;
                 currentScene = new MainMenuScene("Main Menu");
+                currentScene.init();
+                if(stereoMadness != null) {
+                    stereoMadness.stop();
+                }
+                break;
+            case 3:
+                isInEditor = true;
+                currentScene = new Level1Scene("Level1Menu");
                 currentScene.init();
                 if(stereoMadness != null) {
                     stereoMadness.stop();
@@ -154,6 +167,14 @@ public class Window extends JFrame implements Runnable {
      */
     public static float getWindowCamY() {
         return Window.getScene().camera.getPosY();
+    }
+
+    public static Music getMusic(){
+        return getWindow().stereoMadness;
+    }
+
+    public void addProgressBar(ProgressBar progressBar) {
+        this.add(progressBar.bar);
     }
 
     /**
