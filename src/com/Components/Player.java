@@ -18,6 +18,7 @@ public class Player extends Component {
     public int width, height;               //player width, height
     public boolean onGround  = true;
     public PlayerState state;
+    private int collectedCoins, numberOFJumps = 0, maxXCounter = 0;
 
     /**
      * Constructor for coloring the player
@@ -65,14 +66,15 @@ public class Player extends Component {
         if(onGround && Window.getWindow().keyListener.isKeyPressed(KeyEvent.VK_SPACE) && !Window.getWindow().isInEditor) {
             if(state == PlayerState.Normal) {
                 addJumpForce();
-                //isJumping = true;
             }
             this.onGround = false;
+            numberOFJumps++;
         }
 
         if(PlayerState.Flying == this.state && Window.keyListener().isKeyPressed(KeyEvent.VK_SPACE) && !Window.getWindow().isInEditor) {
             addFlyForce();
             this.onGround = false;
+            numberOFJumps++;
         }
 
         //TODO:: check the rotation not snapping correctly and dying bug
@@ -113,6 +115,7 @@ public class Player extends Component {
         Window.getWindow().getCurrentScene().camera.pos.x = 0;
         gameObject.getComp(Player.class).state = PlayerState.Normal;
         Window.getMusic().restartClip();
+        numberOFJumps = 0;
     }
 
     /**
@@ -151,6 +154,18 @@ public class Player extends Component {
             transform.scale(gameObject.getScaleX(), gameObject.getScaleY());
             g2.drawImage(spaceship.img, transform, null);
         }
+    }
+
+    public void increaseCoinsCollected() {
+        collectedCoins++;
+    }
+
+    public int getCollectedCoins() {
+        return collectedCoins;
+    }
+
+    public int getJumps() {
+        return numberOFJumps;
     }
 
     /**

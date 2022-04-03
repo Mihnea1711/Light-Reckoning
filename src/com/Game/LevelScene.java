@@ -1,5 +1,6 @@
 package com.Game;
 
+import com.Buttons.SceneChangerButton;
 import com.Components.*;
 import com.DataStructures.AssetPool;
 import com.DataStructures.Transform;
@@ -88,7 +89,6 @@ public class LevelScene extends Scene {
             ParallaxBG groundBg = new ParallaxBG("Assets/Ground/ground01.png", groundBgs, ground.getComp(Ground.class), true);
             x = i * groundBg.sprite.width;
             y = bg.sprite.height;       //moving it to the bottom of the background itself
-            groundBg.setGroundColor(Constants.GroundColor);
 
             GameObject groundObj = new GameObject("GroundBG", new Transform((new Pair(x, y))), -9);
             groundObj.addComponent(groundBg);
@@ -119,6 +119,9 @@ public class LevelScene extends Scene {
         AssetPool.addSpritesheet("Assets/PlayerSprites/layerThree.png", 42, 42, 2, 13, 13*5);
 
         AssetPool.addSpritesheet("Assets/Blocks/Blocks.png", 42, 42, 2, 6, 12);
+        AssetPool.addSpritesheet("Assets/Portals/portal.png", 44, 85, 2,2, 2);
+        AssetPool.addSpritesheet("Assets/Collectibles/coin.png", 75, 75, 0,1, 1);
+        AssetPool.addSpritesheet("Assets/Blocks/bigBlocks.png", Constants.TileWidth * 2, Constants.TileHeight * 2, 2, 3, 3);
 
         AssetPool.getSprite("Assets/PlayerSprites/spaceship.png");
         AssetPool.getSprite("Assets/PlayerSprites/ufo.png");
@@ -158,6 +161,9 @@ public class LevelScene extends Scene {
             Bounds b = g.getComp(Bounds.class);
             if(b != null) {
                 if (Bounds.checkCollision(playerBounds, b)) {
+                    if(b instanceof CircleBounds) {
+                        g.removeComponent(Sprite.class);
+                    }
                     Bounds.resolveCollision(b, player);
                 }
             }

@@ -1,9 +1,6 @@
 package com.File;
 
-import com.Components.BoxBounds;
-import com.Components.Portal;
-import com.Components.Sprite;
-import com.Components.TriangleBounds;
+import com.Components.*;
 import com.Game.Component;
 import com.Game.GameObject;
 
@@ -300,6 +297,12 @@ public class Parser {
                 return TriangleBounds.deserialize();
             case "Portal":
                 return Portal.deserialize();
+            case "CircleBounds":
+                return CircleBounds.deserialize();
+            case "Coin":
+                return Coin.deserialize();
+            case "MarioPipe":
+                return PipePart.deserialize();
             default:
                 System.out.println("Could not find component " + compTitle + " at line " + Parser.line);
                 System.exit(-1);

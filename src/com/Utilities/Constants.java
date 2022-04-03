@@ -18,7 +18,7 @@ public class Constants {
     public static final int PlayerWidth = 42;
     public static final int PlayerHeight = 42;
     public static final float JumpForce = -480;
-    public static final float FlyForce = -380;
+    public static final float FlyForce = -300;
     public static final float PlayerSpeed = 300;
 
     //Ground properties
@@ -46,6 +46,8 @@ public class Constants {
     public static final int ButtonSpacingVt = 5;        //space between the buttons vertically
     public static final int ButtonWidth = 60;
     public static final int ButtonHeight = 60;
+    public static final int BigButtonWidth = 95;
+    public static final int BigButtonHeight = 95;
 
     //Color properties
     public static final Color BgColor = new Color(212.0f / 255.0f, 20.0f / 255.0f, 20 / 255.0f, 1.0f);

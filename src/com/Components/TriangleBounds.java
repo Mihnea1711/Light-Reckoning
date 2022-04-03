@@ -19,6 +19,8 @@ public class TriangleBounds extends Bounds{
 
     private float x1, x2, x3, y1, y2, y3;   //points of the triangle
 
+    public float xBuffer, yBuffer;
+
     //will work with binary codes
     private final int Inside = 0;
     private final int Left = 1;
@@ -53,11 +55,11 @@ public class TriangleBounds extends Bounds{
      */
     public void calculateTransform() {
         double rAngle = Math.toRadians(gameObject.getRotation());
-        Pair p1 = new Pair(gameObject.getPosX(), gameObject.getPosY() + height);
-        Pair p2 = new Pair(gameObject.getPosX() + halfWidth, gameObject.getPosY());
-        Pair p3 = new Pair(gameObject.getPosX() + base, gameObject.getPosY() + height);
-        Pair origin = new Pair(gameObject.getPosX() + (Constants.TileWidth / 2.0f),
-                gameObject.getPosY() + (Constants.TileHeight / 2.0f));
+        Pair p1 = new Pair(gameObject.getPosX() + xBuffer, gameObject.getPosY() + yBuffer + height);
+        Pair p2 = new Pair(gameObject.getPosX() + xBuffer + halfWidth, gameObject.getPosY() + yBuffer);
+        Pair p3 = new Pair(gameObject.getPosX() + xBuffer + base, gameObject.getPosY() + yBuffer + height);
+        Pair origin = new Pair(gameObject.getPosX() + xBuffer + (Constants.TileWidth / 2.0f),
+                gameObject.getPosY() + yBuffer + (Constants.TileHeight / 2.0f));
 
         p1 = rotatePoint(rAngle, p1, origin);
         p2 = rotatePoint(rAngle, p2, origin);
@@ -142,14 +144,14 @@ public class TriangleBounds extends Bounds{
         //check if the point is to the left or to the right of bounds
         if(point.x < topLeft.x) {
             code |= Left;
-        } else if (point.x > topLeft.x + bounds.width) {
+        } else if (point.x > topLeft.x + bounds.getWidth()) {
             code |= Right;
         }
 
         //check if the point is below or above
         if(point.y < topLeft.y) {
             code |= Top;
-        } else if(point.y > topLeft.y + bounds.height) {
+        } else if(point.y > topLeft.y + bounds.getHeight()) {
             code |= Bottom;
         }
 
@@ -185,7 +187,7 @@ public class TriangleBounds extends Bounds{
             return true;
         }
 
-        int xmax = (int)(pos.x + bounds.width);
+        int xmax = (int)(pos.x + bounds.getWidth());
         int xmin = (int)pos.x;
 
         //y = mx + b
@@ -225,7 +227,7 @@ public class TriangleBounds extends Bounds{
         Pair p3 = new Pair(x3, y3);
 
         //origin = centre of box bounds
-        Pair origin = new Pair(b.gameObject.getPosX() + (b.width / 2.0f), b.gameObject.getPosY() + (b.height / 2.0f));
+        Pair origin = new Pair(b.gameObject.getPosX() + (b.getWidth() / 2.0f), b.gameObject.getPosY() + (b.getHeight() / 2.0f));
 
         float rAngle = (float)Math.toRadians(b.gameObject.getRotation());
 
@@ -303,20 +305,20 @@ public class TriangleBounds extends Bounds{
             g2.setStroke(Constants.ThickLine);
             g2.setColor(Color.GREEN);
             g2.draw(new Line2D.Float(
-                    this.x1 - Window.getWindowCamX(),
-                    this.y1 - Window.getWindowCamY(),
-                    this.x2 - Window.getWindowCamX(),
-                    this.y2 - Window.getWindowCamY()));
+                    this.x1 + xBuffer - Window.getWindowCamX(),
+                    this.y1 + yBuffer - Window.getWindowCamY(),
+                    this.x2 + xBuffer - Window.getWindowCamX(),
+                    this.y2 + yBuffer - Window.getWindowCamY()));
             g2.draw(new Line2D.Float(
-                    this.x1 - Window.getWindowCamX(),
-                    this.y1 - Window.getWindowCamY(),
-                    this.x3 - Window.getWindowCamX(),
-                    this.y3 - Window.getWindowCamY()));
+                    this.x1 + xBuffer - Window.getWindowCamX(),
+                    this.y1 + yBuffer - Window.getWindowCamY(),
+                    this.x3 + xBuffer - Window.getWindowCamX(),
+                    this.y3 + yBuffer - Window.getWindowCamY()));
             g2.draw(new Line2D.Float(
-                    this.x3 - Window.getWindowCamX(),
-                    this.y3 - Window.getWindowCamY(),
-                    this.x2 - Window.getWindowCamX(),
-                    this.y2 - Window.getWindowCamY()));
+                    this.x3 + xBuffer - Window.getWindowCamX(),
+                    this.y3 + yBuffer - Window.getWindowCamY(),
+                    this.x2 + xBuffer - Window.getWindowCamX(),
+                    this.y2 + yBuffer - Window.getWindowCamY()));
             g2.setStroke(Constants.Line);
         }
     }
@@ -332,7 +334,9 @@ public class TriangleBounds extends Bounds{
 
         builder.append(beginObjectProperty("TriangleBounds", tabSize));
         builder.append(addFloatProperty("Base", this.base, tabSize + 1, true, true));
-        builder.append(addFloatProperty("Height", this.height, tabSize + 1, true, false));
+        builder.append(addFloatProperty("Height", this.height, tabSize + 1, true, true));
+        builder.append(addFloatProperty("xBuffer", this.xBuffer, tabSize + 1, true, true));
+        builder.append(addFloatProperty("yBuffer", this.yBuffer, tabSize + 1, true, false));
         builder.append(closeObjectProperty(tabSize));
 
         return builder.toString();
@@ -346,9 +350,17 @@ public class TriangleBounds extends Bounds{
         float base = Parser.consumeFloatProperty("Base");
         Parser.consume(',');
         float height = Parser.consumeFloatProperty("Height");
+        Parser.consume(',');
+        float xBuffer = Parser.consumeFloatProperty("xBuffer");
+        Parser.consume(',');
+        float yBuffer = Parser.consumeFloatProperty("yBuffer");
         Parser.consumeEndObjectProperty();
 
-        return new TriangleBounds(base, height);
+
+        TriangleBounds bounds = new TriangleBounds(base, height);
+        bounds.xBuffer = xBuffer;
+        bounds.yBuffer = yBuffer;
+        return bounds;
     }
 
     /**

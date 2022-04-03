@@ -1,5 +1,6 @@
 package com.Game;
 
+import com.Buttons.SceneChangerButton;
 import com.Components.*;
 import com.DataStructures.AssetPool;
 import com.DataStructures.Transform;
@@ -80,12 +81,13 @@ public class LevelEditorScene extends Scene{
         AssetPool.addSpritesheet("Assets/PlayerSprites/layerThree.png", Constants.PlayerWidth, Constants.PlayerHeight, 2, 13, 13*5);
 
         AssetPool.addSpritesheet("Assets/Blocks/Blocks.png", Constants.TileWidth, Constants.TileHeight, 2, 6, 12);
-        AssetPool.addSpritesheet("Assets/UI/buttonSprites.png", 60, 60, 2, 2, 2);
+        AssetPool.addSpritesheet("Assets/UI/buttonSprites.png", Constants.ButtonWidth, Constants.ButtonHeight, 2, 2, 2);
         AssetPool.addSpritesheet("Assets/UI/tabs.png", Constants.TabWidth, Constants.TabHeight, 2, 6, 6);
         AssetPool.addSpritesheet("Assets/Blocks/spikes.png", Constants.TileWidth, Constants.TileHeight, 2, 6, 4);
-        AssetPool.addSpritesheet("Assets/Blocks/bigSprites.png", 84, 84, 2, 2, 2);
-        AssetPool.addSpritesheet("Assets/Blocks/smallBlocks.png", Constants.TileWidth, Constants.TileHeight, 2, 6, 1);
+        AssetPool.addSpritesheet("Assets/Blocks/bigBlocks.png", Constants.TileWidth * 2, Constants.TileHeight * 2, 2, 3, 3);
+        AssetPool.addSpritesheet("Assets/Blocks/smallBlocks.png", Constants.TileWidth, Constants.TileHeight, 2, 6, 6);
         AssetPool.addSpritesheet("Assets/Portals/portal.png", 44, 85, 2,2, 2);
+        AssetPool.addSpritesheet("Assets/Collectibles/coin.png", 75, 75, 0,1, 1);
 
         AssetPool.addSpritesheet("Assets/Global/back.png", 70, 74, 0,1, 1);
         this.backButton = AssetPool.getSprite("Assets/Global/back.png");
@@ -97,7 +99,7 @@ public class LevelEditorScene extends Scene{
         BackButton.addComponent(back);
         BackButton.setUI(true);
         BackButton.setNonserializable();
-        gameObjectList.add(BackButton);
+        buttons.add(BackButton);
         addGameObject(BackButton);
     }
 
@@ -149,6 +151,9 @@ public class LevelEditorScene extends Scene{
         }
         for(GameObject g : gameObjectList) {        //update every game object
             g.update(dTime);
+        }
+        for (GameObject obj : buttons) {
+            obj.update(dTime);
         }
         cameraControls.update(dTime);
         grid.update(dTime);

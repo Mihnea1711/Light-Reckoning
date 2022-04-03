@@ -1,5 +1,7 @@
 package com.Game;
 
+import com.Buttons.CloseWindowButton;
+import com.Buttons.SceneChangerButton;
 import com.Components.*;
 import com.DataStructures.AssetPool;
 import com.DataStructures.Transform;
@@ -19,7 +21,8 @@ public class MainMenuScene extends Scene {
 
     private List<GameObject> buttons;
 
-    private Sprite ButtonPlay, ButtonPlayPressed, ButtonEditor, ButtonEditorPressed;
+    private Sprite ButtonPlay, ButtonEditor;
+    private Sprite ExitButton;
 
     private Sprite logo0, logo1, logo2, logo3;
 
@@ -60,6 +63,8 @@ public class MainMenuScene extends Scene {
 
         AssetPool.addSpritesheet("Assets/MainMenu/Buttons/play.png", 114, 115, 0, 1, 1);
         AssetPool.addSpritesheet("Assets/MainMenu/Buttons/editor.png", 126, 115, 0, 1, 1);
+        AssetPool.addSpritesheet("Assets/MainMenu/Buttons/exit.png", 48, 55, 0, 1, 1);
+
 
         AssetPool.addSpritesheet("Assets/MainMenu/Logos/LogoLevel0.png", Constants.LogoSize, Constants.LogoSize, 0, 1, 1);
         AssetPool.addSpritesheet("Assets/MainMenu/Logos/LogoLevel1.png", Constants.LogoSize, Constants.LogoSize, 0, 1, 1);
@@ -72,6 +77,7 @@ public class MainMenuScene extends Scene {
 
         this.ButtonPlay = AssetPool.getSprite("Assets/MainMenu/Buttons/play.png");
         this.ButtonEditor = AssetPool.getSprite("Assets/MainMenu/Buttons/editor.png");
+        this.ExitButton = AssetPool.getSprite("Assets/MainMenu/Buttons/exit.png");
 
         this.logo0 = AssetPool.getSprite("Assets/MainMenu/Logos/LogoLevel0.png");
         this.logo1 = AssetPool.getSprite("Assets/MainMenu/Logos/LogoLevel1.png");
@@ -96,8 +102,16 @@ public class MainMenuScene extends Scene {
         editor.setNonserializable();
         buttons.add(editor);
 
+        GameObject exit = new GameObject("CloseWindowButton", new Transform(new Pair(1200, 50)), 10);
+        CloseWindowButton exitButton = new CloseWindowButton(ExitButton.width, ExitButton.height, ExitButton);
+        exit.addComponent(exitButton);
+        exit.setUI(true);
+        exit.setNonserializable();
+        buttons.add(exit);
+
         addGameObject(play);
         addGameObject(editor);
+        addGameObject(exit);
     }
 
     /**

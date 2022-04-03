@@ -9,7 +9,8 @@ import com.Utilities.Pair;
  */
 enum BoundsType {
     Box,
-    Triangle
+    Triangle,
+    Circle
 }
 
 /**
@@ -46,12 +47,16 @@ public abstract class Bounds extends Component {
      */
     public static boolean checkCollision(Bounds b1, Bounds b2) {
         //we know that at least 1 is the player (box)
-        if(b1.type == b2.type && b1.type == BoundsType.Box) {
-            return BoxBounds.checkCollision((BoxBounds)b1, (BoxBounds)b2);
-        } else if(b1.type == BoundsType.Box && b2.type == BoundsType.Triangle) {
-            return TriangleBounds.checkCollision((BoxBounds)b1, (TriangleBounds)b2);
+        if (b1.type == b2.type && b1.type == BoundsType.Box) {
+            return BoxBounds.checkCollision((BoxBounds) b1, (BoxBounds) b2);
+        } else if (b1.type == BoundsType.Box && b2.type == BoundsType.Triangle) {
+            return TriangleBounds.checkCollision((BoxBounds) b1, (TriangleBounds) b2);
         } else if (b1.type == BoundsType.Triangle && b2.type == BoundsType.Box) {
-            return TriangleBounds.checkCollision((BoxBounds)b2, (TriangleBounds)b1);
+            return TriangleBounds.checkCollision((BoxBounds) b2, (TriangleBounds) b1);
+        } else if (b1.type == BoundsType.Box && b2.type == BoundsType.Circle) {
+            return CircleBounds.checkCollision((BoxBounds) b1, (CircleBounds) b2);
+        } else if (b1.type == BoundsType.Circle && b2.type == BoundsType.Box) {
+            return CircleBounds.checkCollision((BoxBounds) b2, (CircleBounds) b1);
         }
         return false;
     }
@@ -67,6 +72,9 @@ public abstract class Bounds extends Component {
             box.resolveCollision(player);
         } else if (b.type == BoundsType.Triangle) {
             player.getComp(Player.class).die();
+        } else if(b.type == BoundsType.Circle) {
+            CircleBounds circle = (CircleBounds)b;
+            circle.resolveCollision(player);
         }
     }
 }

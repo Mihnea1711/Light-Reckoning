@@ -1,7 +1,8 @@
-package com.Game;
+package com.Buttons;
 
 import com.Components.Button;
 import com.Components.Sprite;
+import com.Game.Window;
 
 public class SceneChangerButton extends Button {
 

@@ -24,8 +24,8 @@ public class Ground extends Component {
             LevelScene scene = (LevelScene)Window.getWindow().getCurrentScene();
             GameObject player = scene.player;
 
-            if(player.getPosY() + player.getComp(BoxBounds.class).height > gameObject.getPosY()) {
-                player.transform.pos.y = gameObject.getPosY() - player.getComp(BoxBounds.class).height;
+            if(player.getPosY() + player.getComp(BoxBounds.class).getHeight() > gameObject.getPosY()) {
+                player.transform.pos.y = gameObject.getPosY() - player.getComp(BoxBounds.class).getHeight();
 
                 player.getComp(Player.class).onGround = true;       //we hit the ground, make onGround true
             }

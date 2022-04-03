@@ -80,86 +80,114 @@ public class MainContainer extends Component {
         SpriteSheet buttonSprites = AssetPool.getSpritesheet("Assets/UI/buttonSprites.png");
 
         SpriteSheet spikesSprites = AssetPool.getSpritesheet("Assets/Blocks/spikes.png");
-        SpriteSheet bigSprites = AssetPool.getSpritesheet("Assets/Blocks/bigSprites.png");
+        SpriteSheet bigSprites = AssetPool.getSpritesheet("Assets/Blocks/bigBlocks.png");
         SpriteSheet smallBlocks = AssetPool.getSpritesheet("Assets/Blocks/smallBlocks.png");
         SpriteSheet portalSprites = AssetPool.getSpritesheet("Assets/Portals/portal.png");
+        SpriteSheet coinSprites = AssetPool.getSpritesheet("Assets/Collectibles/coin.png");
 
         for(int i = 0; i < groundSprites.sprites.size(); i++) {
             Sprite currentSprite = groundSprites.sprites.get(i);
-            //position of the tab on the screen
+            //position of the button on the screen
             int x = Constants.ButtonOffsetX + (currentSprite.column * Constants.ButtonWidth) + (currentSprite.column * Constants.ButtonSpacingHz);
             int y = Constants.ButtonOffsetY + (currentSprite.row * Constants.ButtonHeight) + (currentSprite.row * Constants.ButtonSpacingVt);
 
             //ads first tab container objects
-            GameObject obj = new GameObject("Gen", new Transform(new Pair(x, y)), 10);
-            obj.setUI(true);
-            obj.setNonserializable();
-            obj.addComponent(currentSprite.copy());
-            MenuItem menuItem = new MenuItem(x, y, Constants.ButtonWidth, Constants.ButtonHeight,
-                    buttonSprites.sprites.get(0), buttonSprites.sprites.get(1), this);
-            obj.addComponent(menuItem);
+            GameObject obj = createTabObject(new Pair(x, y), (Sprite) currentSprite.copy(), buttonSprites.sprites.get(0), buttonSprites.sprites.get(1),
+                    Constants.ButtonWidth, Constants.ButtonHeight);
+
             obj.addComponent(new BoxBounds(Constants.TileWidth, Constants.TileHeight));
             this.tabMaps.get(this.tabs.get(0)).add(obj);
 
             //add second tab container objects
             if(i < smallBlocks.sprites.size()) {
-                obj = new GameObject("Gen", new Transform(new Pair(x, y)), 10);
-                obj.setUI(true);
-                obj.setNonserializable();
-                menuItem = menuItem.copy();
-                obj.addComponent(smallBlocks.sprites.get(i));
-                obj.addComponent(menuItem);
+                obj = createTabObject(new Pair(x, y), smallBlocks.sprites.get(i), buttonSprites.sprites.get(0), buttonSprites.sprites.get(1),
+                        Constants.ButtonWidth, Constants.ButtonHeight);
+
                 if(i == 0) {
                     BoxBounds boxBounds = new BoxBounds(Constants.TileWidth, 16);       //some obj have different widths or heights
                     boxBounds.yBuffer = 26;
                     obj.addComponent(boxBounds);
+                } else {
+                    obj.addComponent(new BoxBounds(Constants.TileWidth, Constants.TileHeight));
                 }
                 this.tabMaps.get(tabs.get(1)).add(obj);
             }
 
-            //TODO:: Add third tab sprites
+            //add third tab objects
+            if(i < coinSprites.sprites.size()) {
+                x = Constants.ButtonOffsetX + (currentSprite.column * (Constants.BigButtonWidth)) + (currentSprite.column * Constants.ButtonSpacingHz);
+                y = Constants.ButtonOffsetY + (currentSprite.row * (Constants.BigButtonHeight)) + (currentSprite.row * Constants.ButtonSpacingVt);
+
+                obj = createTabObject(new Pair(x, y), coinSprites.sprites.get(i), buttonSprites.sprites.get(0), buttonSprites.sprites.get(1),
+                        Constants.BigButtonWidth, Constants.BigButtonHeight);
+
+                if(i == 0) {
+                    CircleBounds circleBounds = new CircleBounds(69, true);       //some obj have different widths or heights
+                    circleBounds.xBuffer = 3;
+                    circleBounds.yBuffer = 3;
+                    obj.addComponent(circleBounds);
+                    obj.addComponent(new Coin(false));
+                }
+                this.tabMaps.get(tabs.get(2)).add(obj);
+            }
 
             //add fourth tab container objects
             if(i < spikesSprites.sprites.size()) {
-                obj = new GameObject("Gen", new Transform(new Pair(x, y)), 10);
-                obj.setUI(true);
-                obj.setNonserializable();
-                menuItem = menuItem.copy();
-                obj.addComponent(spikesSprites.sprites.get(i));
-                obj.addComponent(menuItem);
+                obj = createTabObject(new Pair(x, y), spikesSprites.sprites.get(i), buttonSprites.sprites.get(0), buttonSprites.sprites.get(1),
+                        Constants.ButtonWidth, Constants.ButtonHeight);
 
+                if(i == 1) {
+                    TriangleBounds triangleBounds = new TriangleBounds(Constants.TileWidth, 15);       //some obj have different widths or heights
+                    triangleBounds.yBuffer = 27;
+                    obj.addComponent(triangleBounds);
+                }
+
+                if(i == 2) {
+                    TriangleBounds triangleBounds = new TriangleBounds(21, 21);       //some obj have different widths or heights
+                    triangleBounds.xBuffer = 10.5f;
+                    triangleBounds.yBuffer = 21;
+                    obj.addComponent(triangleBounds);
+                }
+
+                if(i == 3) {
+                    BoxBounds boxBounds = new BoxBounds(Constants.TileWidth, 25);       //some obj have different widths or heights
+                    boxBounds.yBuffer = 18;
+                    obj.addComponent(boxBounds);
+                }
                 obj.addComponent(new TriangleBounds(Constants.TileWidth, Constants.TileHeight));
 
                 this.tabMaps.get(tabs.get(3)).add(obj);
             }
 
             //add fifth tab container objects
-            //TODO:: check why these are drawn twice (add something else than a sprite (??)). 2 components are being drawn. Find where.
-            if(i == 0) {        //1 item there
-                obj = new GameObject("Gen", new Transform(new Pair(x, y)), 10);
-                obj.setUI(true);
-                obj.setNonserializable();
-                menuItem = menuItem.copy();
-                obj.addComponent(bigSprites.sprites.get(i));
-                obj.addComponent(menuItem);
+            if(i < bigSprites.sprites.size()) {
+                x = Constants.ButtonOffsetX + (currentSprite.column * (Constants.BigButtonWidth)) + (currentSprite.column * Constants.ButtonSpacingHz);
+                y = Constants.ButtonOffsetY + (currentSprite.row * (Constants.BigButtonHeight)) + (currentSprite.row * Constants.ButtonSpacingVt);
 
-                obj.addComponent(new BoxBounds(Constants.TileWidth * 2, 56));
+                obj = createTabObject(new Pair(x, y), bigSprites.sprites.get(i), buttonSprites.sprites.get(0), buttonSprites.sprites.get(1),
+                        Constants.BigButtonWidth, Constants.BigButtonHeight);
+
+                if (i == 0) {
+                    obj.addComponent(new BoxBounds(Constants.TileWidth * 2, Constants.TileHeight * 2));
+                } else if(i == 1) {
+                    BoxBounds boxBounds = new BoxBounds(Constants.TileWidth * 2, 56);       //some obj have different widths or heights
+                    boxBounds.yBuffer = 28;
+                    obj.addComponent(boxBounds);
+                } else if(i == 2) {
+                    obj.addComponent(new BoxBounds(Constants.TileWidth * 2, Constants.TileHeight * 2, true));
+                    obj.addComponent(new PipePart(true));
+                }
 
                 this.tabMaps.get(tabs.get(4)).add(obj);
             }
 
             //add sixth tab container objects
-            //TODO:: check why these are drawn twice (add something else than a sprite (??))
             if(i < portalSprites.sprites.size()) {
+                x = Constants.ButtonOffsetX + (currentSprite.column * (Constants.BigButtonWidth)) + (currentSprite.column * Constants.ButtonSpacingHz);
+                y = Constants.ButtonOffsetY + (currentSprite.row * (Constants.BigButtonHeight)) + (currentSprite.row * Constants.ButtonSpacingVt);
 
-                //TODO:: add function for these that returns a game object and takes in a sprite as a parameter
-                obj = new GameObject("Gen", new Transform(new Pair(x, y)), 10);
-                obj.setUI(true);
-                obj.setNonserializable();
-                menuItem = menuItem.copy();
-                obj.addComponent(portalSprites.sprites.get(i));
-                obj.addComponent(menuItem);
-                //TODO:: add function for these ^
+                obj = createTabObject(new Pair(x, y), portalSprites.sprites.get(i), buttonSprites.sprites.get(0), buttonSprites.sprites.get(1),
+                        Constants.BigButtonWidth, Constants.BigButtonHeight);
 
                 obj.addComponent(new BoxBounds(44, 85, true));
 
@@ -171,6 +199,18 @@ public class MainContainer extends Component {
                 this.tabMaps.get(tabs.get(5)).add(obj);
             }
         }
+    }
+
+    private GameObject createTabObject(Pair pos, Sprite objectSprite, Sprite buttonNormalSprite, Sprite buttonPressedSprite, int width, int height) {
+        GameObject obj = new GameObject("Gen", new Transform(new Pair(pos.x, pos.y)), 10);
+        obj.setUI(true);
+        obj.setNonserializable();
+        obj.addComponent(objectSprite);
+        MenuItem menuItem = new MenuItem((int)pos.x, (int)pos.y, width, height,
+                buttonNormalSprite, buttonPressedSprite, this);
+        obj.addComponent(menuItem);
+
+        return obj;
     }
 
     /**

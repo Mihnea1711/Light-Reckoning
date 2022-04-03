@@ -203,7 +203,7 @@ public class LevelEditorControls extends Component {
             }
         }
 
-        //TODO:: abstract this away with a function
+        //TODO:: abstract these away with a function
         if(Window.keyListener().isKeyPressed(KeyEvent.VK_ESCAPE)) {
             escapeKeyPressed();
         }
@@ -253,7 +253,7 @@ public class LevelEditorControls extends Component {
         for(GameObject obj : selectedObjects) {
             obj.transform.rotation += degrees;
             TriangleBounds b = obj.getComp(TriangleBounds.class);
-            if(b != null) b. calculateTransform();
+            if(b != null) b.calculateTransform();
         }
     }
 

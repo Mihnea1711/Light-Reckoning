@@ -14,7 +14,7 @@ import java.awt.geom.Rectangle2D;
  * Class for the bounds of a box(square) objects
  */
 public class BoxBounds extends Bounds {
-    public float width, height;
+    private float width, height;
     public float halfWidth, halfHeight;     //calculate them once, so we don't waste cpu calculating everytime
     public Pair centre = new Pair();                  //we will change the obj contents every frame
 
