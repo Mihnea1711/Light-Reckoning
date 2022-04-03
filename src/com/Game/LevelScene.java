@@ -168,6 +168,7 @@ public class LevelScene extends Scene {
                 }
             }
         }
+        //TODO:: check why not working properly
         progressBar.update(dTime);      //update the progress bar
     }
 

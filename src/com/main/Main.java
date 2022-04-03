@@ -15,3 +15,11 @@ public class Main {
         mainThread.start(); //calls the run() method
     }
 }
+
+
+
+
+//TODO:: add scene for pause/ restart/ music on/off / progress-bar on/off
+//TODO:: add scene for level ending and stats
+//TODO:: add multiple levels
+//TODO:: keep the stats in a created database
