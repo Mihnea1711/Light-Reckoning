@@ -14,16 +14,16 @@ import java.awt.Graphics2D;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Level2Menu extends Scene{
+public class Level4Menu extends Scene{
     private GameObject mouseCursor;
     private List<GameObject> buttons;
 
-    private Sprite logo1;
+    private Sprite logo3;
     private Sprite levelButtonSprite;
     private Sprite LeftArrowKey, RightArrowKey;
     private Sprite backButton;
 
-    public Level2Menu(String name) {
+    public Level4Menu(String name) {
         super.Scene(name);
         this.buttons = new ArrayList<>();
     }
@@ -36,10 +36,10 @@ public class Level2Menu extends Scene{
     }
 
     public void initAssetPool() {
-        AssetPool.addSpritesheet("Assets/MainMenu/Logos/LogoLevel0.png", Constants.LogoSize, Constants.LogoSize, 0, 1, 1);
+        AssetPool.addSpritesheet("Assets/MainMenu/Logos/LogoLevel3.png", Constants.LogoSize, Constants.LogoSize, 0, 1, 1);
         AssetPool.addSpritesheet("Assets/Global/LevelButtonSprite.png", 600, 84, 0, 1, 1);
 
-        this.logo1 = AssetPool.getSprite("Assets/MainMenu/Logos/LogoLevel1.png");
+        this.logo3 = AssetPool.getSprite("Assets/MainMenu/Logos/LogoLevel3.png");
         this.levelButtonSprite = AssetPool.getSprite("Assets/Global/LevelButtonSprite.png");
 
         this.RightArrowKey = AssetPool.getSprite("Assets/Level1Menu/RightArrow.png");
@@ -56,7 +56,7 @@ public class Level2Menu extends Scene{
         addGameObject(ground);
 
         GameObject noob = new GameObject("Normal", new Transform(new Pair(365, 172)), 6);
-        noob.addComponent(new Sprite(logo1.img, "Assets/MainMenu/Logos/LogoLevel1.png"));
+        noob.addComponent(new Sprite(logo3.img, "Assets/MainMenu/Logos/LogoLevel1.png"));
         noob.setNonserializable();
         addGameObject(noob);
 
@@ -80,21 +80,21 @@ public class Level2Menu extends Scene{
 
     public void initButtons() {
         GameObject levelButton = new GameObject("SceneChangerButton", new Transform(new Pair(340, 150)), 5);
-        SceneChangerButton playButton = new SceneChangerButton(levelButtonSprite.width, levelButtonSprite.height, levelButtonSprite, levelButtonSprite, "Deadlocked777", 1, "Level2");
+        SceneChangerButton playButton = new SceneChangerButton(levelButtonSprite.width, levelButtonSprite.height, levelButtonSprite, levelButtonSprite, "Fingerdash", 1, "Level4");
         levelButton.addComponent(playButton);
         levelButton.setUI(true);
         levelButton.setNonserializable();
         buttons.add(levelButton);
 
-        GameObject Left = new GameObject("LeftArrow", new Transform(new Pair(50, 322)), 6);
-        SceneChangerButton left = new SceneChangerButton(LeftArrowKey.width, LeftArrowKey.height, LeftArrowKey, LeftArrowKey, 3);
+        GameObject Left = new GameObject("LeftArrow", new Transform(new Pair(50, 392)), 6);
+        SceneChangerButton left = new SceneChangerButton(LeftArrowKey.width, LeftArrowKey.height, LeftArrowKey, LeftArrowKey, 5);
         Left.addComponent(left);
         levelButton.setUI(true);
         Left.setNonserializable();
         buttons.add(Left);
 
-        GameObject Right = new GameObject("RightArrow", new Transform(new Pair(1200, 322)), 6);
-        SceneChangerButton right = new SceneChangerButton(RightArrowKey.width, RightArrowKey.height, RightArrowKey, RightArrowKey, 5);
+        GameObject Right = new GameObject("RightArrow", new Transform(new Pair(1200, 392)), 6);
+        SceneChangerButton right = new SceneChangerButton(RightArrowKey.width, RightArrowKey.height, RightArrowKey, RightArrowKey, 3);
         Right.addComponent(right);
         levelButton.setUI(true);
         Right.setNonserializable();

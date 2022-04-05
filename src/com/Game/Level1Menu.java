@@ -80,20 +80,20 @@ public class Level1Menu extends Scene{
 
     public void initButtons() {
         GameObject levelButton = new GameObject("SceneChangerButton", new Transform(new Pair(340, 150)), 5);
-        SceneChangerButton playButton = new SceneChangerButton(levelButtonSprite.width, levelButtonSprite.height, levelButtonSprite, levelButtonSprite, "Stereo Madness", 1);
+        SceneChangerButton playButton = new SceneChangerButton(levelButtonSprite.width, levelButtonSprite.height, levelButtonSprite, levelButtonSprite, "Stereo Madness", 1, "Level1");
         levelButton.addComponent(playButton);
         levelButton.setUI(true);
         levelButton.setNonserializable();
         buttons.add(levelButton);
 
-        GameObject Left = new GameObject("LeftArrow", new Transform(new Pair(20, 332)), 6);
-        SceneChangerButton left = new SceneChangerButton(LeftArrowKey.width, LeftArrowKey.height, LeftArrowKey, LeftArrowKey, 4);
+        GameObject Left = new GameObject("LeftArrow", new Transform(new Pair(50, 282)), 6);
+        SceneChangerButton left = new SceneChangerButton(LeftArrowKey.width, LeftArrowKey.height, LeftArrowKey, LeftArrowKey, 6);
         Left.addComponent(left);
         levelButton.setUI(true);
         Left.setNonserializable();
         buttons.add(Left);
 
-        GameObject Right = new GameObject("RightArrow", new Transform(new Pair(1200, 332)), 6);
+        GameObject Right = new GameObject("RightArrow", new Transform(new Pair(1200, 282)), 6);
         SceneChangerButton right = new SceneChangerButton(RightArrowKey.width, RightArrowKey.height, RightArrowKey, RightArrowKey, 4);
         Right.addComponent(right);
         levelButton.setUI(true);

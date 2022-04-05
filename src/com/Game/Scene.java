@@ -40,6 +40,10 @@ public abstract class Scene {
 
     }
 
+    public  void init(String filename) {
+
+    }
+
     /**
      * Helper method
      * @return list of all the game objects inside a scene

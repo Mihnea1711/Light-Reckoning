@@ -38,7 +38,7 @@ public class LevelScene extends Scene {
      * Initializes the level
      */
     @Override
-    public void init() {
+    public void init(String filename) {
         initAssetPool();
 
         player = new GameObject("player", new Transform(new Pair(Constants.PlayerLevelStartX, Constants.PlayerLevelStartY)), 0);
@@ -59,7 +59,7 @@ public class LevelScene extends Scene {
         initBackGrounds();
         initButtons();
 
-        importLvl("Level1");
+        importLvl(filename);
     }
 
     /**

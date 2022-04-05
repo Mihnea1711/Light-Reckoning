@@ -1,0 +1,69 @@
+"GameObject": {
+	"Transform": {
+		"Position": {
+			"x": 882.0f,
+			"y": 546.0f
+		},
+		"Scale": {
+			"x": 1.0f,
+			"y": 1.0f
+		},
+		"Rotation": 0.0f
+	},
+	"Name": "Generated",
+	"ZIndex": 10,
+	"Components": {
+		"Sprite": {
+			"isSubSprite": true,
+			"FilePath": "Assets/Collectibles/coin.png",
+			"Row": 0,
+			"Column": 0,
+			"Index": 0
+		},
+		"CircleBounds": {
+			"Diameter": 69.0f,
+			"xBuffer": 3.0f,
+			"yBuffer": 3.0f,
+			"isVisible": true
+		},
+		"Coin": {
+			"wasCollected": false
+		}
+	}
+},
+"GameObject": {
+	"Transform": {
+		"Position": {
+			"x": 1176.0f,
+			"y": 588.0f
+		},
+		"Scale": {
+			"x": 1.0f,
+			"y": 1.0f
+		},
+		"Rotation": 0.0f
+	},
+	"Name": "Generated",
+	"ZIndex": 10,
+	"Components": {
+		"Sprite": {
+			"isSubSprite": true,
+			"FilePath": "Assets/Blocks/spikes.png",
+			"Row": 0,
+			"Column": 2,
+			"Index": 2
+		},
+		"TriangleBounds": {
+			"Base": 21.0f,
+			"Height": 21.0f,
+			"xBuffer": 0.0f,
+			"yBuffer": 0.0f
+		},
+		"TriangleBounds": {
+			"Base": 42.0f,
+			"Height": 42.0f,
+			"xBuffer": 0.0f,
+			"yBuffer": 0.0f
+		}
+	}
+}

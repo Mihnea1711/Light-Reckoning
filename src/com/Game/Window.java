@@ -60,7 +60,7 @@ public class Window extends JFrame implements Runnable {
      * Tells which scene to start with.
      */
     public void init(){
-        changeScene(2);     //changes scene to 0 = level editor scene, 1 = levelScene
+        changeScene(2, "");     //changes scene to 0 = level editor scene, 1 = levelScene
     }
 
     /**
@@ -75,7 +75,7 @@ public class Window extends JFrame implements Runnable {
      * Will tell which scene we need to change to
      * @param scene index of the Scene we want to change to
      */
-    public void changeScene(int scene) {
+    public void changeScene(int scene, String filename) {
         switch(scene){
             case 0:
                 isInEditor = true;
@@ -88,7 +88,7 @@ public class Window extends JFrame implements Runnable {
             case 1:
                 isInEditor = false;
                 currentScene = new LevelScene("Level 1");
-                currentScene.init();
+                currentScene.init(filename);
                 if(stereoMadness == null) {
                     stereoMadness = new Music("Assets/LevelSoundTracks/stereoMadness.wav");
                 } else {
@@ -114,6 +114,22 @@ public class Window extends JFrame implements Runnable {
             case 4:
                 isInEditor = true;
                 currentScene = new Level2Menu("Level2Menu");
+                currentScene.init();
+                if(stereoMadness != null) {
+                    stereoMadness.stop();
+                }
+                break;
+            case 5:
+                isInEditor = true;
+                currentScene = new Level3Menu("Level3Menu");
+                currentScene.init();
+                if(stereoMadness != null) {
+                    stereoMadness.stop();
+                }
+                break;
+            case 6:
+                isInEditor = true;
+                currentScene = new Level4Menu("Level4Menu");
                 currentScene.init();
                 if(stereoMadness != null) {
                     stereoMadness.stop();
