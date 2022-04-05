@@ -59,7 +59,7 @@ public class LevelScene extends Scene {
         initBackGrounds();
         initButtons();
 
-        importLvl("Test");
+        importLvl("Level1");
     }
 
     /**
@@ -118,10 +118,14 @@ public class LevelScene extends Scene {
         AssetPool.addSpritesheet("Assets/PlayerSprites/layerTwo.png", 42, 42, 2, 13, 13*5);
         AssetPool.addSpritesheet("Assets/PlayerSprites/layerThree.png", 42, 42, 2, 13, 13*5);
 
-        AssetPool.addSpritesheet("Assets/Blocks/Blocks.png", 42, 42, 2, 6, 12);
+        AssetPool.addSpritesheet("Assets/Blocks/Blocks.png", Constants.TileWidth, Constants.TileHeight, 2, 6, 12);
+        AssetPool.addSpritesheet("Assets/UI/buttonSprites.png", Constants.ButtonWidth, Constants.ButtonHeight, 2, 2, 2);
+        AssetPool.addSpritesheet("Assets/UI/tabs.png", Constants.TabWidth, Constants.TabHeight, 2, 6, 6);
+        AssetPool.addSpritesheet("Assets/Blocks/spikes.png", Constants.TileWidth, Constants.TileHeight, 2, 6, 4);
+        AssetPool.addSpritesheet("Assets/Blocks/bigBlocks.png", Constants.TileWidth * 2, Constants.TileHeight * 2, 2, 3, 3);
+        AssetPool.addSpritesheet("Assets/Blocks/smallBlocks.png", Constants.TileWidth, Constants.TileHeight, 2, 6, 6);
         AssetPool.addSpritesheet("Assets/Portals/portal.png", 44, 85, 2,2, 2);
         AssetPool.addSpritesheet("Assets/Collectibles/coin.png", 75, 75, 0,1, 1);
-        AssetPool.addSpritesheet("Assets/Blocks/bigBlocks.png", Constants.TileWidth * 2, Constants.TileHeight * 2, 2, 3, 3);
 
         AssetPool.getSprite("Assets/PlayerSprites/spaceship.png");
         AssetPool.getSprite("Assets/PlayerSprites/ufo.png");

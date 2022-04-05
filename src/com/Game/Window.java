@@ -105,7 +105,15 @@ public class Window extends JFrame implements Runnable {
                 break;
             case 3:
                 isInEditor = true;
-                currentScene = new Level1Scene("Level1Menu");
+                currentScene = new Level1Menu("Level1Menu");
+                currentScene.init();
+                if(stereoMadness != null) {
+                    stereoMadness.stop();
+                }
+                break;
+            case 4:
+                isInEditor = true;
+                currentScene = new Level2Menu("Level2Menu");
                 currentScene.init();
                 if(stereoMadness != null) {
                     stereoMadness.stop();

@@ -14,7 +14,7 @@ import java.awt.Graphics2D;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Level1Scene extends Scene{
+public class Level1Menu extends Scene{
     private GameObject mouseCursor;
     private List<GameObject> buttons;
 
@@ -23,7 +23,7 @@ public class Level1Scene extends Scene{
     private Sprite LeftArrowKey, RightArrowKey;
     private Sprite backButton;
 
-    public Level1Scene(String name) {
+    public Level1Menu(String name) {
         super.Scene(name);
         this.buttons = new ArrayList<>();
     }
@@ -87,14 +87,14 @@ public class Level1Scene extends Scene{
         buttons.add(levelButton);
 
         GameObject Left = new GameObject("LeftArrow", new Transform(new Pair(20, 332)), 6);
-        SceneChangerButton left = new SceneChangerButton(LeftArrowKey.width, LeftArrowKey.height, LeftArrowKey, LeftArrowKey, 0);
+        SceneChangerButton left = new SceneChangerButton(LeftArrowKey.width, LeftArrowKey.height, LeftArrowKey, LeftArrowKey, 4);
         Left.addComponent(left);
         levelButton.setUI(true);
         Left.setNonserializable();
         buttons.add(Left);
 
         GameObject Right = new GameObject("RightArrow", new Transform(new Pair(1200, 332)), 6);
-        SceneChangerButton right = new SceneChangerButton(RightArrowKey.width, RightArrowKey.height, RightArrowKey, RightArrowKey, 0);
+        SceneChangerButton right = new SceneChangerButton(RightArrowKey.width, RightArrowKey.height, RightArrowKey, RightArrowKey, 4);
         Right.addComponent(right);
         levelButton.setUI(true);
         Right.setNonserializable();

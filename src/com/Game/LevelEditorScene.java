@@ -14,9 +14,13 @@ import java.awt.Graphics2D;
 import java.awt.event.KeyEvent;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.util.ArrayList;
+import java.util.Enumeration;
 import java.util.List;
 import java.util.zip.ZipEntry;
+import java.util.zip.ZipFile;
 import java.util.zip.ZipOutputStream;
 
 /**
@@ -33,6 +37,8 @@ public class LevelEditorScene extends Scene{
     private Sprite backButton;
 
     private List<GameObject> buttons;
+
+    private static final byte[] BUFFER = new byte[4096 * 1024];
 
     /**
      * Calls the superclass(Scene) constructor
@@ -164,9 +170,9 @@ public class LevelEditorScene extends Scene{
         //F2 - importing the level
         //F3 - plays the level
         if(Window.getWindow().keyListener.isKeyPressed(KeyEvent.VK_F1)) {
-            export("Test");
+            export("Level1");
         } else if(Window.getWindow().keyListener.isKeyPressed((KeyEvent.VK_F2))) {
-            importLvl("Test");
+            importLvl("Level1");
         } else if(Window.getWindow().keyListener.isKeyPressed((KeyEvent.VK_F3))) {
             Window.getWindow().changeScene(1);
         }
@@ -214,7 +220,7 @@ public class LevelEditorScene extends Scene{
      */
     private void export(String filename) {
         try {
-            FileOutputStream fileOutputStream = new FileOutputStream("levels/" + filename + ".zip");    //zipping it up to save more space
+            FileOutputStream fileOutputStream = new FileOutputStream("levels/levels.zip");    //zipping it up to save more space
             ZipOutputStream zipOutputStream = new ZipOutputStream(fileOutputStream);    //creating a zip file in java
 
             zipOutputStream.putNextEntry(new ZipEntry(filename + ".json")); //putting a file.json inside the zip
@@ -239,6 +245,37 @@ public class LevelEditorScene extends Scene{
             e.printStackTrace();
             System.exit(-1);
         }
+    }
+
+    private static void copy(InputStream inputStream, OutputStream outputStream) throws IOException {
+        int bytesRead;
+        while((bytesRead = inputStream.read(BUFFER)) != -1) {           //-1 EOF
+            outputStream.write(BUFFER, 0, bytesRead);
+        }
+    }
+
+    private void exportLvl(String filename) throws IOException {
+        ZipFile levels = new ZipFile("Test.zip");
+        ZipOutputStream append = new ZipOutputStream(new FileOutputStream("append.zip"));
+
+        //copy contents from existing zip
+        Enumeration<? extends ZipEntry> entries = levels.entries();
+        while(entries.hasMoreElements()) {
+            ZipEntry zipEntry = entries.nextElement();
+            append.putNextEntry(zipEntry);
+            if(!zipEntry.isDirectory()) {
+                copy(levels.getInputStream(zipEntry), append);
+            }
+            append.closeEntry();
+        }
+
+        //append the extra content
+        ZipEntry zipEntry =  new ZipEntry(filename + ".json");
+        append.putNextEntry(zipEntry);
+        append.closeEntry();
+
+        levels.close();
+        append.close();
     }
 
     /**
