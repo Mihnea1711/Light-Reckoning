@@ -12,10 +12,7 @@ import com.Utilities.Pair;
 import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.event.KeyEvent;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.List;
@@ -170,11 +167,11 @@ public class LevelEditorScene extends Scene{
         //F2 - importing the level
         //F3 - plays the level
         if(Window.getWindow().keyListener.isKeyPressed(KeyEvent.VK_F1)) {
-            export("Level1");
+            exportLvl("Level6");
         } else if(Window.getWindow().keyListener.isKeyPressed((KeyEvent.VK_F2))) {
             importLvl("Level1");
         } else if(Window.getWindow().keyListener.isKeyPressed((KeyEvent.VK_F3))) {
-            Window.getWindow().changeScene(1, "Level1");
+            Window.getWindow().changeScene(1, "Level1", "Assets/LevelSoundTracks/stereoMadness.wav");
         }
 
         if(objsToRemove.size() > 0) {
@@ -254,28 +251,54 @@ public class LevelEditorScene extends Scene{
         }
     }
 
-    private void exportLvl(String filename) throws IOException {
-        ZipFile levels = new ZipFile("Test.zip");
-        ZipOutputStream append = new ZipOutputStream(new FileOutputStream("append.zip"));
+    private void exportLvl(String filename) {
+        String file;
+        ZipFile levels;
+        try {
+//            File folder = new File("levels");
+//            File[] listOfFile = folder.listFiles();
+//            if (listOfFile != null && listOfFile.length == 0) {
+//                //empty folder -> create zip
+//            } else {
+//                //do smth
+//            }
+            levels = new ZipFile("levels/levels.zip");
+            ZipOutputStream append = new ZipOutputStream(new FileOutputStream("levels/append.zip"));
 
-        //copy contents from existing zip
-        Enumeration<? extends ZipEntry> entries = levels.entries();
-        while(entries.hasMoreElements()) {
-            ZipEntry zipEntry = entries.nextElement();
-            append.putNextEntry(zipEntry);
-            if(!zipEntry.isDirectory()) {
-                copy(levels.getInputStream(zipEntry), append);
+            //copy contents from existing zip
+            Enumeration<? extends ZipEntry> entries = levels.entries();
+            while (entries.hasMoreElements()) {
+                ZipEntry zipEntry = entries.nextElement();
+                append.putNextEntry(zipEntry);
+                if (!zipEntry.isDirectory()) {
+                    copy(levels.getInputStream(zipEntry), append);
+                }
+                append.closeEntry();
             }
+
+            //append the extra content
+            ZipEntry zipEntry = new ZipEntry(filename + ".json");
+            append.putNextEntry(zipEntry);
+            int i = 0;
+            for (GameObject obj : gameObjectList) {
+                //serialize all the game objects in the level
+                String str = obj.serialize(0);      //0 is the tab size
+                if (str.compareTo("") != 0) {        //empty string is the flag for a game object we don't want to serialize
+                    append.write(str.getBytes());      //writing in zip files
+                    if (i != gameObjectList.size() - 1) {
+                        append.write(",\n".getBytes());    //write a comma to separate all the game objects
+                    }
+                }
+                i++;
+            }
+
             append.closeEntry();
+            levels.close();
+            append.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+            System.exit(-1);
         }
-
-        //append the extra content
-        ZipEntry zipEntry =  new ZipEntry(filename + ".json");
-        append.putNextEntry(zipEntry);
-        append.closeEntry();
-
-        levels.close();
-        append.close();
     }
 
     /**

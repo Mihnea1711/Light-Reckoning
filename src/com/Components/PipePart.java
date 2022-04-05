@@ -40,7 +40,7 @@ public class PipePart extends Component {
             if (exitOnCollision && BoxBounds.checkCollision(bounds, player.getComp(BoxBounds.class))) {
                 System.out.println("Total jumps: " + player.getComp(Player.class).getJumps());
                 System.out.println("Coins collected: " + player.getComp(Player.class).getCollectedCoins());
-                Window.getWindow().changeScene(3, "");
+                Window.getWindow().changeScene(3, "", "");
             }
         }
     }

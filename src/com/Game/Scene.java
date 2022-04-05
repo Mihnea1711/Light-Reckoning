@@ -1,5 +1,6 @@
 package com.Game;
 
+import com.Components.Music;
 import com.Utilities.Pair;
 
 import java.awt.Graphics2D;
@@ -18,6 +19,8 @@ public abstract class Scene {
     //if we delete objects and then we try to update them, it will cause problems, so we will wait till the end of the frame.
     List<GameObject> objsToRemove;
     Renderer renderer;      //renderer for the scene
+
+    protected Music levelMusic = null;
 
     //protected Music SceneSoundTrack = null;
 
@@ -40,7 +43,7 @@ public abstract class Scene {
 
     }
 
-    public  void init(String filename) {
+    public  void init(String filename, String musicFile) {
 
     }
 

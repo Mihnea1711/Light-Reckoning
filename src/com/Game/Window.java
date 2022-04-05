@@ -29,7 +29,7 @@ public class Window extends JFrame implements Runnable {
     private Image doubleBufferImg = null;           //img used to draw things onto and then draw this inside the window
     private Graphics doubleBufferGraphics  = null;      //graphics handler for img
 
-    private Music stereoMadness = null;
+    protected Music currentSceneMusic = null;
 
     private ProgressBar progressBar;
 
@@ -60,7 +60,7 @@ public class Window extends JFrame implements Runnable {
      * Tells which scene to start with.
      */
     public void init(){
-        changeScene(2, "");     //changes scene to 0 = level editor scene, 1 = levelScene
+        changeScene(2, "", "");     //changes scene to 0 = level editor scene, 1 = levelScene
     }
 
     /**
@@ -75,65 +75,42 @@ public class Window extends JFrame implements Runnable {
      * Will tell which scene we need to change to
      * @param scene index of the Scene we want to change to
      */
-    public void changeScene(int scene, String filename) {
+    public void changeScene(int scene, String filename, String musicFile) {
         switch(scene){
             case 0:
                 isInEditor = true;
                 currentScene = new LevelEditorScene("Level Editor");        //switches the scene to level editor scene
                 currentScene.init();
-                if(stereoMadness != null) {
-                    stereoMadness.stop();
-                }
                 break;
             case 1:
                 isInEditor = false;
-                currentScene = new LevelScene("Level 1");
-                currentScene.init(filename);
-                if(stereoMadness == null) {
-                    stereoMadness = new Music("Assets/LevelSoundTracks/stereoMadness.wav");
-                } else {
-                    stereoMadness.restartClip();
-                }
+                currentScene = new LevelScene("Level");
+                currentScene.init(filename, musicFile);
                 break;
             case 2:
                 isInEditor = true;
                 currentScene = new MainMenuScene("Main Menu");
                 currentScene.init();
-                if(stereoMadness != null) {
-                    stereoMadness.stop();
-                }
                 break;
             case 3:
                 isInEditor = true;
                 currentScene = new Level1Menu("Level1Menu");
                 currentScene.init();
-                if(stereoMadness != null) {
-                    stereoMadness.stop();
-                }
                 break;
             case 4:
                 isInEditor = true;
                 currentScene = new Level2Menu("Level2Menu");
                 currentScene.init();
-                if(stereoMadness != null) {
-                    stereoMadness.stop();
-                }
                 break;
             case 5:
                 isInEditor = true;
                 currentScene = new Level3Menu("Level3Menu");
                 currentScene.init();
-                if(stereoMadness != null) {
-                    stereoMadness.stop();
-                }
                 break;
             case 6:
                 isInEditor = true;
                 currentScene = new Level4Menu("Level4Menu");
                 currentScene.init();
-                if(stereoMadness != null) {
-                    stereoMadness.stop();
-                }
                 break;
             default:
                 System.out.println("Don't know the scene");
@@ -194,7 +171,7 @@ public class Window extends JFrame implements Runnable {
     }
 
     public static Music getMusic(){
-        return getWindow().stereoMadness;
+        return getWindow().currentScene.levelMusic;
     }
 
     public void addProgressBar(ProgressBar progressBar) {

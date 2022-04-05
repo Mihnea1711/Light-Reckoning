@@ -38,7 +38,7 @@ public class LevelScene extends Scene {
      * Initializes the level
      */
     @Override
-    public void init(String filename) {
+    public void init(String filename, String musicFile) {
         initAssetPool();
 
         player = new GameObject("player", new Transform(new Pair(Constants.PlayerLevelStartX, Constants.PlayerLevelStartY)), 0);
@@ -60,6 +60,10 @@ public class LevelScene extends Scene {
         initButtons();
 
         importLvl(filename);
+
+        if(levelMusic == null) {
+            levelMusic = new Music(musicFile);
+        }
     }
 
     /**
@@ -102,7 +106,7 @@ public class LevelScene extends Scene {
 
     public void initButtons() {
         GameObject BackButton = new GameObject("Back", new Transform(new Pair(1200, 50)), 10);
-        SceneChangerButton back = new SceneChangerButton(70, 74, backButton, backButton, 3);
+        SceneChangerButton back = new SceneChangerButton(70, 74, backButton, backButton, "", 3, "", null);
         BackButton.addComponent(back);
         BackButton.setUI(true);
         BackButton.setNonserializable();
@@ -144,8 +148,10 @@ public class LevelScene extends Scene {
             camera.pos.x = player.getPosX() - Constants.CameraX;            //if the player is moving left/right, then move the camera with him
         }
 
-        //if the player is moving up/down, move the camera with him
-        camera.pos.y = player.getPosY() - Constants.CameraY;
+        //if the player is moving up/down, move the camera with him only in normal form
+        if(player.getComp(Player.class).state != PlayerState.Flying) {
+            camera.pos.y = player.getPosY() - Constants.CameraY;
+        }
 
         if(camera.getPosY() > Constants.CameraOffsetGroundY) {              //if the camera off to ground is > 150, just stop it there
             camera.pos.y = Constants.CameraOffsetGroundY;

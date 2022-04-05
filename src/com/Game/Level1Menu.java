@@ -80,7 +80,8 @@ public class Level1Menu extends Scene{
 
     public void initButtons() {
         GameObject levelButton = new GameObject("SceneChangerButton", new Transform(new Pair(340, 150)), 5);
-        SceneChangerButton playButton = new SceneChangerButton(levelButtonSprite.width, levelButtonSprite.height, levelButtonSprite, levelButtonSprite, "Stereo Madness", 1, "Level1");
+        SceneChangerButton playButton = new SceneChangerButton(levelButtonSprite.width, levelButtonSprite.height, levelButtonSprite, levelButtonSprite,
+                "Stereo Madness", 1, "Level1", "Assets/LevelSoundTracks/stereoMadness.wav");
         levelButton.addComponent(playButton);
         levelButton.setUI(true);
         levelButton.setNonserializable();

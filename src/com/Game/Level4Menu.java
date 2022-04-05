@@ -80,7 +80,8 @@ public class Level4Menu extends Scene{
 
     public void initButtons() {
         GameObject levelButton = new GameObject("SceneChangerButton", new Transform(new Pair(340, 150)), 5);
-        SceneChangerButton playButton = new SceneChangerButton(levelButtonSprite.width, levelButtonSprite.height, levelButtonSprite, levelButtonSprite, "Fingerdash", 1, "Level4");
+        SceneChangerButton playButton = new SceneChangerButton(levelButtonSprite.width, levelButtonSprite.height, levelButtonSprite, levelButtonSprite,
+                "Fingerdash", 1, "Level4", "Assets/LevelSoundTracks/Fingerdash.wav");
         levelButton.addComponent(playButton);
         levelButton.setUI(true);
         levelButton.setNonserializable();
