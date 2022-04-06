@@ -12,7 +12,13 @@ import com.Utilities.Pair;
 import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.event.KeyEvent;
-import java.io.*;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.List;
@@ -36,6 +42,9 @@ public class LevelEditorScene extends Scene{
     private List<GameObject> buttons;
 
     private static final byte[] BUFFER = new byte[4096 * 1024];
+
+    private float debounceKey = 0.5f;      //every 0.5 sec we will register one key press -> not too much speed when editing
+    private float debounceKeyLeft = 0.0f;
 
     /**
      * Calls the superclass(Scene) constructor
@@ -149,6 +158,8 @@ public class LevelEditorScene extends Scene{
      */
     @Override
     public void update(double dTime) {
+        debounceKeyLeft -= dTime;
+
         if(camera.getPosY() > Constants.CameraOffsetGroundY + 35) {              //to move past the bottom of the ground
             camera.pos.y = Constants.CameraOffsetGroundY + 36;  //fixes the dragging below ground bug
         }
@@ -167,11 +178,12 @@ public class LevelEditorScene extends Scene{
         //F2 - importing the level
         //F3 - plays the level
         if(Window.getWindow().keyListener.isKeyPressed(KeyEvent.VK_F1)) {
-            exportLvl("Level6");
+            exportLvl("Level5");
+            debounceKeyLeft = debounceKey;
         } else if(Window.getWindow().keyListener.isKeyPressed((KeyEvent.VK_F2))) {
             importLvl("Level1");
         } else if(Window.getWindow().keyListener.isKeyPressed((KeyEvent.VK_F3))) {
-            Window.getWindow().changeScene(1, "Level1", "Assets/LevelSoundTracks/stereoMadness.wav");
+            //Window.getWindow().changeScene(1, "Level1", "Assets/LevelSoundTracks/stereoMadness.wav");
         }
 
         if(objsToRemove.size() > 0) {
@@ -251,17 +263,19 @@ public class LevelEditorScene extends Scene{
         }
     }
 
+    private void renameFile() {
+        Path sourceFile = Paths.get("levels/append.zip");
+        try {
+            Files.move(sourceFile, sourceFile.resolveSibling("levels.zip"));
+        } catch (IOException e) {
+            System.out.println("Rename error");
+            e.printStackTrace();
+        }
+    }
+
     private void exportLvl(String filename) {
-        String file;
         ZipFile levels;
         try {
-//            File folder = new File("levels");
-//            File[] listOfFile = folder.listFiles();
-//            if (listOfFile != null && listOfFile.length == 0) {
-//                //empty folder -> create zip
-//            } else {
-//                //do smth
-//            }
             levels = new ZipFile("levels/levels.zip");
             ZipOutputStream append = new ZipOutputStream(new FileOutputStream("levels/append.zip"));
 
@@ -269,11 +283,13 @@ public class LevelEditorScene extends Scene{
             Enumeration<? extends ZipEntry> entries = levels.entries();
             while (entries.hasMoreElements()) {
                 ZipEntry zipEntry = entries.nextElement();
-                append.putNextEntry(zipEntry);
-                if (!zipEntry.isDirectory()) {
-                    copy(levels.getInputStream(zipEntry), append);
+                if (!zipEntry.getName().equals(filename + ".json")) {
+                    append.putNextEntry(zipEntry);
+                    if (!zipEntry.isDirectory()) {
+                        copy(levels.getInputStream(zipEntry), append);
+                    }
+                    append.closeEntry();
                 }
-                append.closeEntry();
             }
 
             //append the extra content
@@ -295,6 +311,10 @@ public class LevelEditorScene extends Scene{
             append.closeEntry();
             levels.close();
             append.close();
+
+
+            Files.delete(Paths.get("levels/levels.zip"));
+            renameFile();
         } catch (IOException e) {
             e.printStackTrace();
             System.exit(-1);

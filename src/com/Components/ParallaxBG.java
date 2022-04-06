@@ -9,9 +9,6 @@ import com.Utilities.Constants;
 import java.awt.Color;
 import java.awt.Graphics2D;
 
-//TODO:: Want to override the copy and serialize methods to add to the editor to pick which backgrounds we choose for the levels
-// => need to serialize the data
-
 /**
  * Class for the Parallax-type Background.
  */
@@ -103,9 +100,9 @@ public class ParallaxBG extends Component {
     }
 
     /**
-     * Don't need to save, we will be building it anyway.
+     * Serializes the background of the object in case we will ever need to make the user choose it in the level creator.
      * @param tabSize   number of tabs to be indented correctly
-     * @return nothing
+     * @return backgrounds serialized
      */
     @Override
     public String serialize(int tabSize) {
@@ -129,10 +126,19 @@ public class ParallaxBG extends Component {
     }
 
     /**
+     * Deserializes the background
+     * @return a new background object with the deserialized properties
+     */
+    public static ParallaxBG deserialize() {
+        //deserializes the background
+        //in case we will ever need it
+        return null;
+    }
+
+    /**
      * Don't need to send a copy, since we will be building it every time.
      * @return nothing
      */
-    //TODO::Might need to implement it if we are going to have more levels and different backgrounds
     @Override
     public Component copy() {
         return null;

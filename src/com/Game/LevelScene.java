@@ -38,7 +38,7 @@ public class LevelScene extends Scene {
      * Initializes the level
      */
     @Override
-    public void init(String filename, String musicFile) {
+    public void init(String filename, String musicFile, String backgroundPath, String groundPath) {
         initAssetPool();
 
         player = new GameObject("player", new Transform(new Pair(Constants.PlayerLevelStartX, Constants.PlayerLevelStartY)), 0);
@@ -56,7 +56,7 @@ public class LevelScene extends Scene {
 //        player.setNonserializable();
 //        addGameObject(player);        //should be like this
 
-        initBackGrounds();
+        initBackGrounds(backgroundPath, groundPath);
         initButtons();
 
         importLvl(filename);
@@ -69,7 +69,7 @@ public class LevelScene extends Scene {
     /**
      * Initializes all the backgrounds
      */
-    public void initBackGrounds() {
+    public void initBackGrounds(String backgroundPath, String groundPath) {
         GameObject ground;
         ground = new GameObject("Ground", new Transform(new Pair(0, Constants.GroundY)), 1);
         ground.addComponent(new Ground());
@@ -81,7 +81,7 @@ public class LevelScene extends Scene {
         GameObject[] groundBgs = new GameObject[numBackGrounds];
 
         for(int i = 0; i < numBackGrounds; i++) {
-            ParallaxBG bg = new ParallaxBG("Assets/BackGround/bg01.png", backgrounds, ground.getComp(Ground.class), false);
+            ParallaxBG bg = new ParallaxBG(backgroundPath, backgrounds, ground.getComp(Ground.class), false);
             int x = i * bg.sprite.width;   //where the background is initially
             int y = 0;
 
@@ -90,7 +90,7 @@ public class LevelScene extends Scene {
             obj.addComponent(bg);
             backgrounds[i] = obj;
 
-            ParallaxBG groundBg = new ParallaxBG("Assets/Ground/ground01.png", groundBgs, ground.getComp(Ground.class), true);
+            ParallaxBG groundBg = new ParallaxBG(groundPath, groundBgs, ground.getComp(Ground.class), true);
             x = i * groundBg.sprite.width;
             y = bg.sprite.height;       //moving it to the bottom of the background itself
 
@@ -106,7 +106,7 @@ public class LevelScene extends Scene {
 
     public void initButtons() {
         GameObject BackButton = new GameObject("Back", new Transform(new Pair(1200, 50)), 10);
-        SceneChangerButton back = new SceneChangerButton(70, 74, backButton, backButton, "", 3, "", null);
+        SceneChangerButton back = new SceneChangerButton(70, 74, backButton, backButton, "", 3, "", null, "", "");
         BackButton.addComponent(back);
         BackButton.setUI(true);
         BackButton.setNonserializable();

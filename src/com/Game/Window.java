@@ -29,8 +29,6 @@ public class Window extends JFrame implements Runnable {
     private Image doubleBufferImg = null;           //img used to draw things onto and then draw this inside the window
     private Graphics doubleBufferGraphics  = null;      //graphics handler for img
 
-    protected Music currentSceneMusic = null;
-
     private ProgressBar progressBar;
 
     /**
@@ -60,7 +58,7 @@ public class Window extends JFrame implements Runnable {
      * Tells which scene to start with.
      */
     public void init(){
-        changeScene(2, "", "");     //changes scene to 0 = level editor scene, 1 = levelScene
+        changeScene(2, "", "", "", "");     //changes scene to 0 = level editor scene, 1 = levelScene
     }
 
     /**
@@ -75,7 +73,7 @@ public class Window extends JFrame implements Runnable {
      * Will tell which scene we need to change to
      * @param scene index of the Scene we want to change to
      */
-    public void changeScene(int scene, String filename, String musicFile) {
+    public void changeScene(int scene, String filename, String musicFile, String backgroundPath, String groundPath) {
         switch(scene){
             case 0:
                 isInEditor = true;
@@ -85,7 +83,7 @@ public class Window extends JFrame implements Runnable {
             case 1:
                 isInEditor = false;
                 currentScene = new LevelScene("Level");
-                currentScene.init(filename, musicFile);
+                currentScene.init(filename, musicFile, backgroundPath, groundPath);
                 break;
             case 2:
                 isInEditor = true;

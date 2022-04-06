@@ -81,7 +81,8 @@ public class Level2Menu extends Scene{
     public void initButtons() {
         GameObject levelButton = new GameObject("SceneChangerButton", new Transform(new Pair(340, 150)), 5);
         SceneChangerButton playButton = new SceneChangerButton(levelButtonSprite.width, levelButtonSprite.height, levelButtonSprite, levelButtonSprite,
-                "Deadlocked777", 1, "Level2", "Assets/LevelSoundTracks/Deadlocked.wav");
+                "Deadlocked777", 1, "Level2", "Assets/LevelSoundTracks/Deadlocked.wav",
+                "Assets/Background/bg04.png", "Assets/Ground/ground04.png");
         levelButton.addComponent(playButton);
         levelButton.setUI(true);
         levelButton.setNonserializable();

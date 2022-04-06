@@ -43,7 +43,7 @@ public abstract class Scene {
 
     }
 
-    public  void init(String filename, String musicFile) {
+    public  void init(String filename, String musicFile,String backgroundPath, String groundPath) {
 
     }
 
