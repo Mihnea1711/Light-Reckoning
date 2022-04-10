@@ -4,8 +4,15 @@ import com.Components.Music;
 import com.Utilities.Pair;
 
 import java.awt.Graphics2D;
+import java.io.File;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.util.ArrayList;
+import java.util.Enumeration;
 import java.util.List;
+import java.util.zip.ZipEntry;
+import java.util.zip.ZipFile;
 
 /**
  * Abstract class that
@@ -18,9 +25,13 @@ public abstract class Scene {
     //prepares the objects that are going to be removed, because it will be called in the middle of an update loop.
     //if we delete objects and then we try to update them, it will cause problems, so we will wait till the end of the frame.
     List<GameObject> objsToRemove;
+
     Renderer renderer;      //renderer for the scene
 
     protected Music levelMusic = null;
+    protected static ArrayList<String> levelsCreated = new ArrayList<>();
+
+    private static final byte[] BUFFER = new byte[4096 * 1024];
 
     //protected Music SceneSoundTrack = null;
 
@@ -33,6 +44,7 @@ public abstract class Scene {
         this.camera = new Camera(new Pair());
         this.gameObjectList = new ArrayList<>();
         this.objsToRemove = new ArrayList<>();
+        updateCreatedLevels();
         this.renderer = new Renderer(this.camera);
     }
 
@@ -43,8 +55,38 @@ public abstract class Scene {
 
     }
 
-    public  void init(String filename, String musicFile,String backgroundPath, String groundPath) {
+    public  void init(String filename, String musicFile,String backgroundPath, String groundPath, boolean importLvl) {
 
+    }
+
+    private static void copy(InputStream inputStream, OutputStream outputStream) throws IOException {
+        int bytesRead;
+        while((bytesRead = inputStream.read(BUFFER)) != -1) {           //-1 EOF
+            outputStream.write(BUFFER, 0, bytesRead);
+        }
+    }
+
+    private void updateCreatedLevels() {
+        ZipFile levels;
+        try {
+            File check = new File("levels/levels.zip");
+            if(check.exists()) {
+                levels = new ZipFile("levels/levels.zip");
+
+                //copy contents from existing zip
+                Enumeration<? extends ZipEntry> entries = levels.entries();
+                while (entries.hasMoreElements()) {
+                    ZipEntry zipEntry = entries.nextElement();
+                    if (!levelsCreated.contains(zipEntry.getName().substring(0, zipEntry.getName().length() - 5))) {
+                        levelsCreated.add(zipEntry.getName().substring(0, zipEntry.getName().length() - 5));
+                    }
+                }
+                levels.close();
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+            System.exit(-1);
+        }
     }
 
     /**
@@ -73,6 +115,10 @@ public abstract class Scene {
         for(Component c : gameObject.getAllComponents()) {
             c.start();
         }
+    }
+
+    public void addCreatedLevel(String name) {
+        levelsCreated.add(name);
     }
 
     /**

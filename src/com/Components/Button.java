@@ -15,10 +15,10 @@ public abstract class Button extends Component {
     public String text;
 
     public boolean isSelected = false;
-    private int framesForAnimation = 3;
+    private int framesForAnimation = 10;
     private int framesLeft = 0;
 
-    private float debounceTime = 0.1f;
+    private float debounceTime = 0.6f;
     private float debounceLeft = 0.0f;
 
     private int wrapLength, fontSize;

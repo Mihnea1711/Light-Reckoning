@@ -1,9 +1,11 @@
 package com.Game;
 
 import com.Buttons.SceneChangerButton;
+import com.Buttons.SubmitButton;
 import com.Components.Ground;
 import com.Components.ParallaxBG;
 import com.Components.Sprite;
+import com.Components.TextField;
 import com.DataStructures.AssetPool;
 import com.DataStructures.Transform;
 import com.Utilities.Constants;
@@ -13,44 +15,44 @@ import java.awt.Color;
 import java.awt.Graphics2D;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Scanner;
 
-public class Level1Menu extends Scene{
+//The scene where we create a new level, or where we type the level name to import it.
+public class CreateNewLevelMenu extends Scene {
+    private TextField textField;
+    private SubmitButton button;
     private GameObject mouseCursor;
     private List<GameObject> buttons;
+    Scanner scanner = new Scanner(System.in);
+    boolean entered = false;
+    boolean importLVL;
 
-    private Sprite logo0;
-    private Sprite levelButtonSprite;
-    private Sprite LeftArrowKey, RightArrowKey;
-    private Sprite backButton;
+    private Sprite backButton, submit, text;
 
-    public Level1Menu(String name) {
+    public CreateNewLevelMenu(String name) {
         super.Scene(name);
         this.buttons = new ArrayList<>();
+        this.textField = new TextField(575, 225, 300, 50);
     }
 
-    public void init() {
+    public void init(String a, String b, String c, String d, boolean importLVL) {
         initAssetPool();
         mouseCursor = new GameObject("Mouse Cursor", new Transform(new Pair()), 10);
         initBackGrounds();
         initButtons();
-
-//        if(levelMusic != null) {
-//            levelMusic.stop();
-//        }
+        Window.getWindow().addTextField(textField);
+        entered = false;
+        this.importLVL = importLVL;
     }
 
     public void initAssetPool() {
-        AssetPool.addSpritesheet("Assets/MainMenu/Logos/LogoLevel0.png", Constants.LogoSize, Constants.LogoSize, 0, 1, 1);
-        AssetPool.addSpritesheet("Assets/Global/LevelButtonSprite.png", 600, 84, 0, 1, 1);
-
-        this.logo0 = AssetPool.getSprite("Assets/MainMenu/Logos/LogoLevel0.png");
-        this.levelButtonSprite = AssetPool.getSprite("Assets/Global/LevelButtonSprite.png");
-
-        this.RightArrowKey = AssetPool.getSprite("Assets/Level1Menu/RightArrow.png");
-        this.LeftArrowKey = AssetPool.getSprite("Assets/Level1Menu/LeftArrow.png");
-
         AssetPool.addSpritesheet("Assets/Global/back.png", 70, 74, 0,1, 1);
+        AssetPool.addSpritesheet("Assets/UI/text.png", 150, 50, 0,1, 1);
+        AssetPool.addSpritesheet("Assets/UI/submit.png", 50, 51, 0,1, 1);
+
         this.backButton = AssetPool.getSprite("Assets/Global/back.png");
+        this.text = AssetPool.getSprite("Assets/UI/text.png");
+        this.submit = AssetPool.getSprite("Assets/UI/submit.png");
     }
 
     public void initBackGrounds() {
@@ -59,10 +61,10 @@ public class Level1Menu extends Scene{
         ground.setNonserializable();
         addGameObject(ground);
 
-        GameObject noob = new GameObject("Noob", new Transform(new Pair(365, 172)), 6);
-        noob.addComponent(new Sprite(logo0.img, "Assets/MainMenu/Logos/LogoLevel0.png"));
-        noob.setNonserializable();
-        addGameObject(noob);
+        GameObject levelNameText = new GameObject("levelName", new Transform(new Pair(415, 250)), 10);
+        levelNameText.addComponent(new Sprite(text.img, "Assets/UI/text.png"));
+        levelNameText.setNonserializable();
+        addGameObject(levelNameText);
 
         int numBackGrounds = 5;
         GameObject[] groundBgs = new GameObject[numBackGrounds];
@@ -83,40 +85,22 @@ public class Level1Menu extends Scene{
     }
 
     public void initButtons() {
-        GameObject levelButton = new GameObject("SceneChangerButton", new Transform(new Pair(340, 150)), 5);
-        SceneChangerButton playButton = new SceneChangerButton(levelButtonSprite.width, levelButtonSprite.height, levelButtonSprite, levelButtonSprite,
-                "Stereo Madness", 1, "Level1", "Assets/LevelSoundTracks/stereoMadness.wav",
-                "Assets/Background/bg01.png", "Assets/Ground/ground01.png");
-        levelButton.addComponent(playButton);
-        levelButton.setUI(true);
-        levelButton.setNonserializable();
-        buttons.add(levelButton);
-
-        GameObject Left = new GameObject("LeftArrow", new Transform(new Pair(50, 282)), 6);
-        SceneChangerButton left = new SceneChangerButton(LeftArrowKey.width, LeftArrowKey.height, LeftArrowKey, LeftArrowKey, 6);
-        Left.addComponent(left);
-        levelButton.setUI(true);
-        Left.setNonserializable();
-        buttons.add(Left);
-
-        GameObject Right = new GameObject("RightArrow", new Transform(new Pair(1200, 282)), 6);
-        SceneChangerButton right = new SceneChangerButton(RightArrowKey.width, RightArrowKey.height, RightArrowKey, RightArrowKey, 4);
-        Right.addComponent(right);
-        levelButton.setUI(true);
-        Right.setNonserializable();
-        buttons.add(Right);
-
-        GameObject BackButton = new GameObject("Back", new Transform(new Pair(1150, 50)), 10);
-        SceneChangerButton back = new SceneChangerButton(70, 74, backButton, backButton, 2);
+        GameObject BackButton = new GameObject("Back", new Transform(new Pair(1100, 50)), 10);
+        SceneChangerButton back = new SceneChangerButton(70, 74, backButton, backButton, 8);
         BackButton.addComponent(back);
         BackButton.setUI(true);
         BackButton.setNonserializable();
         buttons.add(BackButton);
 
-        addGameObject(levelButton);
-        addGameObject(Left);
-        addGameObject(Right);
+        GameObject submitButton = new GameObject("Submit", new Transform(new Pair(920, 250)), 10);
+        button = new SubmitButton(75, 76, submit, submit, "");
+        submitButton.addComponent(button);
+        submitButton.setUI(true);
+        submitButton.setNonserializable();
+        buttons.add(submitButton);
+
         addGameObject(BackButton);
+        addGameObject(submitButton);
     }
 
     /**
@@ -125,6 +109,23 @@ public class Level1Menu extends Scene{
      */
     @Override
     public void update(double dTime) {
+        if(!entered) {
+            System.out.println("Created Levels Available: " + levelsCreated);
+
+            if (!importLVL || !levelsCreated.isEmpty()) {
+                System.out.println("Enter level name: ");
+                String levelName = scanner.nextLine();
+                if (!levelsCreated.contains(levelName)) {
+                    addCreatedLevel(levelName);
+                    button.setCreateTrue();
+                } else {
+                    button.setCreateFalse();
+                }
+                button.setTextAttached(levelName);
+            }
+                entered = true;
+            }
+
         for (GameObject obj : buttons) {
             obj.update(dTime);
         }
@@ -137,11 +138,15 @@ public class Level1Menu extends Scene{
      */
     @Override
     public void draw(Graphics2D g2) {
-        g2.setColor(Color.BLUE);
+        g2.setColor(new Color(50f / 255.0f, 10f / 255.0f, 243f / 255.0f, 1.0f));
         g2.fillRect(0, 0, Constants.ScreenWidth, Constants.ScreenHeight);
 
+        //for ground
         g2.setColor(new Color(118f / 255.0f, 10f / 255.0f, 243f / 255.0f, 1.0f));
         g2.fillRect(0, Constants.MenuGround_Y, Constants.ScreenWidth, Constants.ScreenHeight - Constants.MenuGround_Y);
+
+        g2.setColor(new Color(174f / 255.0f, 38f / 255.0f, 176f / 255.0f, 0.7f));
+        g2.fillRoundRect(395,200,500,150, 35, 35);
 
         renderer.render(g2);
         mouseCursor.draw(g2);

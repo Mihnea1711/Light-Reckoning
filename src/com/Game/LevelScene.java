@@ -38,7 +38,7 @@ public class LevelScene extends Scene {
      * Initializes the level
      */
     @Override
-    public void init(String filename, String musicFile, String backgroundPath, String groundPath) {
+    public void init(String filename, String musicFile, String backgroundPath, String groundPath, boolean importLVL) {
         initAssetPool();
 
         player = new GameObject("player", new Transform(new Pair(Constants.PlayerLevelStartX, Constants.PlayerLevelStartY)), 0);
@@ -105,8 +105,8 @@ public class LevelScene extends Scene {
     }
 
     public void initButtons() {
-        GameObject BackButton = new GameObject("Back", new Transform(new Pair(1200, 50)), 10);
-        SceneChangerButton back = new SceneChangerButton(70, 74, backButton, backButton, "", 3, "", null, "", "");
+        GameObject BackButton = new GameObject("Back", new Transform(new Pair(1100, 50)), 10);
+        SceneChangerButton back = new SceneChangerButton(70, 74, backButton, backButton, "", 2, "", null, "", "");
         BackButton.addComponent(back);
         BackButton.setUI(true);
         BackButton.setNonserializable();
@@ -179,7 +179,7 @@ public class LevelScene extends Scene {
             }
         }
         //TODO:: check why not working properly
-        progressBar.update(dTime);      //update the progress bar
+        //progressBar.update(dTime);      //update the progress bar
     }
 
     /**

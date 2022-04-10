@@ -52,7 +52,7 @@ public class Constants {
     //Color properties
     public static final Color BgColor = new Color(212.0f / 255.0f, 20.0f / 255.0f, 20 / 255.0f, 1.0f);
     public static final Color GroundColor = new Color(208.0f / 255.0f, 70 / 255.0f, 10 / 255.0f, 1.0f);
-    public static final float BgSpeed = 80.0f;
+    public static final float BgSpeed = 35.0f;
 
     //Tab properties
     public static final int ContainerOffY = 535;

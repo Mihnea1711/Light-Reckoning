@@ -41,7 +41,7 @@ public class ParallaxBG extends Component {
         this.ground = ground;
 
         //if the player is on the ground, it will move the same speed with the player, but the background will be slower
-        if(followGround) this.speed = Constants.PlayerSpeed -35;
+        if(followGround) this.speed = Constants.PlayerSpeed - 35;
         this.followGround = followGround;
     }
 

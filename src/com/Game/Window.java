@@ -2,6 +2,7 @@ package com.Game;
 
 import com.Components.Music;
 import com.Components.ProgressBar;
+import com.Components.TextField;
 import com.Utilities.Constants;
 import com.Utilities.Time;
 
@@ -30,6 +31,7 @@ public class Window extends JFrame implements Runnable {
     private Graphics doubleBufferGraphics  = null;      //graphics handler for img
 
     private ProgressBar progressBar;
+    private TextField textField;
 
     /**
      * Constructor that sets the window properties
@@ -51,6 +53,7 @@ public class Window extends JFrame implements Runnable {
         this.addKeyListener(keyListener);           //keys
 
         this.progressBar = new ProgressBar();
+        //this.textField = new TextField(575, 250, 300, 50);
     }
 
     /**
@@ -58,7 +61,7 @@ public class Window extends JFrame implements Runnable {
      * Tells which scene to start with.
      */
     public void init(){
-        changeScene(2, "", "", "", "");     //changes scene to 0 = level editor scene, 1 = levelScene
+        changeScene(2, "", "", "", "", false);     //changes scene to 0 = level editor scene, 1 = levelScene
     }
 
     /**
@@ -73,17 +76,17 @@ public class Window extends JFrame implements Runnable {
      * Will tell which scene we need to change to
      * @param scene index of the Scene we want to change to
      */
-    public void changeScene(int scene, String filename, String musicFile, String backgroundPath, String groundPath) {
+    public void changeScene(int scene, String filename, String musicFile, String backgroundPath, String groundPath, boolean importLvl) {
         switch(scene){
             case 0:
                 isInEditor = true;
-                currentScene = new LevelEditorScene("Level Editor");        //switches the scene to level editor scene
-                currentScene.init();
+                currentScene = new LevelEditorScene("Level Editor Scene");        //switches the scene to level editor scene
+                currentScene.init(filename, "", "", "", importLvl);
                 break;
             case 1:
                 isInEditor = false;
-                currentScene = new LevelScene("Level");
-                currentScene.init(filename, musicFile, backgroundPath, groundPath);
+                currentScene = new LevelScene("Level Scene");
+                currentScene.init(filename, musicFile, backgroundPath, groundPath, false);
                 break;
             case 2:
                 isInEditor = true;
@@ -108,6 +111,16 @@ public class Window extends JFrame implements Runnable {
             case 6:
                 isInEditor = true;
                 currentScene = new Level4Menu("Level4Menu");
+                currentScene.init();
+                break;
+            case 7:
+                isInEditor = true;
+                currentScene = new CreateNewLevelMenu("NewLevelMenu");
+                currentScene.init("", "", "", "", importLvl);
+                break;
+            case 8:
+                isInEditor = true;
+                currentScene = new OptionSelectMenu("Create/Import Lvl");
                 currentScene.init();
                 break;
             default:
@@ -173,7 +186,16 @@ public class Window extends JFrame implements Runnable {
     }
 
     public void addProgressBar(ProgressBar progressBar) {
-        this.add(progressBar.bar);
+        this.add(progressBar.getBar());
+    }
+
+    public ProgressBar getBar() {
+        return progressBar;
+    }
+
+    public void addTextField(TextField textField) {
+        //TODO::why the text field not working
+        //this.add(textField.getTextField());
     }
 
     /**

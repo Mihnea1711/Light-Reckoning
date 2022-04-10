@@ -1,5 +1,6 @@
 package com.Game;
 
+import com.Buttons.SaveLevelButton;
 import com.Buttons.SceneChangerButton;
 import com.Components.*;
 import com.DataStructures.AssetPool;
@@ -11,7 +12,6 @@ import com.Utilities.Pair;
 
 import java.awt.Color;
 import java.awt.Graphics2D;
-import java.awt.event.KeyEvent;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -37,7 +37,7 @@ public class LevelEditorScene extends Scene{
     private CameraControls cameraControls;
     private MainContainer editingButtons;
 
-    private Sprite backButton;
+    private Sprite backButton, saveSprite, pressedSave, Play;
 
     private List<GameObject> buttons;
 
@@ -45,6 +45,8 @@ public class LevelEditorScene extends Scene{
 
     private float debounceKey = 0.5f;      //every 0.5 sec we will register one key press -> not too much speed when editing
     private float debounceKeyLeft = 0.0f;
+
+    private String filename;
 
     /**
      * Calls the superclass(Scene) constructor
@@ -59,11 +61,12 @@ public class LevelEditorScene extends Scene{
      * Initializes the Editor.
      */
     @Override
-    public void init() {
+    public void init(String filename, String musicPath, String backgroundPath, String groundPath, boolean ImportLvl) {
         initAssetPool();
         editingButtons = new MainContainer();
         grid = new Grid();
         cameraControls = new CameraControls();
+        this.filename = filename;
         editingButtons.start();
 
         mouseCursor = new GameObject("Mouse Cursor", new Transform(new Pair()), 10);
@@ -81,7 +84,12 @@ public class LevelEditorScene extends Scene{
 
         initBackGrounds();
 
-        initButtons();
+        initButtons(filename);
+
+        if(ImportLvl) {
+            importLvl(filename);
+        }
+        System.out.println("Created Levels Available: "+ levelsCreated);
     }
 
     /**
@@ -92,9 +100,15 @@ public class LevelEditorScene extends Scene{
         AssetPool.addSpritesheet("Assets/PlayerSprites/layerTwo.png", Constants.PlayerWidth, Constants.PlayerHeight, 2, 13, 13*5);
         AssetPool.addSpritesheet("Assets/PlayerSprites/layerThree.png", Constants.PlayerWidth, Constants.PlayerHeight, 2, 13, 13*5);
 
-        AssetPool.addSpritesheet("Assets/Blocks/Blocks.png", Constants.TileWidth, Constants.TileHeight, 2, 6, 12);
+
         AssetPool.addSpritesheet("Assets/UI/buttonSprites.png", Constants.ButtonWidth, Constants.ButtonHeight, 2, 2, 2);
+        AssetPool.addSpritesheet("Assets/UI/newSprites.png", 80, 81, 2,2, 2);
+        AssetPool.addSpritesheet("Assets/UI/saveLevel.png", 80, 33, 0,1, 1);
+        AssetPool.addSpritesheet("Assets/UI/pressedSave.png", 80, 33, 0,1, 1);
+        AssetPool.addSpritesheet("Assets/UI/play.png", 80, 33, 0,1, 1);
         AssetPool.addSpritesheet("Assets/UI/tabs.png", Constants.TabWidth, Constants.TabHeight, 2, 6, 6);
+
+        AssetPool.addSpritesheet("Assets/Blocks/Blocks.png", Constants.TileWidth, Constants.TileHeight, 2, 6, 12);
         AssetPool.addSpritesheet("Assets/Blocks/spikes.png", Constants.TileWidth, Constants.TileHeight, 2, 6, 4);
         AssetPool.addSpritesheet("Assets/Blocks/bigBlocks.png", Constants.TileWidth * 2, Constants.TileHeight * 2, 2, 3, 3);
         AssetPool.addSpritesheet("Assets/Blocks/smallBlocks.png", Constants.TileWidth, Constants.TileHeight, 2, 6, 6);
@@ -102,10 +116,14 @@ public class LevelEditorScene extends Scene{
         AssetPool.addSpritesheet("Assets/Collectibles/coin.png", 75, 75, 0,1, 1);
 
         AssetPool.addSpritesheet("Assets/Global/back.png", 70, 74, 0,1, 1);
+
         this.backButton = AssetPool.getSprite("Assets/Global/back.png");
+        this.saveSprite = AssetPool.getSprite("Assets/UI/saveLevel.png");
+        this.pressedSave = AssetPool.getSprite("Assets/UI/pressedSave.png");
+        this.Play = AssetPool.getSprite("Assets/UI/play.png");
     }
 
-    public void initButtons() {
+    public void initButtons(String filename) {
         GameObject BackButton = new GameObject("Back", new Transform(new Pair(1150, 50)), 10);
         SceneChangerButton back = new SceneChangerButton(70, 74, backButton, backButton, 2);
         BackButton.addComponent(back);
@@ -113,6 +131,24 @@ public class LevelEditorScene extends Scene{
         BackButton.setNonserializable();
         buttons.add(BackButton);
         addGameObject(BackButton);
+
+        GameObject saveButton = new GameObject("Save", new Transform(new Pair(1120, 230)), 10);
+        SaveLevelButton save = new SaveLevelButton(120, 49, saveSprite, pressedSave, filename, gameObjectList);
+        saveButton.addComponent(save);
+        saveButton.setUI(true);
+        saveButton.setNonserializable();
+        buttons.add(saveButton);
+        addGameObject(saveButton);
+
+        GameObject playButton = new GameObject("Save", new Transform(new Pair(1120, 160)), 10);
+        SceneChangerButton play = new SceneChangerButton(120, 49, Play, Play, "", 1, filename,
+                "Assets/LevelSoundTracks/stereoMadness.wav",
+                "Assets/Background/bg01.png", "Assets/Ground/ground01.png");
+        playButton.addComponent(play);
+        playButton.setUI(true);
+        playButton.setNonserializable();
+        buttons.add(playButton);
+        addGameObject(playButton);
     }
 
     public void initBackGrounds() {
@@ -163,28 +199,26 @@ public class LevelEditorScene extends Scene{
         if(camera.getPosY() > Constants.CameraOffsetGroundY + 35) {              //to move past the bottom of the ground
             camera.pos.y = Constants.CameraOffsetGroundY + 36;  //fixes the dragging below ground bug
         }
-        for(GameObject g : gameObjectList) {        //update every game object
+
+        for (GameObject g : gameObjectList) {        //update every game object
             g.update(dTime);
         }
-        for (GameObject obj : buttons) {
-            obj.update(dTime);
-        }
+
         cameraControls.update(dTime);
         grid.update(dTime);
         editingButtons.update(dTime);
         mouseCursor.update(dTime);
 
-        //F1 - exporting the level
-        //F2 - importing the level
-        //F3 - plays the level
-        if(Window.getWindow().keyListener.isKeyPressed(KeyEvent.VK_F1)) {
-            exportLvl("Level5");
-            debounceKeyLeft = debounceKey;
-        } else if(Window.getWindow().keyListener.isKeyPressed((KeyEvent.VK_F2))) {
-            importLvl("Level1");
-        } else if(Window.getWindow().keyListener.isKeyPressed((KeyEvent.VK_F3))) {
-            //Window.getWindow().changeScene(1, "Level1", "Assets/LevelSoundTracks/stereoMadness.wav");
-        }
+//        //F1 - exporting the level
+//        //F2 - importing the level
+//        //F3 - plays the level
+//        if(Window.getWindow().keyListener.isKeyPressed(KeyEvent.VK_F1)) {
+//            exportLvl(filename);
+//            debounceKeyLeft = debounceKey;
+//        } else
+//        } else if(Window.getWindow().keyListener.isKeyPressed((KeyEvent.VK_F3))) {
+//            //Window.getWindow().changeScene(1, "Level1", "Assets/LevelSoundTracks/stereoMadness.wav");
+//        }
 
         if(objsToRemove.size() > 0) {
             for (GameObject obj : objsToRemove) {
@@ -222,40 +256,6 @@ public class LevelEditorScene extends Scene{
         }
     }
 
-    /**
-     * Exports the level to the zipped file created.
-     * Zipping it up to save more space.
-     * @param filename name of the file to create when exporting the level.
-     */
-    private void export(String filename) {
-        try {
-            FileOutputStream fileOutputStream = new FileOutputStream("levels/levels.zip");    //zipping it up to save more space
-            ZipOutputStream zipOutputStream = new ZipOutputStream(fileOutputStream);    //creating a zip file in java
-
-            zipOutputStream.putNextEntry(new ZipEntry(filename + ".json")); //putting a file.json inside the zip
-
-            //writing to the file
-            int i = 0;
-            for(GameObject obj : gameObjectList) {
-                //serialize all the game objects in the level
-                String str = obj.serialize(0);      //0 is the tab size
-                if(str.compareTo("") != 0) {        //empty string is the flag for a game object we don't want to serialize
-                    zipOutputStream.write(str.getBytes());      //writing in zip files
-                    if(i != gameObjectList.size() - 1) {
-                        zipOutputStream.write(",\n".getBytes());    //write a comma to separate all the game objects
-                    }
-                }
-                i++;
-            }
-            zipOutputStream.closeEntry();       //close the entry for the zip file
-            zipOutputStream.close();            //close the zip file output stream
-            fileOutputStream.close();           //close the file output stream
-        } catch(IOException e) {
-            e.printStackTrace();
-            System.exit(-1);
-        }
-    }
-
     private static void copy(InputStream inputStream, OutputStream outputStream) throws IOException {
         int bytesRead;
         while((bytesRead = inputStream.read(BUFFER)) != -1) {           //-1 EOF
@@ -273,6 +273,11 @@ public class LevelEditorScene extends Scene{
         }
     }
 
+    /**
+     * Exports the level to the zipped file created.
+     * Zipping it up to save more space.
+     * @param filename name of the file to create when exporting the level.
+     */
     private void exportLvl(String filename) {
         ZipFile levels;
         try {

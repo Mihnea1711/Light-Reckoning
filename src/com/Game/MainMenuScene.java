@@ -54,6 +54,10 @@ public class MainMenuScene extends Scene {
 
         initBackGrounds();
         initButtons();
+
+        if(levelMusic != null) {
+            levelMusic.stop();
+        }
     }
 
     public void initAssetPool() {
@@ -96,7 +100,7 @@ public class MainMenuScene extends Scene {
         buttons.add(play);
 
         GameObject editor = new GameObject("SceneChangerButton", new Transform(new Pair(Constants.MenuEditorButtonX, Constants.MenuEditorButtonY)), 10);
-        SceneChangerButton editorButton = new SceneChangerButton(ButtonEditor.width, ButtonEditor.height, ButtonEditor, ButtonEditor, 0);
+        SceneChangerButton editorButton = new SceneChangerButton(ButtonEditor.width, ButtonEditor.height, ButtonEditor, ButtonEditor, 8);
         editor.addComponent(editorButton);
         editor.setUI(true);
         editor.setNonserializable();

@@ -7,7 +7,7 @@ import java.awt.Color;
 import java.awt.Font;
 
 public class ProgressBar extends Component {
-    public JProgressBar bar = new JProgressBar(0, 100);
+    private JProgressBar bar = new JProgressBar(0, 100);
     private float counter = 0.0f;
 
     public ProgressBar(){
@@ -27,6 +27,10 @@ public class ProgressBar extends Component {
         } else {
             bar.setString("Completed!");
         }
+    }
+
+    public JProgressBar getBar() {
+        return bar;
     }
 
     public float getCounterValue() {
