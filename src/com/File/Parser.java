@@ -23,14 +23,14 @@ public class Parser {
      * Function to open the file we are about to parse.
      * @param filename name of the file we want to parse
      */
-    public static void openFile(String filename) {
-        File tmp = new File("levels/levels.zip");
+    public static void openFile(String filename, String zipFilePath) {
+        File tmp = new File(zipFilePath);
         if(!tmp.exists()) { return; }
         offset = 0;
         line = 1;
 
         try {
-            ZipFile zipFile = new ZipFile("levels/levels.zip");       //the zip file
+            ZipFile zipFile = new ZipFile(zipFilePath);       //the zip file
             ZipEntry jsonFile = zipFile.getEntry(filename + ".json");       //the json file inside the zip
             InputStream stream = zipFile.getInputStream(jsonFile);          //read from a file
 

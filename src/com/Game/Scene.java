@@ -55,7 +55,7 @@ public abstract class Scene {
 
     }
 
-    public  void init(String filename, String musicFile,String backgroundPath, String groundPath, boolean importLvl) {
+    public  void init(String filename, String zipFilePath, String musicFile, String backgroundPath, String groundPath, boolean importLvl) {
 
     }
 
@@ -69,9 +69,9 @@ public abstract class Scene {
     private void updateCreatedLevels() {
         ZipFile levels;
         try {
-            File check = new File("levels/levels.zip");
+            File check = new File("levels/CreatedLevels.zip");
             if(check.exists()) {
-                levels = new ZipFile("levels/levels.zip");
+                levels = new ZipFile("levels/CreatedLevels.zip");
 
                 //copy contents from existing zip
                 Enumeration<? extends ZipEntry> entries = levels.entries();
@@ -137,5 +137,5 @@ public abstract class Scene {
      * Imports the level
      * @param filename the file from where we take our serialized level.
      */
-    protected abstract void importLvl(String filename);
+    protected abstract void importLvl(String filename, String zipFilePath);
 }

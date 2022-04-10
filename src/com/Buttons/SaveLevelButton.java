@@ -38,7 +38,7 @@ public class SaveLevelButton extends Button {
     private void renameFile() {
         Path sourceFile = Paths.get("levels/append.zip");
         try {
-            Files.move(sourceFile, sourceFile.resolveSibling("levels.zip"));
+            Files.move(sourceFile, sourceFile.resolveSibling("CreatedLevels.zip"));
         } catch (IOException e) {
             System.out.println("Rename error");
             e.printStackTrace();
@@ -48,7 +48,7 @@ public class SaveLevelButton extends Button {
     private void exportLvl(String filename) {
         ZipFile levels;
         try {
-            levels = new ZipFile("levels/levels.zip");
+            levels = new ZipFile("levels/CreatedLevels.zip");
             ZipOutputStream append = new ZipOutputStream(new FileOutputStream("levels/append.zip"));
 
             //copy contents from existing zip
@@ -84,7 +84,7 @@ public class SaveLevelButton extends Button {
             levels.close();
             append.close();
 
-            Files.delete(Paths.get("levels/levels.zip"));
+            Files.delete(Paths.get("levels/CreatedLevels.zip"));
             renameFile();
         } catch (IOException e) {
             e.printStackTrace();

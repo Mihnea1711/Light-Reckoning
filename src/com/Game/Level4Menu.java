@@ -81,7 +81,7 @@ public class Level4Menu extends Scene{
     public void initButtons() {
         GameObject levelButton = new GameObject("SceneChangerButton", new Transform(new Pair(340, 150)), 5);
         SceneChangerButton playButton = new SceneChangerButton(levelButtonSprite.width, levelButtonSprite.height, levelButtonSprite, levelButtonSprite,
-                "Fingerdash", 1, "Level4", "Assets/LevelSoundTracks/Fingerdash.wav",
+                "Fingerdash", 1, "Level4", "levels/levels.zip","Assets/LevelSoundTracks/Fingerdash.wav",
                 "Assets/Background/bg05.png", "Assets/Ground/ground05.png");
         levelButton.addComponent(playButton);
         levelButton.setUI(true);
@@ -148,7 +148,7 @@ public class Level4Menu extends Scene{
      * @param filename the file from where we take our serialized level.
      */
     @Override
-    protected void importLvl(String filename) {
+    protected void importLvl(String filename, String zipFilePath) {
 
     }
 }

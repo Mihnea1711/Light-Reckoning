@@ -61,7 +61,7 @@ public class LevelEditorScene extends Scene{
      * Initializes the Editor.
      */
     @Override
-    public void init(String filename, String musicPath, String backgroundPath, String groundPath, boolean ImportLvl) {
+    public void init(String filename, String zipFilePath,  String musicPath, String backgroundPath, String groundPath, boolean ImportLvl) {
         initAssetPool();
         editingButtons = new MainContainer();
         grid = new Grid();
@@ -87,9 +87,9 @@ public class LevelEditorScene extends Scene{
         initButtons(filename);
 
         if(ImportLvl) {
-            importLvl(filename);
+            importLvl(filename, zipFilePath);
         }
-        System.out.println("Created Levels Available: "+ levelsCreated);
+        System.out.println("Created Levels Available: " + levelsCreated);
     }
 
     /**
@@ -142,6 +142,7 @@ public class LevelEditorScene extends Scene{
 
         GameObject playButton = new GameObject("Save", new Transform(new Pair(1120, 160)), 10);
         SceneChangerButton play = new SceneChangerButton(120, 49, Play, Play, "", 1, filename,
+                "levels/CreatedLevels.zip",
                 "Assets/LevelSoundTracks/stereoMadness.wav",
                 "Assets/Background/bg01.png", "Assets/Ground/ground01.png");
         playButton.addComponent(play);
@@ -234,7 +235,7 @@ public class LevelEditorScene extends Scene{
      * @param filename the file from where we are importing the level
      */
     @Override
-    protected void importLvl(String filename) {
+    protected void importLvl(String filename, String zipFilePath) {
         //removes the objects from the scene first
         for(GameObject obj : gameObjectList) {
             if(obj.isSerializable) {
@@ -248,7 +249,7 @@ public class LevelEditorScene extends Scene{
         }
 
         //reads from the file
-        Parser.openFile(filename);
+        Parser.openFile(filename, zipFilePath);
         GameObject obj = Parser.parseGameObject();
         while(obj != null) {
             addGameObject(obj);

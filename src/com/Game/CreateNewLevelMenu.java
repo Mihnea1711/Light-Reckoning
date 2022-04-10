@@ -5,7 +5,6 @@ import com.Buttons.SubmitButton;
 import com.Components.Ground;
 import com.Components.ParallaxBG;
 import com.Components.Sprite;
-import com.Components.TextField;
 import com.DataStructures.AssetPool;
 import com.DataStructures.Transform;
 import com.Utilities.Constants;
@@ -19,11 +18,11 @@ import java.util.Scanner;
 
 //The scene where we create a new level, or where we type the level name to import it.
 public class CreateNewLevelMenu extends Scene {
-    private TextField textField;
+    //private TextField textField;
     private SubmitButton button;
     private GameObject mouseCursor;
     private List<GameObject> buttons;
-    Scanner scanner = new Scanner(System.in);
+    private Scanner scanner = new Scanner(System.in);
     boolean entered = false;
     boolean importLVL;
 
@@ -32,15 +31,15 @@ public class CreateNewLevelMenu extends Scene {
     public CreateNewLevelMenu(String name) {
         super.Scene(name);
         this.buttons = new ArrayList<>();
-        this.textField = new TextField(575, 225, 300, 50);
+        //this.textField = new TextField(575, 225, 300, 50);
     }
 
-    public void init(String a, String b, String c, String d, boolean importLVL) {
+    public void init(String a, String b, String c, String d, String e, boolean importLVL) {
         initAssetPool();
         mouseCursor = new GameObject("Mouse Cursor", new Transform(new Pair()), 10);
         initBackGrounds();
         initButtons();
-        Window.getWindow().addTextField(textField);
+        //Window.getWindow().addTextField(textField);
         entered = false;
         this.importLVL = importLVL;
     }
@@ -157,7 +156,7 @@ public class CreateNewLevelMenu extends Scene {
      * @param filename the file from where we take our serialized level.
      */
     @Override
-    protected void importLvl(String filename) {
+    protected void importLvl(String filename, String zipFilePath) {
 
     }
 }

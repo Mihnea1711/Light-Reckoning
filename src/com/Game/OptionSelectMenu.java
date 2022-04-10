@@ -139,7 +139,7 @@ public class OptionSelectMenu extends Scene{
      * @param filename the file from where we take our serialized level.
      */
     @Override
-    protected void importLvl(String filename) {
+    protected void importLvl(String filename, String zipFilePath) {
 
     }
 }

@@ -81,7 +81,7 @@ public class Level3Menu extends Scene{
     public void initButtons() {
         GameObject levelButton = new GameObject("SceneChangerButton", new Transform(new Pair(340, 150)), 5);
         SceneChangerButton playButton = new SceneChangerButton(levelButtonSprite.width, levelButtonSprite.height, levelButtonSprite, levelButtonSprite,
-                "Eternal Cycles", 1, "Level3", "Assets/LevelSoundTracks/TheoryOfEverything.wav",
+                "Eternal Cycles", 1, "Level3", "levels/levels.zip","Assets/LevelSoundTracks/TheoryOfEverything.wav",
                 "Assets/Background/bg02.png", "Assets/Ground/ground02.png");
         levelButton.addComponent(playButton);
         levelButton.setUI(true);
@@ -148,7 +148,7 @@ public class Level3Menu extends Scene{
      * @param filename the file from where we take our serialized level.
      */
     @Override
-    protected void importLvl(String filename) {
+    protected void importLvl(String filename, String zipFilePath) {
 
     }
 }

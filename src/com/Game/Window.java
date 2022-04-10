@@ -61,7 +61,7 @@ public class Window extends JFrame implements Runnable {
      * Tells which scene to start with.
      */
     public void init(){
-        changeScene(2, "", "", "", "", false);     //changes scene to 0 = level editor scene, 1 = levelScene
+        changeScene(2, "", "", "", "", "", false);     //changes scene to 0 = level editor scene, 1 = levelScene
     }
 
     /**
@@ -76,17 +76,17 @@ public class Window extends JFrame implements Runnable {
      * Will tell which scene we need to change to
      * @param scene index of the Scene we want to change to
      */
-    public void changeScene(int scene, String filename, String musicFile, String backgroundPath, String groundPath, boolean importLvl) {
+    public void changeScene(int scene, String filename, String zipFilePath, String musicFile, String backgroundPath, String groundPath, boolean importLvl) {
         switch(scene){
             case 0:
                 isInEditor = true;
                 currentScene = new LevelEditorScene("Level Editor Scene");        //switches the scene to level editor scene
-                currentScene.init(filename, "", "", "", importLvl);
+                currentScene.init(filename, "levels/CreatedLevels.zip", "", "", "", importLvl);
                 break;
             case 1:
                 isInEditor = false;
                 currentScene = new LevelScene("Level Scene");
-                currentScene.init(filename, musicFile, backgroundPath, groundPath, false);
+                currentScene.init(filename, zipFilePath, musicFile, backgroundPath, groundPath, false);
                 break;
             case 2:
                 isInEditor = true;
@@ -116,7 +116,7 @@ public class Window extends JFrame implements Runnable {
             case 7:
                 isInEditor = true;
                 currentScene = new CreateNewLevelMenu("NewLevelMenu");
-                currentScene.init("", "", "", "", importLvl);
+                currentScene.init("", "", "", "", "", importLvl);
                 break;
             case 8:
                 isInEditor = true;

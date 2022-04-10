@@ -209,10 +209,11 @@ public class MainMenuScene extends Scene {
     }
 
     /**
-     * Don't need to implement it
+     * Imports the level
      * @param filename the file from where we take our serialized level.
      */
     @Override
-    protected void importLvl(String filename) {
+    protected void importLvl(String filename, String zipFilePath) {
+
     }
 }

@@ -45,7 +45,7 @@ public class SubmitButton extends Button {
     private void renameFile() {
         Path sourceFile = Paths.get("levels/append.zip");
         try {
-            Files.move(sourceFile, sourceFile.resolveSibling("levels.zip"));
+            Files.move(sourceFile, sourceFile.resolveSibling("CreatedLevels.zip"));
         } catch (IOException e) {
             System.out.println("Rename error");
             e.printStackTrace();
@@ -56,9 +56,9 @@ public class SubmitButton extends Button {
         ZipFile levels;
         try {
             ZipOutputStream append = new ZipOutputStream(new FileOutputStream("levels/append.zip"));
-            File check = new File("levels/levels.zip");
+            File check = new File("levels/CreatedLevels.zip");
             if(check.exists()) {
-                levels = new ZipFile("levels/levels.zip");
+                levels = new ZipFile("levels/CreatedLevels.zip");
                 //copy contents from existing zip
                 Enumeration<? extends ZipEntry> entries = levels.entries();
 
@@ -73,7 +73,7 @@ public class SubmitButton extends Button {
                     }
                 }
                 levels.close();
-                Files.delete(Paths.get("levels/levels.zip"));
+                Files.delete(Paths.get("levels/CreatedLevels.zip"));
             }
 
             //append the extra content
@@ -94,10 +94,10 @@ public class SubmitButton extends Button {
     public void buttonPressed() {
         if (create) {
             exportLvl(textAttached);
-            Window.getWindow().changeScene(0, textAttached, "Assets/LevelSoundTracks/stereoMadness.wav",
+            Window.getWindow().changeScene(0, textAttached,"", "Assets/LevelSoundTracks/stereoMadness.wav",
                     "Assets/Background/bg01.png", "Assets/Ground/ground01.png", false);
         } else {
-            Window.getWindow().changeScene(0, textAttached, "",
+            Window.getWindow().changeScene(0, textAttached, "", "",
                     "", "", true);
         }
     }

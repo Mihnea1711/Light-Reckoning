@@ -43,7 +43,7 @@ public class PipePart extends Component {
                 if(Window.getMusic() != null){
                     Window.getMusic().stop();
                 }
-                Window.getWindow().changeScene(3, "", "", "", "", false);
+                Window.getWindow().changeScene(3, "", "", "", "", "", false);
             }
         }
     }

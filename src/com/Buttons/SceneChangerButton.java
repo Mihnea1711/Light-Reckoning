@@ -7,7 +7,7 @@ import com.Game.Window;
 public class SceneChangerButton extends Button {
     private boolean importLvl;
     public int sceneIndex;
-    public String  filename, musicFile, backgroundPath, groundPath;
+    public String  filename, zipFilePath, musicFile, backgroundPath, groundPath;
 
     //for back button
     public SceneChangerButton(int width, int height, Sprite image, Sprite imageSelected, int sceneIndex) {
@@ -23,13 +23,14 @@ public class SceneChangerButton extends Button {
 
     //for level buttons
     public SceneChangerButton(int width, int height, Sprite image, Sprite imageSelected, String text, int sceneIndex,
-                              String filename, String musicFile, String backgroundPath, String groundPath) {
+                              String filename, String zipFilePath, String musicFile, String backgroundPath, String groundPath) {
         super(width, height, image, imageSelected, text);
         this.sceneIndex = sceneIndex;
         this.filename = filename;
         this.musicFile = musicFile;
         this.backgroundPath = backgroundPath;
         this.groundPath = groundPath;
+        this.zipFilePath = zipFilePath;
     }
 
     @Override
@@ -37,6 +38,6 @@ public class SceneChangerButton extends Button {
         if(Window.getMusic() != null) {
             Window.getMusic().stop();
         }
-        Window.getWindow().changeScene(sceneIndex, filename, musicFile, backgroundPath, groundPath, importLvl);
+        Window.getWindow().changeScene(sceneIndex, filename, zipFilePath, musicFile, backgroundPath, groundPath, importLvl);
     }
 }

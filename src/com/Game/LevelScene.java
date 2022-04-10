@@ -38,7 +38,7 @@ public class LevelScene extends Scene {
      * Initializes the level
      */
     @Override
-    public void init(String filename, String musicFile, String backgroundPath, String groundPath, boolean importLVL) {
+    public void init(String filename, String zipFilePath, String musicFile, String backgroundPath, String groundPath, boolean importLVL) {
         initAssetPool();
 
         player = new GameObject("player", new Transform(new Pair(Constants.PlayerLevelStartX, Constants.PlayerLevelStartY)), 0);
@@ -59,7 +59,7 @@ public class LevelScene extends Scene {
         initBackGrounds(backgroundPath, groundPath);
         initButtons();
 
-        importLvl(filename);
+        importLvl(filename, zipFilePath);
 
         if(levelMusic == null) {
             levelMusic = new Music(musicFile);
@@ -106,7 +106,7 @@ public class LevelScene extends Scene {
 
     public void initButtons() {
         GameObject BackButton = new GameObject("Back", new Transform(new Pair(1100, 50)), 10);
-        SceneChangerButton back = new SceneChangerButton(70, 74, backButton, backButton, "", 2, "", null, "", "");
+        SceneChangerButton back = new SceneChangerButton(70, 74, backButton, backButton, "", 2, "", "", null, "", "");
         BackButton.addComponent(back);
         BackButton.setUI(true);
         BackButton.setNonserializable();
@@ -188,8 +188,8 @@ public class LevelScene extends Scene {
      * @param filename the file we are opening
      */
     @Override
-    protected void importLvl(String filename) {               //could abstract it to the Scene
-        Parser.openFile(filename);
+    protected void importLvl(String filename, String zipFilePath) {               //could abstract it to the Scene
+        Parser.openFile(filename, zipFilePath);
 
         GameObject obj = Parser.parseGameObject();
         while(obj != null) {
