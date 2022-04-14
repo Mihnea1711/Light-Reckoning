@@ -1,18 +1,43 @@
 package com.main;
 
+import com.Game.DataBaseHandler;
 import com.Game.Window;
 
+import java.sql.Connection;
+import java.sql.SQLException;
+
 public class Main {
+
+    public static Connection conn;
     /**
      * Entry point for the program
      * @param args main function parameter
      */
     public static void main(String[] args){
-        Window window = Window.getWindow();
-        window.init();      //initialization function
+        try {
+            conn = DataBaseHandler.establishConnection();
 
-        Thread mainThread = new Thread(window);
-        mainThread.start(); //calls the run() method
+            DataBaseHandler.updateTable(conn != null ? conn : null);
+
+            Window window = Window.getWindow();
+            window.init();      //initialization function
+
+            Thread mainThread = new Thread(window);
+            mainThread.start();     //calls the run method
+
+        } catch (SQLException | ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+        finally {
+            if(conn != null && !Window.getWindow().isRunning) {
+                try {
+                    conn.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                    System.out.println(e.getMessage());
+                }
+            }
+        }
     }
 }
 

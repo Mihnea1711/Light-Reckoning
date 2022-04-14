@@ -2,7 +2,12 @@ package com.Buttons;
 
 import com.Components.Button;
 import com.Components.Sprite;
+import com.Game.DataBaseHandler;
 import com.Game.Window;
+
+import java.util.Objects;
+
+import static com.main.Main.conn;
 
 public class SceneChangerButton extends Button {
     private boolean importLvl;
@@ -37,6 +42,10 @@ public class SceneChangerButton extends Button {
     public void buttonPressed() {
         if(Window.getMusic() != null) {
             Window.getMusic().stop();
+        }
+        if(Objects.equals(filename, "Level1") || Objects.equals(filename, "Level2") ||
+                Objects.equals(filename, "Level3") || Objects.equals(filename, "Level4")) {
+            DataBaseHandler.updateAttempts(conn, filename);
         }
         Window.getWindow().changeScene(sceneIndex, filename, zipFilePath, musicFile, backgroundPath, groundPath, importLvl);
     }

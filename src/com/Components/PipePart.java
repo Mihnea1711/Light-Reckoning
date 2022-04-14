@@ -3,6 +3,8 @@ package com.Components;
 import com.File.Parser;
 import com.Game.*;
 
+import static com.main.Main.conn;
+
 public class PipePart extends Component {
     boolean exitOnCollision;
     public GameObject player;               //reference to the player
@@ -40,6 +42,7 @@ public class PipePart extends Component {
             if (exitOnCollision && BoxBounds.checkCollision(bounds, player.getComp(BoxBounds.class))) {
                 System.out.println("Total jumps: " + player.getComp(Player.class).getJumps());
                 System.out.println("Coins collected: " + player.getComp(Player.class).getCollectedCoins());
+                DataBaseHandler.updateCoins(conn, Window.getScene().name, player.getComp(Player.class).getCollectedCoins());
                 if(Window.getMusic() != null){
                     Window.getMusic().stop();
                 }

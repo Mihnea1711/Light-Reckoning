@@ -2,13 +2,16 @@ package com.Components;
 
 import com.DataStructures.AssetPool;
 import com.Game.Component;
+import com.Game.DataBaseHandler;
 import com.Game.Window;
 import com.Utilities.Constants;
 
-import java.awt.Graphics2D;
 import java.awt.Color;
+import java.awt.Graphics2D;
 import java.awt.event.KeyEvent;
 import java.awt.geom.AffineTransform;
+
+import static com.main.Main.conn;
 
 /**
  * Class for the player
@@ -69,12 +72,14 @@ public class Player extends Component {
             }
             this.onGround = false;
             numberOFJumps++;
+            DataBaseHandler.updateJumps(conn, Window.getScene().name);
         }
 
         if(PlayerState.Flying == this.state && Window.keyListener().isKeyPressed(KeyEvent.VK_SPACE) && !Window.getWindow().isInEditor) {
             addFlyForce();
             this.onGround = false;
             numberOFJumps++;
+            DataBaseHandler.updateJumps(conn, Window.getScene().name);
         }
 
         //TODO:: check the rotation not snapping correctly and dying bug
@@ -115,6 +120,8 @@ public class Player extends Component {
         Window.getWindow().getCurrentScene().camera.pos.x = 0;
         gameObject.getComp(Player.class).state = PlayerState.Normal;
         Window.getMusic().restartClip();
+        DataBaseHandler.updateAttempts(conn, Window.getScene().name);
+        DataBaseHandler.updateCoins(conn, Window.getScene().name, collectedCoins);
         numberOFJumps = 0;
     }
 

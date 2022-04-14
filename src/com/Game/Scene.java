@@ -6,8 +6,6 @@ import com.Utilities.Pair;
 import java.awt.Graphics2D;
 import java.io.File;
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.List;
@@ -19,21 +17,19 @@ import java.util.zip.ZipFile;
  * holds the methods that all the scenes will need
  */
 public abstract class Scene {
-    String name;        //helpful for debugging
+    public String name;        //helpful for debugging
     public Camera camera;   //camera for the scene
-    List<GameObject> gameObjectList;    //all the game objects in the scene
+    protected List<GameObject> gameObjectList;    //all the game objects in the scene
+
     //prepares the objects that are going to be removed, because it will be called in the middle of an update loop.
     //if we delete objects and then we try to update them, it will cause problems, so we will wait till the end of the frame.
-    List<GameObject> objsToRemove;
+    protected List<GameObject> objsToRemove;
 
-    Renderer renderer;      //renderer for the scene
+    protected Renderer renderer;      //renderer for the scene
 
     protected Music levelMusic = null;
+
     protected static ArrayList<String> levelsCreated = new ArrayList<>();
-
-    private static final byte[] BUFFER = new byte[4096 * 1024];
-
-    //protected Music SceneSoundTrack = null;
 
     /**
      * Constructor for the Scene
@@ -57,13 +53,6 @@ public abstract class Scene {
 
     public  void init(String filename, String zipFilePath, String musicFile, String backgroundPath, String groundPath, boolean importLvl) {
 
-    }
-
-    private static void copy(InputStream inputStream, OutputStream outputStream) throws IOException {
-        int bytesRead;
-        while((bytesRead = inputStream.read(BUFFER)) != -1) {           //-1 EOF
-            outputStream.write(BUFFER, 0, bytesRead);
-        }
     }
 
     private void updateCreatedLevels() {

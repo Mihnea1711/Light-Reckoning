@@ -39,6 +39,7 @@ public class Coin extends Component {
         if(player != null) {
             if(CircleBounds.checkCollision(bounds, player.getComp(Bounds.class)) && !this.wasCollected) {
                 this.wasCollected = true;
+                //DataBaseHandler.updateCoins(conn, Window.getScene().name);
             }
         }
     }

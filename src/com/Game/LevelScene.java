@@ -10,6 +10,9 @@ import com.Utilities.Pair;
 
 import java.awt.Color;
 import java.awt.Graphics2D;
+import java.math.BigDecimal;
+
+import static com.main.Main.conn;
 
 /**
  * This is the playable Level
@@ -23,6 +26,8 @@ public class LevelScene extends Scene {
     private float startX = Float.MAX_VALUE;
     private float finishX = Float.MIN_VALUE;
     private float levelLength = 0;
+
+    private String filename;
 
     /**
      * Constructor
@@ -40,6 +45,7 @@ public class LevelScene extends Scene {
     @Override
     public void init(String filename, String zipFilePath, String musicFile, String backgroundPath, String groundPath, boolean importLVL) {
         initAssetPool();
+        this.filename = filename;
 
         player = new GameObject("player", new Transform(new Pair(Constants.PlayerLevelStartX, Constants.PlayerLevelStartY)), 0);
         SpriteSheet layer1 = AssetPool.getSpritesheet("Assets/PlayerSprites/layerOne.png");
@@ -158,14 +164,20 @@ public class LevelScene extends Scene {
         }
 
         player.update(dTime);       //update the state of player
+//        DataBaseHandler.updateRecord(conn, filename,
+//                player.getComp(Player.class).getJumps(),
+//                (int)Math.floor(((player.getPosX() - startX) / levelLength) * 100),
+//                player.getComp(Player.class).getCollectedCoins() - DataBaseHandler.getCoins(conn, filename));
 
         //Remove this if it is too frustrating
         progressBar.setCounterValue(((player.getPosX() - startX) / levelLength) * 100);
         //progressBar.counter = new BigDecimal(String.format("%.2f", (player.getPosX() - startX) / levelLength));
 
+        if(player.getPosX() <= finishX) {
+            DataBaseHandler.updateCounter(conn, filename, (int)Math.ceil(new BigDecimal(String.format("%.2f", ((player.getPosX() - startX) / levelLength) * 100)).doubleValue()));
+        }
+
         player.getComp(Player.class).onGround = false;      //don't know if the player is on ground or not
-
-
         for(GameObject g : gameObjectList) {        //update every game object
             g.update(dTime);
             Bounds b = g.getComp(Bounds.class);

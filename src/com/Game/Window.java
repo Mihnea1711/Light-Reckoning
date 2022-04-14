@@ -17,7 +17,7 @@ import java.awt.Image;
  */
 public class Window extends JFrame implements Runnable {
     private static Window window = null;        //the window
-    private boolean isRunning = true;           //game is running or not
+    public final boolean isRunning = true;           //game is running or not
     public boolean isInEditor = true;   //flag whether we are in editor or not
 
     public MouseListener mouseListener;
@@ -30,7 +30,7 @@ public class Window extends JFrame implements Runnable {
     private Image doubleBufferImg = null;           //img used to draw things onto and then draw this inside the window
     private Graphics doubleBufferGraphics  = null;      //graphics handler for img
 
-    private ProgressBar progressBar;
+    private final ProgressBar progressBar;
     private TextField textField;
 
     /**
@@ -61,7 +61,7 @@ public class Window extends JFrame implements Runnable {
      * Tells which scene to start with.
      */
     public void init(){
-        changeScene(2, "", "", "", "", "", false);     //changes scene to 0 = level editor scene, 1 = levelScene
+        changeScene(2, "", "", "", "", "", false);
     }
 
     /**
@@ -77,56 +77,56 @@ public class Window extends JFrame implements Runnable {
      * @param scene index of the Scene we want to change to
      */
     public void changeScene(int scene, String filename, String zipFilePath, String musicFile, String backgroundPath, String groundPath, boolean importLvl) {
-        switch(scene){
-            case 0:
+        switch (scene) {
+            case 0 -> {
                 isInEditor = true;
                 currentScene = new LevelEditorScene("Level Editor Scene");        //switches the scene to level editor scene
                 currentScene.init(filename, "levels/CreatedLevels.zip", "", "", "", importLvl);
-                break;
-            case 1:
+            }
+            case 1 -> {
                 isInEditor = false;
-                currentScene = new LevelScene("Level Scene");
+                currentScene = new LevelScene(filename);
                 currentScene.init(filename, zipFilePath, musicFile, backgroundPath, groundPath, false);
-                break;
-            case 2:
+            }
+            case 2 -> {
                 isInEditor = true;
                 currentScene = new MainMenuScene("Main Menu");
                 currentScene.init();
-                break;
-            case 3:
+            }
+            case 3 -> {
                 isInEditor = true;
                 currentScene = new Level1Menu("Level1Menu");
                 currentScene.init();
-                break;
-            case 4:
+            }
+            case 4 -> {
                 isInEditor = true;
                 currentScene = new Level2Menu("Level2Menu");
                 currentScene.init();
-                break;
-            case 5:
+            }
+            case 5 -> {
                 isInEditor = true;
                 currentScene = new Level3Menu("Level3Menu");
                 currentScene.init();
-                break;
-            case 6:
+            }
+            case 6 -> {
                 isInEditor = true;
                 currentScene = new Level4Menu("Level4Menu");
                 currentScene.init();
-                break;
-            case 7:
+            }
+            case 7 -> {
                 isInEditor = true;
                 currentScene = new CreateNewLevelMenu("NewLevelMenu");
                 currentScene.init("", "", "", "", "", importLvl);
-                break;
-            case 8:
+            }
+            case 8 -> {
                 isInEditor = true;
                 currentScene = new OptionSelectMenu("Create/Import Lvl");
                 currentScene.init();
-                break;
-            default:
+            }
+            default -> {
                 System.out.println("Don't know the scene");
                 currentScene = null;
-                break;
+            }
         }
     }
 

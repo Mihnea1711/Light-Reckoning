@@ -115,27 +115,10 @@ public class CircleBounds extends Bounds{
         float combinedHalfWidths = b.halfWidth + c.radius;
         float combinedHalfHeights = b.halfHeight + c.radius;
 
-        if(Math.abs(dx) <= combinedHalfWidths) {            //if they are colliding on the x-axis
+        if (Math.abs(dx) <= combinedHalfWidths) {            //if they are colliding on the x-axis
             return Math.abs(dy) <= combinedHalfHeights;          //return whether they collide on the y-axis or not
         }
         return false;
-
-//        float cx, cy;
-//        if(c.centre.x < b.centre.x - b.halfWidth) cx = b.centre.x;
-//        else if(c.centre.x > b.centre.x - b.halfWidth + b.getWidth()) cx = b.centre.x - b.halfWidth + b.getWidth();
-//        else cx = c.centre.x;
-//
-//        if(c.centre.y < b.centre.y - b.halfHeight) cy = b.centre.y;
-//        else if(c.centre.x > b.centre.y - b.halfHeight + b.getHeight()) cy = b.centre.y - b.halfHeight + b.getHeight();
-//        else cy = c.centre.y;
-//
-//        return (distanceSquared(c.centre.x, c.centre.y, cx, cy) < c.radius * c.radius);
-    }
-
-    private static float distanceSquared(float x1, float y1, float x2, float y2){
-        float deltaX = x2 - x1;
-        float deltaY = y2 - y1;
-        return deltaX * deltaX + deltaY * deltaY;
     }
 
     public void resolveCollision(GameObject player) {
