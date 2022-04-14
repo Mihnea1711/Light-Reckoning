@@ -94,10 +94,10 @@ public class SubmitButton extends Button {
     public void buttonPressed() {
         if (create) {
             exportLvl(textAttached);
-            Window.getWindow().changeScene(0, textAttached,"", "Assets/LevelSoundTracks/stereoMadness.wav",
+            Window.getWindow().changeScene(0, 8, textAttached,"", "Assets/LevelSoundTracks/stereoMadness.wav",
                     "Assets/Background/bg01.png", "Assets/Ground/ground01.png", false);
         } else {
-            Window.getWindow().changeScene(0, textAttached, "", "",
+            Window.getWindow().changeScene(0, 8, textAttached, "", "",
                     "", "", true);
         }
     }

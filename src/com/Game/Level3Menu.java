@@ -22,6 +22,7 @@ public class Level3Menu extends Scene{
     private Sprite levelButtonSprite;
     private Sprite LeftArrowKey, RightArrowKey;
     private Sprite backButton;
+    private Sprite infoButton;
 
     public Level3Menu(String name) {
         super.Scene(name);
@@ -38,7 +39,9 @@ public class Level3Menu extends Scene{
     public void initAssetPool() {
         AssetPool.addSpritesheet("Assets/MainMenu/Logos/LogoLevel2.png", Constants.LogoSize, Constants.LogoSize, 0, 1, 1);
         AssetPool.addSpritesheet("Assets/Global/LevelButtonSprite.png", 600, 84, 0, 1, 1);
+        AssetPool.addSpritesheet("Assets/UI/info.png", 60, 61, 0, 1, 1);
 
+        this.infoButton = AssetPool.getSprite("Assets/UI/info.png");
         this.logo2 = AssetPool.getSprite("Assets/MainMenu/Logos/LogoLevel2.png");
         this.levelButtonSprite = AssetPool.getSprite("Assets/Global/LevelButtonSprite.png");
 
@@ -88,6 +91,13 @@ public class Level3Menu extends Scene{
         levelButton.setNonserializable();
         buttons.add(levelButton);
 
+        GameObject info = new GameObject("InfoButton", new Transform(new Pair(965, 162)), 6);
+        SceneChangerButton Info = new SceneChangerButton(60, 61, infoButton, 9, 5, "Level3");
+        info.addComponent(Info);
+        info.setUI(true);
+        info.setNonserializable();
+        buttons.add(info);
+
         GameObject Left = new GameObject("LeftArrow", new Transform(new Pair(50, 362)), 6);
         SceneChangerButton left = new SceneChangerButton(LeftArrowKey.width, LeftArrowKey.height, LeftArrowKey, LeftArrowKey, 4);
         Left.addComponent(left);
@@ -113,6 +123,7 @@ public class Level3Menu extends Scene{
         addGameObject(Left);
         addGameObject(Right);
         addGameObject(BackButton);
+        addGameObject(info);
     }
 
     /**

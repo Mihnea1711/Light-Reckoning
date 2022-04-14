@@ -22,6 +22,7 @@ public class Level1Menu extends Scene{
     private Sprite levelButtonSprite;
     private Sprite LeftArrowKey, RightArrowKey;
     private Sprite backButton;
+    private Sprite infoButton;
 
     public Level1Menu(String name) {
         super.Scene(name);
@@ -33,18 +34,16 @@ public class Level1Menu extends Scene{
         mouseCursor = new GameObject("Mouse Cursor", new Transform(new Pair()), 10);
         initBackGrounds();
         initButtons();
-
-//        if(levelMusic != null) {
-//            levelMusic.stop();
-//        }
     }
 
     public void initAssetPool() {
         AssetPool.addSpritesheet("Assets/MainMenu/Logos/LogoLevel0.png", Constants.LogoSize, Constants.LogoSize, 0, 1, 1);
         AssetPool.addSpritesheet("Assets/Global/LevelButtonSprite.png", 600, 84, 0, 1, 1);
+        AssetPool.addSpritesheet("Assets/UI/info.png", 60, 61, 0, 1, 1);
 
         this.logo0 = AssetPool.getSprite("Assets/MainMenu/Logos/LogoLevel0.png");
         this.levelButtonSprite = AssetPool.getSprite("Assets/Global/LevelButtonSprite.png");
+        this.infoButton = AssetPool.getSprite("Assets/UI/info.png");
 
         this.RightArrowKey = AssetPool.getSprite("Assets/Level1Menu/RightArrow.png");
         this.LeftArrowKey = AssetPool.getSprite("Assets/Level1Menu/LeftArrow.png");
@@ -92,6 +91,13 @@ public class Level1Menu extends Scene{
         levelButton.setNonserializable();
         buttons.add(levelButton);
 
+        GameObject info = new GameObject("InfoButton", new Transform(new Pair(965, 162)), 6);
+        SceneChangerButton Info = new SceneChangerButton(60, 61, infoButton, 9, 3, "Level1");
+        info.addComponent(Info);
+        info.setUI(true);
+        info.setNonserializable();
+        buttons.add(info);
+
         GameObject Left = new GameObject("LeftArrow", new Transform(new Pair(50, 282)), 6);
         SceneChangerButton left = new SceneChangerButton(LeftArrowKey.width, LeftArrowKey.height, LeftArrowKey, LeftArrowKey, 6);
         Left.addComponent(left);
@@ -117,6 +123,7 @@ public class Level1Menu extends Scene{
         addGameObject(Left);
         addGameObject(Right);
         addGameObject(BackButton);
+        addGameObject(info);
     }
 
     /**

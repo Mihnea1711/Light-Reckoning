@@ -51,6 +51,10 @@ public abstract class Scene {
 
     }
 
+    public void init(int sceneNr){
+
+    }
+
     public  void init(String filename, String zipFilePath, String musicFile, String backgroundPath, String groundPath, boolean importLvl) {
 
     }

@@ -61,7 +61,7 @@ public class Window extends JFrame implements Runnable {
      * Tells which scene to start with.
      */
     public void init(){
-        changeScene(2, "", "", "", "", "", false);
+        changeScene(2, 0,"", "", "", "", "", false);
     }
 
     /**
@@ -76,7 +76,7 @@ public class Window extends JFrame implements Runnable {
      * Will tell which scene we need to change to
      * @param scene index of the Scene we want to change to
      */
-    public void changeScene(int scene, String filename, String zipFilePath, String musicFile, String backgroundPath, String groundPath, boolean importLvl) {
+    public void changeScene(int scene, int prevSceneNumber, String filename, String zipFilePath, String musicFile, String backgroundPath, String groundPath, boolean importLvl) {
         switch (scene) {
             case 0 -> {
                 isInEditor = true;
@@ -122,6 +122,11 @@ public class Window extends JFrame implements Runnable {
                 isInEditor = true;
                 currentScene = new OptionSelectMenu("Create/Import Lvl");
                 currentScene.init();
+            }
+            case 9 -> {
+                isInEditor = true;
+                currentScene = new InfoScene(filename);
+                currentScene.init(prevSceneNumber);
             }
             default -> {
                 System.out.println("Don't know the scene");
