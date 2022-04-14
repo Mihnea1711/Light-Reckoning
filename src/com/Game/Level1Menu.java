@@ -67,7 +67,7 @@ public class Level1Menu extends Scene{
         GameObject[] groundBgs = new GameObject[numBackGrounds];
 
         for(int i = 0; i < numBackGrounds; i++) {
-            ParallaxBG groundBg = new ParallaxBG("Assets/Ground/ground05.png", null, ground.getComp(Ground.class), true);
+            ParallaxBG groundBg = new ParallaxBG("Assets/Ground/ground03.png", null, ground.getComp(Ground.class), true);
             int x = i * groundBg.sprite.width;
             int y = (int) ground.transform.pos.y;
 

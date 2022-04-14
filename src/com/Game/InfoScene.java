@@ -105,6 +105,21 @@ public class InfoScene extends Scene{
         g2.drawString("Coins Collected:  " + DataBaseHandler.getCoins(conn, name), 420, 380);
     }
 
+    private void drawMainMenuStats(Graphics2D g2) {
+        g2.setColor(new Color(200f / 255.0f, 80f / 255.0f, 176f / 255.0f, 0.6f));
+        g2.fillRoundRect(395,100,500,350, 35, 35);
+
+        g2.setColor(Color.WHITE);
+        g2.setFont(new Font("Calibri", Font.BOLD, 40));
+        g2.drawString("LEVEL STATS", 530, 160);
+
+        g2.setFont(new Font("Calibri", Font.PLAIN, 25));
+        g2.drawString("Total Attempts:  " + DataBaseHandler.getAllAttempts(conn), 420, 230);
+        g2.drawString("Total Jumps:  " + DataBaseHandler.getAllJumps(conn), 420, 280);
+        g2.drawString("Completed Levels:  " + DataBaseHandler.getAllCompletedLevels(conn), 420, 330);
+        g2.drawString("Coins Collected:  " + DataBaseHandler.getAllCoins(conn), 420, 380);
+    }
+
     /**
      * Draws on the screen
      * @param g2 graphics handler
@@ -118,7 +133,11 @@ public class InfoScene extends Scene{
         g2.fillRect(0, Constants.MenuGround_Y, Constants.ScreenWidth, Constants.ScreenHeight - Constants.MenuGround_Y);
 
         renderer.render(g2);
-        drawStats(g2);
+        if(prevSceneNumber != 2) {
+            drawStats(g2);
+        } else {
+            drawMainMenuStats(g2);
+        }
         mouseCursor.draw(g2);
     }
 

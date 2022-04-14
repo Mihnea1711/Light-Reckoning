@@ -25,7 +25,7 @@ public class MainMenuScene extends Scene {
     private Sprite ExitButton;
 
     private Sprite logo0, logo1, logo2, logo3;
-
+    private Sprite stats;
     private Sprite Title;
 
     /**
@@ -68,7 +68,7 @@ public class MainMenuScene extends Scene {
         AssetPool.addSpritesheet("Assets/MainMenu/Buttons/play.png", 114, 115, 0, 1, 1);
         AssetPool.addSpritesheet("Assets/MainMenu/Buttons/editor.png", 126, 115, 0, 1, 1);
         AssetPool.addSpritesheet("Assets/MainMenu/Buttons/exit.png", 48, 55, 0, 1, 1);
-
+        AssetPool.addSpritesheet("Assets/UI/stats.png", 55, 63, 0, 1, 1);
 
         AssetPool.addSpritesheet("Assets/MainMenu/Logos/LogoLevel0.png", Constants.LogoSize, Constants.LogoSize, 0, 1, 1);
         AssetPool.addSpritesheet("Assets/MainMenu/Logos/LogoLevel1.png", Constants.LogoSize, Constants.LogoSize, 0, 1, 1);
@@ -87,6 +87,7 @@ public class MainMenuScene extends Scene {
         this.logo1 = AssetPool.getSprite("Assets/MainMenu/Logos/LogoLevel1.png");
         this.logo2 = AssetPool.getSprite("Assets/MainMenu/Logos/LogoLevel2.png");
         this.logo3 = AssetPool.getSprite("Assets/MainMenu/Logos/LogoLevel3.png");
+        this.stats = AssetPool.getSprite("Assets/UI/stats.png");
 
         this.Title = AssetPool.getSprite("Assets/MainMenu/Logos/title.png");
     }
@@ -98,6 +99,13 @@ public class MainMenuScene extends Scene {
         play.setUI(true);
         play.setNonserializable();
         buttons.add(play);
+
+        GameObject info = new GameObject("InfoButton", new Transform(new Pair(1190, 532)), 6);
+        SceneChangerButton Info = new SceneChangerButton(60, 61, stats, 9, 2, "");
+        info.addComponent(Info);
+        info.setUI(true);
+        info.setNonserializable();
+        buttons.add(info);
 
         GameObject editor = new GameObject("SceneChangerButton", new Transform(new Pair(Constants.MenuEditorButtonX, Constants.MenuEditorButtonY)), 10);
         SceneChangerButton editorButton = new SceneChangerButton(ButtonEditor.width, ButtonEditor.height, ButtonEditor, ButtonEditor, 8);
@@ -116,6 +124,7 @@ public class MainMenuScene extends Scene {
         addGameObject(play);
         addGameObject(editor);
         addGameObject(exit);
+        addGameObject(info);
     }
 
     /**

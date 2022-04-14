@@ -41,6 +41,7 @@ public class PipePart extends Component {
         if(player != null) {
             if (exitOnCollision && BoxBounds.checkCollision(bounds, player.getComp(BoxBounds.class))) {
                 DataBaseHandler.updateCoins(conn, Window.getScene().name, player.getComp(Player.class).getCollectedCoins());
+                DataBaseHandler.setCompletion(conn, Window.getScene().name);
                 if(Window.getMusic() != null){
                     Window.getMusic().stop();
                 }

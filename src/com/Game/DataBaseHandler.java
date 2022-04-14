@@ -191,6 +191,20 @@ public class DataBaseHandler {
         }
     }
 
+    public static void setCompletion(Connection conn, String levelName) {
+        String sql = "UPDATE LevelsStats SET MaxCompletion = 100 WHERE LevelName = \"" + levelName + "\";";
+        Statement stmt;
+        try {
+            stmt = conn.createStatement();
+            stmt.executeUpdate(sql);
+            stmt.close();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+            System.out.println("Could not update the completion");
+        }
+    }
+
     public static void insertRecord(Connection conn, String levelName) {
         String sql = "INSERT INTO LevelsStats VALUES(?, 0, 0, 0, 0);";
 
@@ -203,5 +217,79 @@ public class DataBaseHandler {
             e.printStackTrace();
             System.out.println("Record could not be inserted properly");
         }
+    }
+
+    public static int getAllJumps(Connection conn) {
+        int jumps = 0;
+        String sql = "SELECT * FROM LevelsStats";
+        Statement stmt;
+
+        try {
+            stmt = conn.createStatement();
+            ResultSet resultSet = stmt.executeQuery(sql);
+            while(resultSet.next()) {
+                jumps += resultSet.getInt("TotalJumps");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return jumps;
+    }
+
+    public static int getAllAttempts(Connection conn) {
+        int attempts = 0;
+        String sql = "SELECT * FROM LevelsStats";
+        Statement stmt;
+
+        try {
+            stmt = conn.createStatement();
+            ResultSet resultSet = stmt.executeQuery(sql);
+            while(resultSet.next()) {
+                attempts += resultSet.getInt("AttemptsNr");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return attempts;
+    }
+
+    public static int getAllCoins(Connection conn) {
+        int coins = 0;
+        String sql = "SELECT * FROM LevelsStats";
+        Statement stmt;
+
+        try {
+            stmt = conn.createStatement();
+            ResultSet resultSet = stmt.executeQuery(sql);
+            while(resultSet.next()) {
+                coins += resultSet.getInt("CollectedCoins");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return coins;
+    }
+
+    public static int getAllCompletedLevels(Connection conn) {
+        int completedLevels = 0;
+        String sql = "SELECT * FROM LevelsStats";
+        Statement stmt;
+
+        try {
+            stmt = conn.createStatement();
+            ResultSet resultSet = stmt.executeQuery(sql);
+            while(resultSet.next()) {
+                if (resultSet.getInt("MaxCompletion") == 100) {
+                    completedLevels++;
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return completedLevels;
     }
 }
