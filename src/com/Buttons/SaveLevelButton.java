@@ -17,17 +17,35 @@ import java.util.zip.ZipEntry;
 import java.util.zip.ZipFile;
 import java.util.zip.ZipOutputStream;
 
+/**
+ * Class for the button that saves the edits made inside editor.
+ */
 public class SaveLevelButton extends Button {
     String filename;
     List<GameObject> gameObjectList;
     private static final byte[] BUFFER = new byte[4096 * 1024];
 
+    /**
+     * Constructor for the save button inside the editor.
+     * @param width width of the button
+     * @param height height of the button
+     * @param Image button image when non-clicked
+     * @param SelectedImage button image when clicked
+     * @param filename the name of the modified file
+     * @param gameObjectList the list of objects inside the level
+     */
     public SaveLevelButton(int width, int height, Sprite Image, Sprite SelectedImage, String filename, List<GameObject> gameObjectList) {
         super(width, height, Image, SelectedImage);
         this.filename = filename;
         this.gameObjectList = gameObjectList;
     }
 
+    /**
+     * Utility function for exporting the level.
+     * @param inputStream stream to be read
+     * @param outputStream stream to be written
+     * @throws IOException exception
+     */
     private static void copy(InputStream inputStream, OutputStream outputStream) throws IOException {
         int bytesRead;
         while((bytesRead = inputStream.read(BUFFER)) != -1) {           //-1 EOF
@@ -35,6 +53,9 @@ public class SaveLevelButton extends Button {
         }
     }
 
+    /**
+     * Utility function for renaming the zip file.
+     */
     private void renameFile() {
         Path sourceFile = Paths.get("levels/append.zip");
         try {
@@ -45,6 +66,10 @@ public class SaveLevelButton extends Button {
         }
     }
 
+    /**
+     * Export function.
+     * @param filename the file that has been modified
+     */
     private void exportLvl(String filename) {
         ZipFile levels;
         try {
@@ -84,6 +109,7 @@ public class SaveLevelButton extends Button {
             levels.close();
             append.close();
 
+            //delete old file and rename the new one
             Files.delete(Paths.get("levels/CreatedLevels.zip"));
             renameFile();
         } catch (IOException e) {
@@ -92,6 +118,9 @@ public class SaveLevelButton extends Button {
         }
     }
 
+    /**
+     * Main function of the button.
+     */
     @Override
     public void buttonPressed() {
         exportLvl(filename);

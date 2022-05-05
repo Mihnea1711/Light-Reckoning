@@ -101,8 +101,8 @@ public class BoxBounds extends Bounds {
         float combinedHalfWidths = b1.halfWidth + b2.halfWidth;
         float combinedHalfHeights = b1.halfHeight + b2.halfHeight;
 
-        if(Math.abs(dx) <= combinedHalfWidths) {            //if they are colliding on the x-axis
-            return Math.abs(dy) <= combinedHalfHeights;          //return whether they collide on the y-axis or not
+        if(Math.abs(dy) <= combinedHalfHeights + 4) {            //if they are colliding on the y-axis
+            return Math.abs(dx) <= combinedHalfWidths;          //return whether they collide on the x-axis or not
         }
         return false;       //if not colliding
     }

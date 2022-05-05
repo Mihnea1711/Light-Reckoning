@@ -48,7 +48,7 @@ public class Window extends JFrame implements Runnable {
         this.setLocationRelativeTo(null);                       //centred on screen
 
         this.addMouseListener(mouseListener);           //clicking and dragging
-        this.addMouseMotionListener(mouseListener);     //movement
+        this.addMouseMotionListener(mouseListener);     //movement of mouse
 
         this.addKeyListener(keyListener);           //keys
 
@@ -186,21 +186,29 @@ public class Window extends JFrame implements Runnable {
         return Window.getScene().camera.getPosY();
     }
 
+    /**
+     * Helper Method
+     * @return the current scene music.
+     */
     public static Music getMusic(){
         return getWindow().currentScene.levelMusic;
     }
 
+    /**
+     * Helper method
+     * @param progressBar the progress bar to be added
+     */
     public void addProgressBar(ProgressBar progressBar) {
         this.add(progressBar.getBar());
     }
 
-    public ProgressBar getBar() {
-        return progressBar;
-    }
-
+    /**
+     * Helper method
+     * @param textField the text field to be added
+     */
     public void addTextField(TextField textField) {
         //TODO::why the text field not working
-        //this.add(textField.getTextField());
+        this.add(textField.getTextField());
     }
 
     /**

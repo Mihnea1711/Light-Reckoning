@@ -5,7 +5,7 @@ import com.File.Serialize;
 import com.Utilities.Pair;
 
 /**
- * Will hold the stats of the object
+ * Holds information about of the object
  */
 public class Transform extends Serialize {
     public Pair pos;

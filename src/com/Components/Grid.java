@@ -29,6 +29,10 @@ public class Grid extends Component {
         this.gridWidth = Constants.TileWidth;
     }
 
+    /**
+     * Update method for the grid (no need)
+     * @param dTime frames
+     */
     @Override
     public void update(double dTime) {
 
@@ -61,6 +65,10 @@ public class Grid extends Component {
         }
     }
 
+    /**
+     * Copy method of the grid (no need)
+     * @return nothing
+     */
     @Override
     public Component copy() {
         return null;

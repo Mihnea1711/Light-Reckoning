@@ -17,6 +17,10 @@ import java.util.List;
 
 import static com.main.Main.conn;
 
+/**
+ * Class for the level's info.
+ * Connects to the database and gets the info for the specified level.
+ */
 public class InfoScene extends Scene{
     private GameObject mouseCursor;
     private List<GameObject> buttons;
@@ -25,11 +29,19 @@ public class InfoScene extends Scene{
 
     private int prevSceneNumber;
 
+    /**
+     * Constructor
+     * @param name scene name
+     */
     public InfoScene(String name) {
         super.Scene(name);
         this.buttons = new ArrayList<>();
     }
 
+    /**
+     * Initialization method.
+     * @param prevSceneNumber scene index of the level's stats
+     */
     public void init(int prevSceneNumber) {
         this.prevSceneNumber = prevSceneNumber;
         initAssetPool();
@@ -38,11 +50,17 @@ public class InfoScene extends Scene{
         initButtons();
     }
 
+    /**
+     * Initialization of the asset pool of the scene.
+     */
     public void initAssetPool() {
         AssetPool.addSpritesheet("Assets/UI/ok.png", 145, 60, 0, 1, 1);
         this.okButton = AssetPool.getSprite("Assets/UI/ok.png");
     }
 
+    /**
+     * Initialization of the scene's backgrounds.
+     */
     public void initBackGrounds() {
         GameObject ground = new GameObject("Ground", new Transform(new Pair(0, Constants.MenuGround_Y)), 1);
         ground.addComponent(new Ground());
@@ -67,6 +85,9 @@ public class InfoScene extends Scene{
         }
     }
 
+    /**
+     * Initialization of the scene's buttons.
+     */
     public void initButtons() {
         GameObject ok = new GameObject("OKButton", new Transform(new Pair(568, 500)), 10);
         SceneChangerButton OK = new SceneChangerButton(okButton.width, okButton.height, okButton, okButton, prevSceneNumber);
@@ -90,6 +111,10 @@ public class InfoScene extends Scene{
         mouseCursor.update(dTime);
     }
 
+    /**
+     * Utility method to draw the level stats on the screen.
+     * @param g2 graphics handler
+     */
     private void drawStats(Graphics2D g2) {
         g2.setColor(new Color(200f / 255.0f, 80f / 255.0f, 176f / 255.0f, 0.6f));
         g2.fillRoundRect(395,100,500,350, 35, 35);
@@ -105,6 +130,10 @@ public class InfoScene extends Scene{
         g2.drawString("Coins Collected:  " + DataBaseHandler.getCoins(conn, name), 420, 380);
     }
 
+    /**
+     * Utility method to draw the main menu stats on the screen.
+     * @param g2 graphics handler
+     */
     private void drawMainMenuStats(Graphics2D g2) {
         g2.setColor(new Color(200f / 255.0f, 80f / 255.0f, 176f / 255.0f, 0.6f));
         g2.fillRoundRect(395,100,500,350, 35, 35);

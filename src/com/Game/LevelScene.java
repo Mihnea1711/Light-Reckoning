@@ -11,6 +11,7 @@ import com.Utilities.Pair;
 import java.awt.Color;
 import java.awt.Graphics2D;
 import java.math.BigDecimal;
+import java.util.Objects;
 
 import static com.main.Main.conn;
 
@@ -27,7 +28,7 @@ public class LevelScene extends Scene {
     private float finishX = Float.MIN_VALUE;
     private float levelLength = 0;
 
-    private String filename;
+    private String filename, zipPath;
 
     /**
      * Constructor
@@ -46,6 +47,7 @@ public class LevelScene extends Scene {
     public void init(String filename, String zipFilePath, String musicFile, String backgroundPath, String groundPath, boolean importLVL) {
         initAssetPool();
         this.filename = filename;
+        this.zipPath = zipFilePath;
 
         player = new GameObject("player", new Transform(new Pair(Constants.PlayerLevelStartX, Constants.PlayerLevelStartY)), 0);
         SpriteSheet layer1 = AssetPool.getSpritesheet("Assets/PlayerSprites/layerOne.png");
@@ -110,6 +112,9 @@ public class LevelScene extends Scene {
         }
     }
 
+    /**
+     * Initializes all the buttons
+     */
     public void initButtons() {
         GameObject BackButton = new GameObject("Back", new Transform(new Pair(1100, 50)), 10);
         SceneChangerButton back = new SceneChangerButton(70, 74, backButton, backButton, "", 2, "", "", null, "", "");
@@ -164,16 +169,12 @@ public class LevelScene extends Scene {
         }
 
         player.update(dTime);       //update the state of player
-//        DataBaseHandler.updateRecord(conn, filename,
-//                player.getComp(Player.class).getJumps(),
-//                (int)Math.floor(((player.getPosX() - startX) / levelLength) * 100),
-//                player.getComp(Player.class).getCollectedCoins() - DataBaseHandler.getCoins(conn, filename));
 
-        //Remove this if it is too frustrating
         progressBar.setCounterValue(((player.getPosX() - startX) / levelLength) * 100);
         //progressBar.counter = new BigDecimal(String.format("%.2f", (player.getPosX() - startX) / levelLength));
 
-        if(player.getPosX() <= finishX) {
+        if(player.getPosX() <= finishX && (Objects.equals(filename, "Level1") || Objects.equals(filename, "Level2") ||
+                Objects.equals(filename, "Level3") || Objects.equals(filename, "Level4"))) {
             DataBaseHandler.updateCounter(conn, filename, (int)Math.ceil(new BigDecimal(String.format("%.2f", ((player.getPosX() - startX) / levelLength) * 100)).doubleValue()));
         }
 
@@ -191,7 +192,8 @@ public class LevelScene extends Scene {
             }
         }
         //TODO:: check why not working properly
-        //progressBar.update(dTime);      //update the progress bar
+        //Remove this if it is too frustrating
+        progressBar.update(dTime);      //update the progress bar
     }
 
     /**

@@ -14,6 +14,9 @@ import java.awt.Graphics2D;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * First Level Scene.
+ */
 public class Level1Menu extends Scene{
     private GameObject mouseCursor;
     private List<GameObject> buttons;
@@ -24,11 +27,18 @@ public class Level1Menu extends Scene{
     private Sprite backButton;
     private Sprite infoButton;
 
+    /**
+     * Constructor.
+     * @param name name of the scene
+     */
     public Level1Menu(String name) {
         super.Scene(name);
         this.buttons = new ArrayList<>();
     }
 
+    /**
+     * Initialization method.
+     */
     public void init() {
         initAssetPool();
         mouseCursor = new GameObject("Mouse Cursor", new Transform(new Pair()), 10);
@@ -36,6 +46,9 @@ public class Level1Menu extends Scene{
         initButtons();
     }
 
+    /**
+     * Initialization method for the asset pool.
+     */
     public void initAssetPool() {
         AssetPool.addSpritesheet("Assets/MainMenu/Logos/LogoLevel0.png", Constants.LogoSize, Constants.LogoSize, 0, 1, 1);
         AssetPool.addSpritesheet("Assets/Global/LevelButtonSprite.png", 600, 84, 0, 1, 1);
@@ -52,6 +65,9 @@ public class Level1Menu extends Scene{
         this.backButton = AssetPool.getSprite("Assets/Global/back.png");
     }
 
+    /**
+     * Initialization method for the scene's backgrounds.
+     */
     public void initBackGrounds() {
         GameObject ground = new GameObject("Ground", new Transform(new Pair(0, Constants.MenuGround_Y)), 1);
         ground.addComponent(new Ground());
@@ -81,6 +97,9 @@ public class Level1Menu extends Scene{
         }
     }
 
+    /**
+     * Initialization method for the scene's buttons.
+     */
     public void initButtons() {
         GameObject levelButton = new GameObject("SceneChangerButton", new Transform(new Pair(340, 150)), 5);
         SceneChangerButton playButton = new SceneChangerButton(levelButtonSprite.width, levelButtonSprite.height, levelButtonSprite, levelButtonSprite,

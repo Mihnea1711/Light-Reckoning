@@ -12,19 +12,8 @@ import com.Utilities.Pair;
 
 import java.awt.Color;
 import java.awt.Graphics2D;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.ArrayList;
-import java.util.Enumeration;
 import java.util.List;
-import java.util.zip.ZipEntry;
-import java.util.zip.ZipFile;
-import java.util.zip.ZipOutputStream;
 
 /**
  * This is the Editor Scene where we can create levels
@@ -123,6 +112,9 @@ public class LevelEditorScene extends Scene{
         this.Play = AssetPool.getSprite("Assets/UI/play.png");
     }
 
+    /**
+     * Loads all the buttons that we need in the Editor.
+     */
     public void initButtons(String filename) {
         GameObject BackButton = new GameObject("Back", new Transform(new Pair(1150, 50)), 10);
         SceneChangerButton back = new SceneChangerButton(70, 74, backButton, backButton, 2);
@@ -140,7 +132,7 @@ public class LevelEditorScene extends Scene{
         buttons.add(saveButton);
         addGameObject(saveButton);
 
-        GameObject playButton = new GameObject("Save", new Transform(new Pair(1120, 160)), 10);
+        GameObject playButton = new GameObject("Play", new Transform(new Pair(1120, 160)), 10);
         SceneChangerButton play = new SceneChangerButton(120, 49, Play, Play, "", 1, filename,
                 "levels/CreatedLevels.zip",
                 "Assets/LevelSoundTracks/stereoMadness.wav",
@@ -152,6 +144,9 @@ public class LevelEditorScene extends Scene{
         addGameObject(playButton);
     }
 
+    /**
+     * Loads all the backgrounds that we need in the Editor.
+     */
     public void initBackGrounds() {
         GameObject ground = new GameObject("Ground", new Transform(new Pair(0, Constants.GroundY)), 1);
         ground.addComponent(new Ground());
@@ -210,17 +205,6 @@ public class LevelEditorScene extends Scene{
         editingButtons.update(dTime);
         mouseCursor.update(dTime);
 
-//        //F1 - exporting the level
-//        //F2 - importing the level
-//        //F3 - plays the level
-//        if(Window.getWindow().keyListener.isKeyPressed(KeyEvent.VK_F1)) {
-//            exportLvl(filename);
-//            debounceKeyLeft = debounceKey;
-//        } else
-//        } else if(Window.getWindow().keyListener.isKeyPressed((KeyEvent.VK_F3))) {
-//            //Window.getWindow().changeScene(1, "Level1", "Assets/LevelSoundTracks/stereoMadness.wav");
-//        }
-
         if(objsToRemove.size() > 0) {
             for (GameObject obj : objsToRemove) {
                 gameObjectList.remove(obj);
@@ -254,76 +238,6 @@ public class LevelEditorScene extends Scene{
         while(obj != null) {
             addGameObject(obj);
             obj = Parser.parseGameObject();
-        }
-    }
-
-    private static void copy(InputStream inputStream, OutputStream outputStream) throws IOException {
-        int bytesRead;
-        while((bytesRead = inputStream.read(BUFFER)) != -1) {           //-1 EOF
-            outputStream.write(BUFFER, 0, bytesRead);
-        }
-    }
-
-    private void renameFile() {
-        Path sourceFile = Paths.get("levels/append.zip");
-        try {
-            Files.move(sourceFile, sourceFile.resolveSibling("levels.zip"));
-        } catch (IOException e) {
-            System.out.println("Rename error");
-            e.printStackTrace();
-        }
-    }
-
-    /**
-     * Exports the level to the zipped file created.
-     * Zipping it up to save more space.
-     * @param filename name of the file to create when exporting the level.
-     */
-    private void exportLvl(String filename) {
-        ZipFile levels;
-        try {
-            levels = new ZipFile("levels/levels.zip");
-            ZipOutputStream append = new ZipOutputStream(new FileOutputStream("levels/append.zip"));
-
-            //copy contents from existing zip
-            Enumeration<? extends ZipEntry> entries = levels.entries();
-            while (entries.hasMoreElements()) {
-                ZipEntry zipEntry = entries.nextElement();
-                if (!zipEntry.getName().equals(filename + ".json")) {
-                    append.putNextEntry(zipEntry);
-                    if (!zipEntry.isDirectory()) {
-                        copy(levels.getInputStream(zipEntry), append);
-                    }
-                    append.closeEntry();
-                }
-            }
-
-            //append the extra content
-            ZipEntry zipEntry = new ZipEntry(filename + ".json");
-            append.putNextEntry(zipEntry);
-            int i = 0;
-            for (GameObject obj : gameObjectList) {
-                //serialize all the game objects in the level
-                String str = obj.serialize(0);      //0 is the tab size
-                if (str.compareTo("") != 0) {        //empty string is the flag for a game object we don't want to serialize
-                    append.write(str.getBytes());      //writing in zip files
-                    if (i != gameObjectList.size() - 1) {
-                        append.write(",\n".getBytes());    //write a comma to separate all the game objects
-                    }
-                }
-                i++;
-            }
-
-            append.closeEntry();
-            levels.close();
-            append.close();
-
-
-            Files.delete(Paths.get("levels/levels.zip"));
-            renameFile();
-        } catch (IOException e) {
-            e.printStackTrace();
-            System.exit(-1);
         }
     }
 

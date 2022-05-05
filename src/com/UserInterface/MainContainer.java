@@ -201,6 +201,16 @@ public class MainContainer extends Component {
         }
     }
 
+    /**
+     * Helper method to add the properties of the tab objects
+     * @param pos position to start
+     * @param objectSprite object sprite
+     * @param buttonNormalSprite button not-pressed sprite
+     * @param buttonPressedSprite button pressed sprite
+     * @param width width
+     * @param height height
+     * @return the tab object
+     */
     private GameObject createTabObject(Pair pos, Sprite objectSprite, Sprite buttonNormalSprite, Sprite buttonPressedSprite, int width, int height) {
         GameObject obj = new GameObject("Gen", new Transform(new Pair(pos.x, pos.y)), 10);
         obj.setUI(true);

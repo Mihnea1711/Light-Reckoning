@@ -12,6 +12,9 @@ public class CloseWindowButton extends Button {
         super(width, height, image, image);
     }
 
+    /**
+     * Constructor for the button
+     */
     @Override
     public void buttonPressed() {
         System.out.println("Exited the game...");

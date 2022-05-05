@@ -163,16 +163,17 @@ public class Player extends Component {
         }
     }
 
+    /**
+     * Utility method to increment the coins collected
+     */
     public void increaseCoinsCollected() {
         collectedCoins++;
     }
-
+    /**
+     * Utility method to get the coins collected
+     */
     public int getCollectedCoins() {
         return collectedCoins;
-    }
-
-    public int getJumps() {
-        return numberOFJumps;
     }
 
     /**

@@ -7,8 +7,8 @@ import java.sql.Connection;
 import java.sql.SQLException;
 
 public class Main {
-
     public static Connection conn;
+
     /**
      * Entry point for the program
      * @param args main function parameter

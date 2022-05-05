@@ -44,6 +44,15 @@ public class MenuItem extends Component {
         this.parentContainer = parent;
     }
 
+    /**
+     * Constructor
+     * @param x x position of button
+     * @param y y position of button
+     * @param width     width of button
+     * @param height    height of button
+     * @param buttonSprite  button-not-clicked sprite
+     * @param hoverSprite   button-clicked sprite
+     */
     public MenuItem(int x, int y, int width, int height, Sprite buttonSprite, Sprite hoverSprite) {
         this.x = x;
         this.y = y;

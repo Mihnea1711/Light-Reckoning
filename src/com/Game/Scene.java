@@ -51,14 +51,30 @@ public abstract class Scene {
 
     }
 
+    /**
+     * Initializes update
+     * @param sceneNr index of the scene
+     */
     public void init(int sceneNr){
 
     }
 
+    /**
+     * Initializes update
+     * @param filename filename
+     * @param zipFilePath zip path
+     * @param musicFile music file path
+     * @param backgroundPath background file path
+     * @param groundPath ground file path
+     * @param importLvl flag for importing the level
+     */
     public  void init(String filename, String zipFilePath, String musicFile, String backgroundPath, String groundPath, boolean importLvl) {
 
     }
 
+    /**
+     * Utility method to get the created levels at the start of each session. (sort of like a database)
+     */
     private void updateCreatedLevels() {
         ZipFile levels;
         try {

@@ -7,14 +7,19 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.Insets;
 
+/**
+ * Class for the text field inside the option select menu (new level or play created).
+ */
 public class TextField extends Component {
     private JTextField textField;
-    float x, y, width, height;
 
-    public TextField() {
-        textField = new JTextField();
-    }
-
+    /**
+     * Constructor.
+     * @param x start x
+     * @param y start y
+     * @param width width
+     * @param height height
+     */
     public TextField(int x, int y, int width, int height) {
         textField = new JTextField();
         textField.setBounds(x, y, width, height);
@@ -26,10 +31,18 @@ public class TextField extends Component {
         textField.setToolTipText("Enter the level name");
     }
 
+    /**
+     * Utility method.
+     * @return the text inside the text field
+     */
     public String getText() {
         return textField.getText();
     }
 
+    /**
+     * Utility method.
+     * @return the text field
+     */
     public JTextField getTextField() {
         return textField;
     }

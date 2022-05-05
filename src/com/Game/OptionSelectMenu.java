@@ -13,17 +13,28 @@ import com.Utilities.Pair;
 import java.awt.Color;
 import java.awt.Graphics2D;
 
-//The scene where we select whether we want to create a new level, or to edit an existing one...
+
+
+/**
+ * The scene where we select whether we want to create a new level, or to edit an existing one...
+ */
 public class OptionSelectMenu extends Scene{
     private GameObject mouseCursor;
 
     private Sprite backButton, playCreated;
     private SpriteSheet newSprites;
 
+    /**
+     * Constructor
+     * @param name scene name
+     */
     public OptionSelectMenu(String name) {
         super.Scene(name);
     }
 
+    /**
+     * Initialization method.
+     */
     public void init() {
         initAssetPool();
         mouseCursor = new GameObject("Mouse Cursor", new Transform(new Pair()), 10);
@@ -31,6 +42,9 @@ public class OptionSelectMenu extends Scene{
         initButtons();
     }
 
+    /**
+     * Initialization method for the asset pool.
+     */
     public void initAssetPool() {
         AssetPool.addSpritesheet("Assets/UI/newSprites.png", 80, 81, 2,2, 2);
         AssetPool.addSpritesheet("Assets/UI/PlayCreated.png", 196, 81, 0,1, 1);
@@ -41,6 +55,9 @@ public class OptionSelectMenu extends Scene{
         this.newSprites = AssetPool.getSpritesheet("Assets/UI/newSprites.png");
     }
 
+    /**
+     * Initialization method for the buttons.
+     */
     public void initButtons() {
         GameObject BackButton = new GameObject("Back", new Transform(new Pair(1150, 50)), 10);
         SceneChangerButton back = new SceneChangerButton(70, 74, backButton, backButton, 2);
@@ -64,6 +81,9 @@ public class OptionSelectMenu extends Scene{
         addGameObject(playCreatedButton);
     }
 
+    /**
+     * Initialization method for the backgrounds.
+     */
     public void initBackGrounds() {
         GameObject ground = new GameObject("Ground", new Transform(new Pair(0, Constants.MenuGround_Y)), 1);
         ground.addComponent(new Ground());

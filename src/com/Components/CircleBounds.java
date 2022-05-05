@@ -12,6 +12,9 @@ import java.awt.Graphics2D;
 import java.awt.Shape;
 import java.awt.geom.Ellipse2D;
 
+/**
+ * Class for the circle bounds of an object.
+ */
 public class CircleBounds extends Bounds{
     private float diameter, radius;
     private Pair centre = new Pair();
@@ -21,6 +24,11 @@ public class CircleBounds extends Bounds{
 
     public boolean isVisible;
 
+    /**
+     * Constructor.
+     * @param diameter diameter
+     * @param isVisible flag whether the coin is visible or has been collected
+     */
     public CircleBounds(float diameter, boolean isVisible) {
         this.diameter = diameter;
         this.radius = diameter / 2.0f;
@@ -28,18 +36,24 @@ public class CircleBounds extends Bounds{
         this.isVisible = isVisible;
     }
 
+    /**
+     * Utility method.
+     * Calculates the centre of the object after it has been created.
+     */
     public void start() {
         this.calculateCentre();
     }
 
+    /**
+     * Calculates the centre of the object.
+     */
     public void calculateCentre() {
         this.centre.x = this.gameObject.transform.pos.x + this.radius + this.xBuffer;
         this.centre.y = this.gameObject.transform.pos.y + this.radius + this.yBuffer;
     }
 
     /**
-     * Abstract because we have different scenarios (Box, Triangle)
-     *
+     * Abstract because we have different scenarios (Box, Triangle).
      * @return the width
      */
     @Override
@@ -48,8 +62,7 @@ public class CircleBounds extends Bounds{
     }
 
     /**
-     * Abstract because we have different scenarios (Box, Triangle)
-     *
+     * Abstract because we have different scenarios (Box, Triangle).
      * @return the height
      */
     @Override
@@ -59,7 +72,6 @@ public class CircleBounds extends Bounds{
 
     /**
      * Function to check if a point is within some bounds.
-     *
      * @param pos position of the mouse
      * @return true/false
      */
@@ -89,6 +101,10 @@ public class CircleBounds extends Bounds{
         return builder.toString();
     }
 
+    /**
+     * Function to deserialize the bounds of a circular object.
+     * @return object with circle bounds
+     */
     public static CircleBounds deserialize() {
         float diameter = Parser.consumeFloatProperty("Diameter");
         Parser.consume(',');
@@ -105,6 +121,12 @@ public class CircleBounds extends Bounds{
         return bounds;
     }
 
+    /**
+     * Function to check collision between the player(box) and the coin.
+     * @param b player (box bounds object)
+     * @param c coin (circle bounds object)
+     * @return true/false whether the player collected the coin or not
+     */
     public static boolean checkCollision(BoxBounds b, CircleBounds c) {
         b.calculateCentre();
         c.calculateCentre();
@@ -121,6 +143,10 @@ public class CircleBounds extends Bounds{
         return false;
     }
 
+    /**
+     * Function for collision resolution.
+     * @param player player
+     */
     public void resolveCollision(GameObject player) {
         if(this.isVisible) {
             player.getComp(Player.class).increaseCoinsCollected();
@@ -129,7 +155,7 @@ public class CircleBounds extends Bounds{
     }
 
     /**
-     * Abstract method to force every derived class to implement it
+     * Abstract method to force every derived class to implement it.
      *
      * @return a new object = copy of a Component
      */
@@ -141,10 +167,18 @@ public class CircleBounds extends Bounds{
         return bounds;
     }
 
+    /**
+     * No need to implement.
+     * @param dTime frames
+     */
     @Override
     public void update(double dTime) {
     }
 
+    /**
+     * Function to draw the bounds when selected inside the editor.
+     * @param g2 graphics handler
+     */
     @Override
     public void draw(Graphics2D g2) {
         if(isSelected) {

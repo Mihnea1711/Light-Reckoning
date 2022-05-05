@@ -51,6 +51,10 @@ public class Ground extends Component {
 
     }
 
+    /**
+     * Copy method for the ground (no need)
+     * @return nothing
+     */
     @Override
     public Component copy() {
         return null;

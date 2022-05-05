@@ -5,6 +5,7 @@ import com.Buttons.SubmitButton;
 import com.Components.Ground;
 import com.Components.ParallaxBG;
 import com.Components.Sprite;
+import com.Components.TextField;
 import com.DataStructures.AssetPool;
 import com.DataStructures.Transform;
 import com.Utilities.Constants;
@@ -16,9 +17,11 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
-//The scene where we create a new level, or where we type the level name to import it.
+/**
+ * The scene where we create a new level, or where we type the level name to import it.
+ */
 public class CreateNewLevelMenu extends Scene {
-    //private TextField textField;
+    private TextField textField;
     private SubmitButton button;
     private GameObject mouseCursor;
     private List<GameObject> buttons;
@@ -28,22 +31,39 @@ public class CreateNewLevelMenu extends Scene {
 
     private Sprite backButton, submit, text;
 
+    /**
+     * Constructor.
+     * @param name name of the scene
+     */
     public CreateNewLevelMenu(String name) {
         super.Scene(name);
         this.buttons = new ArrayList<>();
-        //this.textField = new TextField(575, 225, 300, 50);
+        this.textField = new TextField(575, 225, 300, 50);
     }
 
+    /**
+     * Initialization method.
+     * 5 empty params to match the init function parameters.
+     * @param a param1 - empty
+     * @param b param2 - empty
+     * @param c param3 - empty
+     * @param d param4 - empty
+     * @param e param5 - empty
+     * @param importLVL flag
+     */
     public void init(String a, String b, String c, String d, String e, boolean importLVL) {
         initAssetPool();
         mouseCursor = new GameObject("Mouse Cursor", new Transform(new Pair()), 10);
         initBackGrounds();
         initButtons();
-        //Window.getWindow().addTextField(textField);
+        Window.getWindow().addTextField(textField);
         entered = false;
         this.importLVL = importLVL;
     }
 
+    /**
+     * Initialization of the asset pool of the scene.
+     */
     public void initAssetPool() {
         AssetPool.addSpritesheet("Assets/Global/back.png", 70, 74, 0,1, 1);
         AssetPool.addSpritesheet("Assets/UI/text.png", 150, 50, 0,1, 1);
@@ -54,6 +74,9 @@ public class CreateNewLevelMenu extends Scene {
         this.submit = AssetPool.getSprite("Assets/UI/submit.png");
     }
 
+    /**
+     * Initialization of the scene's backgrounds.
+     */
     public void initBackGrounds() {
         GameObject ground = new GameObject("Ground", new Transform(new Pair(0, Constants.MenuGround_Y)), 1);
         ground.addComponent(new Ground());
@@ -83,6 +106,9 @@ public class CreateNewLevelMenu extends Scene {
         }
     }
 
+    /**
+     * Initialization of the scene's buttons.
+     */
     public void initButtons() {
         GameObject BackButton = new GameObject("Back", new Transform(new Pair(1100, 50)), 10);
         SceneChangerButton back = new SceneChangerButton(70, 74, backButton, backButton, 8);
@@ -122,8 +148,9 @@ public class CreateNewLevelMenu extends Scene {
                 }
                 button.setTextAttached(levelName);
             }
-                entered = true;
-            }
+            button.setTextAttached(textField.getText());
+            entered = true;
+        }
 
         for (GameObject obj : buttons) {
             obj.update(dTime);

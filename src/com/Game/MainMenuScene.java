@@ -60,6 +60,9 @@ public class MainMenuScene extends Scene {
         }
     }
 
+    /**
+     * Initialization method for the asset pool.
+     */
     public void initAssetPool() {
         AssetPool.addSpritesheet("Assets/PlayerSprites/layerOne.png", Constants.PlayerWidth, Constants.PlayerHeight, 2, 13, 13*5);
         AssetPool.addSpritesheet("Assets/PlayerSprites/layerTwo.png", Constants.PlayerWidth, Constants.PlayerHeight, 2, 13, 13*5);
@@ -92,6 +95,9 @@ public class MainMenuScene extends Scene {
         this.Title = AssetPool.getSprite("Assets/MainMenu/Logos/title.png");
     }
 
+    /**
+     * Initialization method for the buttons.
+     */
     public void initButtons() {
         GameObject play = new GameObject("SceneChangerButton", new Transform(new Pair(Constants.MenuPlayButtonX, Constants.MenuPlayButtonY)), 10);
         SceneChangerButton playButton = new SceneChangerButton(ButtonPlay.width, ButtonPlay.height, ButtonPlay, ButtonPlay, 3);

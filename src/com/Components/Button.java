@@ -9,6 +9,9 @@ import java.awt.FontMetrics;
 import java.awt.Graphics2D;
 import java.awt.event.MouseEvent;
 
+/**
+ * Abstract class of a button. Base class for the implemented buttons.
+ */
 public abstract class Button extends Component {
     public int width, height;
     public Sprite Image, SelectedImage;
@@ -24,6 +27,13 @@ public abstract class Button extends Component {
     private int wrapLength, fontSize;
     private int xBuff, yBuff;
 
+    /**
+     * Constructor for the simple button
+     * @param width button width
+     * @param height button height
+     * @param Image button non-pressed image
+     * @param SelectedImage button pressed image
+     */
     public Button(int width, int height, Sprite Image, Sprite SelectedImage) {
         this.width = width;
         this.height = height;
@@ -31,6 +41,14 @@ public abstract class Button extends Component {
         this.SelectedImage = SelectedImage;
     }
 
+    /**
+     * Constructor for text button.
+     * @param width button width
+     * @param height button height
+     * @param Image button non-pressed image
+     * @param SelectedImage button pressed image
+     * @param text button text
+     */
     public Button(int width, int height, Sprite Image, Sprite SelectedImage, String text) {
         this.width = width;
         this.height = height;
@@ -45,8 +63,16 @@ public abstract class Button extends Component {
         this.yBuff = (int)((height - fontSize) / 2.0);
     }
 
+    /**
+     * main function of the button
+     */
+
     public abstract void buttonPressed();
 
+    /**
+     * Button update function
+     * @param dTime frames
+     */
     @Override
     public void update(double dTime) {
         if(debounceLeft > 0) debounceLeft -= dTime;
@@ -73,6 +99,10 @@ public abstract class Button extends Component {
         }
     }
 
+    /**
+     * Button draw function
+     * @param g2 graphics handler
+     */
     @Override
     public void draw(Graphics2D g2) {
         g2.setColor(Color.GREEN);
@@ -89,6 +119,11 @@ public abstract class Button extends Component {
         }
     }
 
+    /**
+     * Utility function for drawing the text inside the button
+     * @param fm font metrics
+     * @param g2 graphics handler
+     */
     private void drawTextWrapped(FontMetrics fm, Graphics2D g2) {
         int lineHeight = fm.getHeight();
 
@@ -112,11 +147,20 @@ public abstract class Button extends Component {
         }
     }
 
+    /**
+     * No need for implementation
+     * @param tabSize   number of tabs to be indented correctly
+     * @return nothing
+     */
     @Override
     public String serialize(int tabSize) {
         return null;
     }
 
+    /**
+     * No need for implementation
+     * @return nothing
+     */
     @Override
     public Component copy() {
         return null;

@@ -6,10 +6,16 @@ import javax.swing.JProgressBar;
 import java.awt.Color;
 import java.awt.Font;
 
+/**
+ * Class for the progress bar
+ */
 public class ProgressBar extends Component {
     private JProgressBar bar = new JProgressBar(0, 100);
     private float counter = 0.0f;
 
+    /**
+     * Constructor
+     */
     public ProgressBar(){
         bar.setValue(0);                                        //initial value
         bar.setBounds(415, 30, 450, 20);        //bar properties
@@ -20,6 +26,10 @@ public class ProgressBar extends Component {
         bar.setStringPainted(true);                             //adds percentage to progress bar
     }
 
+    /**
+     * Update method for the bar
+     * @param dTime frames
+     */
     @Override
     public void update(double dTime) {
         if(counter < 100) {
@@ -29,14 +39,26 @@ public class ProgressBar extends Component {
         }
     }
 
+    /**
+     * Utility method.
+     * @return the progress bar
+     */
     public JProgressBar getBar() {
         return bar;
     }
 
+    /**
+     * Utility method.
+     * @return the percentage
+     */
     public float getCounterValue() {
         return counter;
     }
 
+    /**
+     * Utility method.
+     * @param value the value to be stored in the bar
+     */
     public void setCounterValue(float value) {
         counter = value;
     }

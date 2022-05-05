@@ -5,15 +5,27 @@ import com.Game.*;
 
 import static com.main.Main.conn;
 
+/**
+ * Class for the end-of-the-level pipe part
+ */
 public class PipePart extends Component {
     boolean exitOnCollision;
     public GameObject player;               //reference to the player
     private BoxBounds bounds;               //reference to the bounds
 
+    /**
+     * Constructor
+     * @param exitOnCollision flag whether we want to exit on collision or not.
+     */
     public PipePart(boolean exitOnCollision) {
         this.exitOnCollision = exitOnCollision;
     }
 
+    /**
+     * Constructor
+     * @param exitOnCollision flag whether we want to exit on collision or not.
+     * @param player player
+     */
     public PipePart(boolean exitOnCollision, GameObject player) {
         this.exitOnCollision = exitOnCollision;
         this.player = player;

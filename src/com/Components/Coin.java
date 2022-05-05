@@ -10,20 +10,36 @@ import java.awt.Graphics2D;
 import java.awt.Shape;
 import java.awt.geom.Ellipse2D;
 
+/**
+ * Class for the coin
+ */
 public class Coin extends Component {
     public boolean wasCollected;
     public GameObject player;
     public CircleBounds bounds;
 
+    /**
+     * Constructor
+     * @param wasCollected flag whether the coin was collected or not
+     */
     public Coin(boolean wasCollected) {
         this.wasCollected = wasCollected;
     }
 
+    /**
+     /**
+     * Constructor
+     * @param wasCollected flag whether the coin was collected or not
+     * @param player player
+     */
     public Coin(boolean wasCollected, GameObject player) {
         this.wasCollected = wasCollected;
         this.player = player;
     }
 
+    /**
+     * Utility function that gets called after the creation of an object
+     */
     @Override
     public void start(){
         this.bounds = gameObject.getComp(CircleBounds.class);
@@ -34,6 +50,10 @@ public class Coin extends Component {
         }
     }
 
+    /**
+     * Update function for the coin
+     * @param dTime frames
+     */
     @Override
     public void update(double dTime) {
         if(player != null) {
@@ -71,6 +91,10 @@ public class Coin extends Component {
         return new Coin(wasCollected);
     }
 
+    /**
+     * Draw method for the coin
+     * @param g2 graphics handler
+     */
     @Override
     public void draw(Graphics2D g2) {
         if(wasCollected) {
@@ -85,7 +109,6 @@ public class Coin extends Component {
 
     /**
      * Abstract method to force every derived class to implement it
-     *
      * @return a new object = copy of a Component
      */
     @Override

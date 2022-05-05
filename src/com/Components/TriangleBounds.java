@@ -11,7 +11,7 @@ import java.awt.Graphics2D;
 import java.awt.geom.Line2D;
 
 /**
- * Class for the spikes bounds
+ * Class for the spikes' bounds
  */
 public class TriangleBounds extends Bounds{
     private float base, height, halfWidth, halfHeight;

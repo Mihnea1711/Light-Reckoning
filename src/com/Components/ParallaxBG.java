@@ -144,6 +144,10 @@ public class ParallaxBG extends Component {
         return null;
     }
 
+    /**
+     * Utility function to set the ground color
+     * @param color new color
+     */
     public void setGroundColor(Color color) {
         this.color = color;
     }

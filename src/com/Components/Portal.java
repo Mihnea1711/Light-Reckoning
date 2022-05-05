@@ -75,7 +75,7 @@ public class Portal extends Component {
     }
 
     /**
-     * Deserializes the portal
+     * Deserializes the portal.
      * @return a new portal object with the deserialized properties
      */
     public static Portal deserialize() {
