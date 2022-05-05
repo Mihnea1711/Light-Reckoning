@@ -17,7 +17,13 @@ enum BoundsType {
  * Class for the bounds of the objects
  */
 public abstract class Bounds extends Component {
+    /**
+     * Object type
+     */
     public BoundsType type;
+    /**
+     * Flag whether the object is selected or not
+     */
     public boolean isSelected;
 
     /**
@@ -43,7 +49,7 @@ public abstract class Bounds extends Component {
      * Checks the collision between 2 objects
      * @param b1 first object bounds
      * @param b2 second object bounds
-     * @return
+     * @return true/false
      */
     public static boolean checkCollision(Bounds b1, Bounds b2) {
         //we know that at least 1 is the player (box)

@@ -15,7 +15,7 @@ public abstract class Component<T> extends Serialize {
 
     /**
      * Method that does nothing, so you can override it or not
-     * @param dTime
+     * @param dTime frames
      */
     public void update(double dTime) {
         return; //java removes stuff like this to not waste time

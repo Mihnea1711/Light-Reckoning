@@ -13,9 +13,20 @@ import static com.main.Main.conn;
  * Class for the scene changer button.
  */
 public class SceneChangerButton extends Button {
+    /**
+     * Flag whether we want to import a level or not
+     */
     private boolean importLvl;
-    public int sceneIndex, prevSceneNumber;
-    public String  filename, zipFilePath, musicFile, backgroundPath, groundPath;
+    /**
+     * Current scene index
+     */
+    public int sceneIndex;
+    /**
+     * Previous scene index
+     */
+    public int prevSceneNumber;
+
+    public String filename, zipFilePath, musicFile, backgroundPath, groundPath;
 
     /**
      * Constructor for the scene changer button. (back, arrows, main menu buttons)

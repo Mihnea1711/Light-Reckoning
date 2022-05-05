@@ -8,6 +8,9 @@ import com.Components.Sprite;
  * Class for the rotate buttons inside level editor controls
  */
 public class RotateButton extends Button {
+    /**
+     * Flag for rotation direction
+     */
     private boolean rotateRight;
 
     /**

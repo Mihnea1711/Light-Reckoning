@@ -9,7 +9,7 @@ import java.util.Map;
 
 /**
  * Completely static class to get the assets.
- * Handles the creation & destruction of the sprites and sprite sheets, so we won't duplicate anything.
+ * Handles the creation and destruction of the sprites and sprite sheets, so we won't duplicate anything.
  * Can call this from anywhere in the program, we should be fine.
  */
 public class AssetPool {

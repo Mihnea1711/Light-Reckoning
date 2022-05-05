@@ -17,8 +17,17 @@ import java.util.zip.ZipOutputStream;
  * Class for the submit button.
  */
 public class SubmitButton extends Button {
+    /**
+     * The text attached to the button
+     */
     private String textAttached;
+    /**
+     * Utility buffer for reading the file
+     */
     private static final byte[] BUFFER = new byte[4096 * 1024];
+    /**
+     * Flag whether we want to create a new level or not
+     */
     private boolean create;
 
     /**
