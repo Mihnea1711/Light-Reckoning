@@ -123,8 +123,8 @@ public class Player extends Component {
      * Method called whenever the player dies.
      */
     public void die() {
-        gameObject.transform.pos.x = 100;
-        gameObject.transform.pos.y = 350;
+        gameObject.transform.pos.x = 150;
+        gameObject.transform.pos.y = 300;
         gameObject.getComp(RigidBody.class).speed.y = 0;        //player won't continue to jump after he dies
         gameObject.transform.rotation = 0;                      //resetting the transform
         Window.getWindow().getCurrentScene().camera.pos.x = 0;

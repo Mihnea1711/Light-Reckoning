@@ -133,7 +133,7 @@ public class LevelEditorScene extends Scene{
         GameObject playButton = new GameObject("Play", new Transform(new Pair(1120, 160)), 10);
         SceneChangerButton play = new SceneChangerButton(120, 49, Play, Play, "", 1, filename,
                 "levels/CreatedLevels.zip",
-                "Assets/LevelSoundTracks/stereoMadness.wav",
+                "Assets/LevelSoundTracks/TheoryOfEverything.wav",
                 "Assets/Background/bg01.png", "Assets/Ground/ground01.png");
         playButton.addComponent(play);
         playButton.setUI(true);
