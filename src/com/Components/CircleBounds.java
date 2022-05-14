@@ -16,8 +16,9 @@ import java.awt.geom.Ellipse2D;
  * Class for the circle bounds of an object.
  */
 public class CircleBounds extends Bounds{
-    private float diameter, radius;
-    private Pair centre = new Pair();
+    private final float diameter;
+    private final float radius;
+    private final Pair centre = new Pair();
 
     public float xBuffer = 0.0f;
     public float yBuffer = 0.0f;
@@ -26,7 +27,7 @@ public class CircleBounds extends Bounds{
 
     /**
      * Constructor.
-     * @param diameter diameter
+     * @param diameter diameter of the circle
      * @param isVisible flag whether the coin is visible or has been collected
      */
     public CircleBounds(float diameter, boolean isVisible) {
@@ -54,7 +55,7 @@ public class CircleBounds extends Bounds{
 
     /**
      * Abstract because we have different scenarios (Box, Triangle).
-     * @return the width
+     * @return the circle width
      */
     @Override
     public float getWidth() {
@@ -63,7 +64,7 @@ public class CircleBounds extends Bounds{
 
     /**
      * Abstract because we have different scenarios (Box, Triangle).
-     * @return the height
+     * @return the height of the circle
      */
     @Override
     public float getHeight() {
@@ -82,8 +83,7 @@ public class CircleBounds extends Bounds{
     }
 
     /**
-     * The method which all the components extending this class will have to override.
-     *
+     * Serializes the circle bounds data.
      * @param tabSize number of tabs to be indented correctly
      * @return the string to be written into the file
      */
@@ -155,9 +155,8 @@ public class CircleBounds extends Bounds{
     }
 
     /**
-     * Abstract method to force every derived class to implement it.
-     *
-     * @return a new object = copy of a Component
+     * Copy method for the circle bounds.
+     * @return a new object = copy of a circle bounds
      */
     @Override
     public Component copy() {

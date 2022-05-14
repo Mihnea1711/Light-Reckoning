@@ -17,7 +17,7 @@ public class AssetPool {
     static Map<String, SpriteSheet> spritesheets = new HashMap<>();
 
     /**
-     * True or false whether this asset pool has a sprite or not
+     * True or false whether this asset pool has a sprite or not.
      * @param pictureFile the picture file
      * @return Whether the asset pool has the sprite or not
      */
@@ -27,7 +27,7 @@ public class AssetPool {
     }
 
     /**
-     * Returns the sprite inside the picture file
+     * Returns the sprite inside the picture file.
      * @param picFile the picture file
      * @return the sprite we want
      */
@@ -41,7 +41,7 @@ public class AssetPool {
     }
 
     /**
-     * Adds the sprite if it doesn't exist
+     * Adds the sprite if it doesn't exist.
      * @param picFile the picture
      * @param sprite the sprite
      */
@@ -56,7 +56,7 @@ public class AssetPool {
     }
 
     /**
-     * True or false whether this asset pool has a sprite sheet or not
+     * True or false whether this asset pool has a sprite sheet or not.
      * @param picFile the picture file
      * @return Whether the asset pool has the sprite or not
      */
@@ -66,7 +66,7 @@ public class AssetPool {
     }
 
     /**
-     * Returns the sprite sheet inside the picture file
+     * Returns the sprite sheet inside the picture file.
      * @param picFile the picture file
      * @return the sprite sheet at the file
      */
@@ -82,7 +82,7 @@ public class AssetPool {
     }
 
     /**
-     * Adds the sprite sheet if it doesn't exist
+     * Adds the sprite sheet if it doesn't exist.
      * @param picFile   the picture file
      * @param tileWidth sub sprite width
      * @param tileHeight sub sprite height

@@ -10,12 +10,12 @@ import java.awt.Color;
 import java.awt.Graphics2D;
 
 /**
- * Class for the ground component
+ * Class for the ground component.
  */
 public class Ground extends Component {
 
     /**
-     * Updates the ground every frame
+     * Updates the ground every frame.
      * @param dTime frames
      */
     @Override
@@ -36,9 +36,8 @@ public class Ground extends Component {
     }
 
     /**
-     * Draws the ground
-     * Constants.GroundOffsetX and GroundOffsetScreenWidth are constants to ensure that there are no bugs when dragging
-     * the screen left / right
+     * Draws the ground.
+     * Constants.GroundOffsetX and GroundOffsetScreenWidth are constants to ensure that there are no bugs when dragging the screen left/right
      * @param g2 graphics handler
      */
     @Override
@@ -52,7 +51,7 @@ public class Ground extends Component {
     }
 
     /**
-     * Copy method for the ground (no need)
+     * Copy method for the ground (no need).
      * @return nothing
      */
     @Override
@@ -62,7 +61,7 @@ public class Ground extends Component {
 
     /**
      * Don't need to save, we will be building it anyway.
-     * @param tabSize   number of tabs to be indented correctly
+     * @param tabSize number of tabs to be indented correctly
      * @return nothing
      */
     @Override

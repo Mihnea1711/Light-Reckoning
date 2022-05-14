@@ -11,7 +11,7 @@ import java.awt.Shape;
 import java.awt.geom.Ellipse2D;
 
 /**
- * Class for the coin
+ * Class for the coin.
  */
 public class Coin extends Component {
     public boolean wasCollected;
@@ -19,16 +19,15 @@ public class Coin extends Component {
     public CircleBounds bounds;
 
     /**
-     * Constructor
+     * Constructor.
      * @param wasCollected flag whether the coin was collected or not
      */
     public Coin(boolean wasCollected) {
         this.wasCollected = wasCollected;
     }
 
-    /**
      /**
-     * Constructor
+     * Constructor.
      * @param wasCollected flag whether the coin was collected or not
      * @param player player
      */
@@ -38,7 +37,7 @@ public class Coin extends Component {
     }
 
     /**
-     * Utility function that gets called after the creation of an object
+     * Utility function that gets called after the creation of an object.
      */
     @Override
     public void start(){
@@ -51,21 +50,7 @@ public class Coin extends Component {
     }
 
     /**
-     * Update function for the coin
-     * @param dTime frames
-     */
-    @Override
-    public void update(double dTime) {
-        if(player != null) {
-            if(CircleBounds.checkCollision(bounds, player.getComp(Bounds.class)) && !this.wasCollected) {
-                this.wasCollected = true;
-                //DataBaseHandler.updateCoins(conn, Window.getScene().name);
-            }
-        }
-    }
-
-    /**
-     * Serializes the portal data
+     * Serializes the coin data.
      * @param tabSize   number of tabs to be indented correctly
      * @return the portal properties serialized
      */
@@ -81,7 +66,7 @@ public class Coin extends Component {
     }
 
     /**
-     * Deserializes the coin
+     * Deserializes the coin data.
      * @return a new portal object with the deserialized properties
      */
     public static Coin deserialize() {
@@ -92,7 +77,22 @@ public class Coin extends Component {
     }
 
     /**
-     * Draw method for the coin
+     * Update function for the coin.
+     * @param dTime frames
+     */
+    @Override
+    public void update(double dTime) {
+        if(player != null) {
+            if(CircleBounds.checkCollision(bounds, player.getComp(Bounds.class)) && !this.wasCollected) {
+                this.wasCollected = true;
+                //DataBaseHandler.updateCoins(conn, Window.getScene().name);
+            }
+        }
+    }
+
+
+    /**
+     * Draw method for the coin.
      * @param g2 graphics handler
      */
     @Override
@@ -108,8 +108,8 @@ public class Coin extends Component {
     }
 
     /**
-     * Abstract method to force every derived class to implement it
-     * @return a new object = copy of a Component
+     * Copy method for the coin.
+     * @return a new object = copy of a Coin
      */
     @Override
     public Component copy() {

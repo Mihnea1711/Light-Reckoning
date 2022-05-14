@@ -6,15 +6,26 @@ import com.Game.*;
 import static com.main.Main.conn;
 
 /**
- * Class for the end-of-the-level pipe part
+ * Class for the end-of-the-level pipe part.
  */
 public class PipePart extends Component {
+    /**
+     * flag for exiting the level
+     */
     boolean exitOnCollision;
+
+    /**
+     * reference to the player
+     */
     public GameObject player;               //reference to the player
+
+    /**
+     * reference to the bounds
+     */
     private BoxBounds bounds;               //reference to the bounds
 
     /**
-     * Constructor
+     * Constructor.
      * @param exitOnCollision flag whether we want to exit on collision or not.
      */
     public PipePart(boolean exitOnCollision) {
@@ -22,7 +33,7 @@ public class PipePart extends Component {
     }
 
     /**
-     * Constructor
+     * Constructor.
      * @param exitOnCollision flag whether we want to exit on collision or not.
      * @param player player
      */
@@ -45,7 +56,7 @@ public class PipePart extends Component {
     }
 
     /**
-     * Updates the state of the player on collision
+     * Updates the state of the player on collision.
      * @param dTime frames
      */
     @Override
@@ -63,9 +74,9 @@ public class PipePart extends Component {
     }
 
     /**
-     * Serializes the Pipe data
-     * @param tabSize   number of tabs to be indented correctly
-     * @return the portal properties serialized
+     * Serializes the Pipe data.
+     * @param tabSize number of tabs to be indented correctly
+     * @return the pipe properties serialized
      */
     @Override
     public String serialize(int tabSize) {
@@ -79,8 +90,8 @@ public class PipePart extends Component {
     }
 
     /**
-     * Deserializes the portal
-     * @return a new portal object with the deserialized properties
+     * Deserializes the Pipe data.
+     * @return a new pipe object with the deserialized properties
      */
     public static PipePart deserialize() {
         boolean exit = Parser.consumeBooleanProperty("Exit");
@@ -90,9 +101,9 @@ public class PipePart extends Component {
     }
 
     /**
-     * Creates a new portal object with the same properties, instead of passing a reference around.
+     * Creates a new block object with the same properties, instead of passing a reference around.
      * It doesn't necessarily invoke start.
-     * @return a new portal object
+     * @return a new pipe object
      */
     @Override
     public Component copy() {

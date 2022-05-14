@@ -11,6 +11,9 @@ import java.awt.Insets;
  * Class for the text field inside the option select menu (new level or play created).
  */
 public class TextField extends Component {
+    /**
+     * the actual text field
+     */
     private JTextField textField;
 
     /**
@@ -48,7 +51,7 @@ public class TextField extends Component {
     }
 
     /**
-     * The method which all the components extending this class will have to override.
+     * No need to implement it.
      * @param tabSize number of tabs to be indented correctly
      * @return the string to be written into the file
      */
@@ -58,7 +61,7 @@ public class TextField extends Component {
     }
 
     /**
-     * Abstract method to force every derived class to implement it
+     * No need to implement it.
      * @return a new object = copy of a Component
      */
     @Override

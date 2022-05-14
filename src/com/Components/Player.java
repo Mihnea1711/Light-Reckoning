@@ -14,17 +14,26 @@ import java.awt.geom.AffineTransform;
 import static com.main.Main.conn;
 
 /**
- * Class for the player
+ * Class for the player.
  */
 public class Player extends Component {
     Sprite layer1, layer2, layer3, spaceship;          //layer sprites
     public int width, height;               //player width, height
+
+    /**
+     * flag whether the player is on ground or not
+     */
     public boolean onGround  = true;
+
+    /**
+     * current state of the player, since it has 2 states.
+     */
     public PlayerState state;
+
     private int collectedCoins, numberOFJumps = 0, maxXCounter = 0;
 
     /**
-     * Constructor for coloring the player
+     * Constructor for coloring the player.
      * @param layer1    first layer of the player
      * @param layer2    second layer of the player
      * @param layer3    third layer of the player
@@ -61,6 +70,7 @@ public class Player extends Component {
     }
 
     /**
+     * Update method.
      * Checking whether the player is jumping or not and adding the jump forces.
      * @param dTime frames
      */
@@ -96,14 +106,14 @@ public class Player extends Component {
     }
 
     /**
-     * Add the force necessary for the player to jump
+     * Add the force necessary for the player to jump.
      */
     private void addJumpForce() {
         gameObject.getComp(RigidBody.class).speed.y = Constants.JumpForce;
     }
 
     /**
-     * Add the force necessary for the player to fly
+     * Add the force necessary for the player to fly.
      */
     private void addFlyForce() {
         gameObject.getComp(RigidBody.class).speed.y = Constants.FlyForce;
@@ -126,7 +136,7 @@ public class Player extends Component {
     }
 
     /**
-     * Draws the player, depending on its state
+     * Draws the player, depending on its state.
      * @param g2 graphics handler
      */
     @Override
@@ -164,7 +174,7 @@ public class Player extends Component {
     }
 
     /**
-     * Utility method to increment the coins collected
+     * Utility method to increment the coins collected.
      */
     public void increaseCoinsCollected() {
         collectedCoins++;

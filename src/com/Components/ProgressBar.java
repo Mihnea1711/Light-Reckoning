@@ -7,14 +7,21 @@ import java.awt.Color;
 import java.awt.Font;
 
 /**
- * Class for the progress bar
+ * Class for the progress bar.
  */
 public class ProgressBar extends Component {
+    /**
+     * the actual progress bar
+     */
     private JProgressBar bar = new JProgressBar(0, 100);
+
+    /**
+     * the progress bar counter
+     */
     private float counter = 0.0f;
 
     /**
-     * Constructor
+     * Constructor.
      */
     public ProgressBar(){
         bar.setValue(0);                                        //initial value
@@ -27,7 +34,7 @@ public class ProgressBar extends Component {
     }
 
     /**
-     * Update method for the bar
+     * Update method for the bar.
      * @param dTime frames
      */
     @Override
@@ -64,7 +71,7 @@ public class ProgressBar extends Component {
     }
 
     /**
-     * The method which all the components extending this class will have to override.
+     * No need to implement it.
      *
      * @param tabSize number of tabs to be indented correctly
      * @return the string to be written into the file
@@ -75,7 +82,7 @@ public class ProgressBar extends Component {
     }
 
     /**
-     * Abstract method to force every derived class to implement it
+     * No need to implement it.
      *
      * @return a new object = copy of a Component
      */

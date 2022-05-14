@@ -13,20 +13,33 @@ import java.awt.Graphics2D;
  * Class for the Parallax-type Background.
  */
 public class ParallaxBG extends Component {
-    public int width, height;               //width/height of the background img
+    public int width;               //width of the background img
+    public int height;               //height of the background img
     public Sprite sprite;                   //sprite for the background img
     public String pictureFile;
     public GameObject[] backgrounds;        //collection of backgrounds so we can loop throw them
+
+    /**
+     * Variable that keeps track of the time step of the current background
+     */
     public int timeStep = 0;                //keep track on which time step we are on
 
     private float speed = Constants.BgSpeed;
+
+    /**
+     * reference to the ground object
+     */
     private Ground ground;      //reference to the ground object
-    private boolean followGround;       //to differentiate whether we are dealing with a backgrounds or a ground background
+
+    /**
+     * flag to differentiate whether we are dealing with a background or a ground background
+     */
+    private boolean followGround;
 
     private Color color;
 
     /**
-     *
+     * Constructor. Sets the background's speed less than the player's speed, so it has a parallax effect.
      * @param file  the file that contains the image
      * @param backgrounds   the backgrounds
      * @param ground    reference to the ground

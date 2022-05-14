@@ -4,14 +4,14 @@ import com.File.Parser;
 import com.File.Serialize;
 
 /**
- * Encapsulates a pair of numbers (for position/ scale/ ...)
+ * Encapsulates a pair of numbers (for position/ scale/ ...).
  * (x, y)
  */
 public class Pair extends Serialize {
     public float x, y;
 
     /**
-     * Constructor with parameters
+     * Constructor with parameters.
      * @param x x pos
      * @param y y pos
      */
@@ -21,7 +21,7 @@ public class Pair extends Serialize {
     }
 
     /**
-     * Default constructor
+     * Default constructor.
      * initializes pos with 0,0
      */
     public Pair() {
@@ -30,7 +30,7 @@ public class Pair extends Serialize {
     }
 
     /**
-     * creates a new object, instead of passing a reference around
+     * Creates a new object, instead of passing a reference around.
      * @return new object = copy of a Pair
      */
     public Pair copy() {
@@ -53,7 +53,7 @@ public class Pair extends Serialize {
     }
 
     /**
-     * Deserializes the pair of values
+     * Deserializes the pair of values.
      * @return  the pair deserialized as a new Pair object
      */
     public static Pair deserialize() {

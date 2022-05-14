@@ -11,7 +11,7 @@ import java.awt.Graphics2D;
 import java.awt.geom.Line2D;
 
 /**
- * Contains the grid
+ * Contains the grid.
  */
 public class Grid extends Component {
 
@@ -21,7 +21,7 @@ public class Grid extends Component {
     private int numXLines = Constants.GridXLines;
 
     /**
-     * Constructor for the grid
+     * Constructor for the grid.
      */
     public Grid() {
         this.camera = Window.getWindow().getCurrentScene().camera;
@@ -30,7 +30,7 @@ public class Grid extends Component {
     }
 
     /**
-     * Update method for the grid (no need)
+     * Update method for the grid (no need).
      * @param dTime frames
      */
     @Override
@@ -39,7 +39,7 @@ public class Grid extends Component {
     }
 
     /**
-     * Draws the grid onto the screen, so we have 42x42 squares going across the screen.
+     * Draws the grid, so we have 42x42 squares going across the screen.
      * This won't be submitted to the renderer, instead will be drawn directly.
      * @param g2 graphics handler
      */
@@ -66,7 +66,7 @@ public class Grid extends Component {
     }
 
     /**
-     * Copy method of the grid (no need)
+     * Copy method of the grid (no need).
      * @return nothing
      */
     @Override
@@ -76,7 +76,7 @@ public class Grid extends Component {
 
     /**
      * Don't need to save, we will be building it anyway.
-     * @param tabSize   number of tabs to be indented correctly
+     * @param tabSize number of tabs to be indented correctly
      * @return nothing
      */
     @Override

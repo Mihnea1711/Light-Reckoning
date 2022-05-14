@@ -4,7 +4,7 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
 /**
- * Extends Mouse adapter -> Window events registered, keeps track of mouse events
+ * Extends Mouse adapter -> Window events registered, keeps track of mouse events.
  */
 public class MouseListener extends MouseAdapter {
     public boolean mousePressed = false;            //if we press any button on the mouse
@@ -30,7 +30,7 @@ public class MouseListener extends MouseAdapter {
     }
 
     /**
-     * Sets the variables for releasing the mouse (stop pressing buttons)
+     * Sets the variables for releasing the mouse. (stop pressing buttons)
      * @param mouseEvent event for clicking the mouse
      */
     @Override
@@ -44,7 +44,7 @@ public class MouseListener extends MouseAdapter {
 
     /**
      * Sets the coordinates of the mouse while being moved.
-     * event is called whenever the mouse is moved on the window
+     * Event is called whenever the mouse is moved on the window.
      * @param mouseEvent event for clicking the mouse
      */
     @Override
@@ -54,7 +54,7 @@ public class MouseListener extends MouseAdapter {
     }
 
     /**
-     * Everytime the user is clicking and dragging, we update position and distance travelled
+     * Everytime the user is clicking and dragging, we update position and distance travelled.
      * @param mouseEvent event for clicking the mouse
      */
     @Override

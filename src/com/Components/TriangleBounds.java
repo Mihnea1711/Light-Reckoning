@@ -15,6 +15,10 @@ import java.awt.geom.Line2D;
  */
 public class TriangleBounds extends Bounds{
     private float base, height, halfWidth, halfHeight;
+
+    /**
+     * circumscribed circle radius
+     */
     private float enclosingRadius;
 
     private float x1, x2, x3, y1, y2, y3;   //points of the triangle
@@ -22,14 +26,33 @@ public class TriangleBounds extends Bounds{
     public float xBuffer, yBuffer;
 
     //will work with binary codes
+    /**
+     * binary code for the "inside" zone
+     */
     private final int Inside = 0;
+
+    /**
+     * binary code for the "left" zone
+     */
     private final int Left = 1;
+
+    /**
+     * binary code for the "right" zone
+     */
     private final int Right = 2;
+
+    /**
+     * binary code for the "bottom" zone
+     */
     private final int Bottom = 4;
+
+    /**
+     * binary code for the "top" zone
+     */
     private final int Top = 8;
 
     /**
-     * Constructor
+     * Constructor.
      * @param base value for the base of the triangle
      * @param height value for the height of the triangle
      */
@@ -43,7 +66,7 @@ public class TriangleBounds extends Bounds{
     }
 
     /**
-     * Calculates the transform after the game object is created
+     * Gets called after the game object is created.
      */
     @Override
     public void start() {
@@ -74,7 +97,7 @@ public class TriangleBounds extends Bounds{
     }
 
     /**
-     * Checks the collision with a triangle
+     * Checks the collision with a triangle.
      * @param b the player
      * @param t the spike
      * @return Goes into the narrow phase and checks whether we hit the spike or not
@@ -87,7 +110,8 @@ public class TriangleBounds extends Bounds{
     }
 
     /**
-     * Checks if the player hit the enclosing radius of a triangle
+     * Checks if the player hit the enclosing radius of a triangle.
+     * First step in collision checking.
      * @param b player
      * @return true/false
      */
@@ -111,9 +135,9 @@ public class TriangleBounds extends Bounds{
     }
 
     /**
-     * Rotates the point around an origin
+     * Rotates the point around an origin.
      * @param angle angle of rotation
-     * @param p  the point to be rotated
+     * @param p the point to be rotated
      * @param o the origin which the point is being rotated around
      * @return the new rotated point
      */
@@ -160,11 +184,11 @@ public class TriangleBounds extends Bounds{
 
     /**
      * Cohen Sutherland clipping algorithm. Should run 2 times at most.
-     * @param p1    first end point of the line
-     * @param p2    second end point of the line
-     * @param depth  recursive functions need a maximum amount of loops. (catch)
-     * @param bounds    the actual bounds of the player
-     * @param pos   the position of the boxBounds
+     * @param p1 first end point of the line
+     * @param p2  second end point of the line
+     * @param depth recursive functions need a maximum amount of loops. (catch)
+     * @param bounds the actual bounds of the player
+     * @param pos the position of the boxBounds
      * @return true/false whether we are intersecting or not
      */
     private boolean boxIntersectingLine(Pair p1, Pair p2, int depth, BoxBounds bounds, Pair pos) {
@@ -241,7 +265,7 @@ public class TriangleBounds extends Bounds{
     }
 
     /**
-     * Computes scalar product/angle of 2 vectors
+     * Computes scalar product/angle of 2 vectors.
      * @param v1 first vector
      * @param v2 second vector
      * @return a scalar - algebraically (angle between the vectors - geometrically)
@@ -278,7 +302,7 @@ public class TriangleBounds extends Bounds{
     }
 
     /**
-     * Utility method
+     * Utility method.
      * @return the width of the triangle
      */
     @Override
@@ -287,7 +311,7 @@ public class TriangleBounds extends Bounds{
     }
 
     /**
-     * Utility method
+     * Utility method.
      * @return the height of the triangle
      */
     @Override
@@ -364,7 +388,7 @@ public class TriangleBounds extends Bounds{
     }
 
     /**
-     * Creates a new object with triangle bounds component instead of passing the reference around
+     * Creates a new object with triangle bounds component instead of passing the reference around.
      * @return new object = copy of triangle bounds
      */
     @Override

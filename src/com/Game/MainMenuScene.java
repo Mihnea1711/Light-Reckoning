@@ -19,6 +19,9 @@ import java.util.List;
 public class MainMenuScene extends Scene {
     private GameObject mouseCursor;
 
+    /**
+     * list of the buttons inside the scene
+     */
     private List<GameObject> buttons;
 
     private Sprite ButtonPlay, ButtonEditor;
@@ -29,7 +32,7 @@ public class MainMenuScene extends Scene {
     private Sprite Title;
 
     /**
-     * Constructor
+     * Constructor.
      * @param name name of menu
      */
     public MainMenuScene(String name) {
@@ -38,7 +41,7 @@ public class MainMenuScene extends Scene {
     }
 
     /**
-     * Initialization method
+     * Initialization method.
      */
     public void init() {
         initAssetPool();
@@ -134,7 +137,7 @@ public class MainMenuScene extends Scene {
     }
 
     /**
-     * Initialization method for backgrounds
+     * Initialization method for backgrounds.
      */
     public void initBackGrounds() {
         GameObject ground = new GameObject("Ground", new Transform(new Pair(0, Constants.MenuGround_Y)), 1);
@@ -198,7 +201,7 @@ public class MainMenuScene extends Scene {
     }
 
     /**
-     * Updates objects on the screen
+     * Updates objects on the screen.
      * @param dTime keeps track of frames
      */
     @Override
@@ -211,7 +214,7 @@ public class MainMenuScene extends Scene {
     }
 
     /**
-     * Draws objects on the screen
+     * Draws objects on the screen.
      * @param g2 graphics handler
      */
     @Override
@@ -224,7 +227,7 @@ public class MainMenuScene extends Scene {
     }
 
     /**
-     * Imports the level
+     * Imports the level. No reason to implement.
      * @param filename the file from where we take our serialized level.
      */
     @Override

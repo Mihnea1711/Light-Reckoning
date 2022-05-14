@@ -16,7 +16,7 @@ import java.util.Objects;
 import static com.main.Main.conn;
 
 /**
- * This is the playable Level
+ * This is the playable Level.
  */
 public class LevelScene extends Scene {
     public GameObject player;
@@ -29,19 +29,21 @@ public class LevelScene extends Scene {
     private float levelLength = 0;
 
     private String filename, zipPath;
+    private Percentage percentage;
 
     /**
-     * Constructor
+     * Constructor.
      * @param name level name
      */
     public LevelScene(String name){
         super.Scene(name);  //calls the superclass(Scene) constructor
         progressBar = new ProgressBar();
-        Window.getWindow().addProgressBar(progressBar);
+        //Window.getWindow().addProgressBar(progressBar);
+
     }
 
     /**
-     * Initializes the level
+     * Initializes the level.
      */
     @Override
     public void init(String filename, String zipFilePath, String musicFile, String backgroundPath, String groundPath, boolean importLVL) {
@@ -67,7 +69,7 @@ public class LevelScene extends Scene {
         initBackGrounds(backgroundPath, groundPath);
         initButtons();
 
-        importLvl(filename, zipFilePath);
+        importLvl(filename, zipPath);
 
         if(levelMusic == null) {
             levelMusic = new Music(musicFile);
@@ -75,9 +77,16 @@ public class LevelScene extends Scene {
     }
 
     /**
-     * Initializes all the backgrounds
+     * Initializes all the backgrounds.
      */
     public void initBackGrounds(String backgroundPath, String groundPath) {
+        GameObject text = new GameObject("Percentage Text", new Transform(new Pair(620, 50)), 10);
+        percentage = new Percentage();
+        text.addComponent(percentage);
+        text.setUI(false);
+        text.setNonserializable();
+        addGameObject(text);
+
         GameObject ground;
         ground = new GameObject("Ground", new Transform(new Pair(0, Constants.GroundY)), 1);
         ground.addComponent(new Ground());
@@ -113,7 +122,7 @@ public class LevelScene extends Scene {
     }
 
     /**
-     * Initializes all the buttons
+     * Initializes all the buttons.
      */
     public void initButtons() {
         GameObject BackButton = new GameObject("Back", new Transform(new Pair(1100, 50)), 10);
@@ -150,7 +159,7 @@ public class LevelScene extends Scene {
     }
 
     /**
-     * Calls different methods and attributes on the component
+     * Calls different methods and attributes on the component.
      * @param dTime frames
      */
     @Override
@@ -193,7 +202,14 @@ public class LevelScene extends Scene {
         }
         //TODO:: check why not working properly
         //Remove this if it is too frustrating
-        progressBar.update(dTime);      //update the progress bar
+        //progressBar.update(dTime);      //update the progress bar
+
+        if(player.getPosX() < startX) {
+            percentage.setText("0 %");
+        } else {
+            percentage.setText((int) progressBar.getCounterValue() + " %");
+        }
+
     }
 
     /**
@@ -220,7 +236,7 @@ public class LevelScene extends Scene {
     }
 
     /**
-     * Draws the level
+     * Draws the level.
      * @param g2 graphics handler
      */
     @Override

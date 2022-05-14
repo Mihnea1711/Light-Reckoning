@@ -13,26 +13,50 @@ import java.util.zip.ZipEntry;
 import java.util.zip.ZipFile;
 
 /**
- * Abstract class that
- * holds the methods that all the scenes will need
+ * Abstract class for the scene
  */
 public abstract class Scene {
+    /**
+     * Scene name (for debugging purposes)
+     */
     public String name;        //helpful for debugging
+
+    /**
+     * Scene camera
+     */
     public Camera camera;   //camera for the scene
+
+    /**
+     * List of the game objects inside the scene.
+     */
     protected List<GameObject> gameObjectList;    //all the game objects in the scene
 
     //prepares the objects that are going to be removed, because it will be called in the middle of an update loop.
     //if we delete objects and then we try to update them, it will cause problems, so we will wait till the end of the frame.
+    /**
+     * List of game objects that will be removed from the scene.
+     * Prepares the objects that are going to be removed, because it will be called in the middle of an update loop.
+     * If we delete objects and then we try to update them, it will cause problems, so we will wait until the end of the frame.
+     */
     protected List<GameObject> objsToRemove;
 
+    /**
+     * scene renderer
+     */
     protected Renderer renderer;      //renderer for the scene
 
+    /**
+     * scene music
+     */
     protected Music levelMusic = null;
 
+    /**
+     * the created levels extracted from the database
+     */
     protected static ArrayList<String> levelsCreated = new ArrayList<>();
 
     /**
-     * Constructor for the Scene
+     * Constructor for the Scene.
      * @param name name of the scene
      */
     public void Scene(String name){
@@ -45,14 +69,14 @@ public abstract class Scene {
     }
 
     /**
-     * Initializes update
+     * Initializes update.
      */
     public void init(){
 
     }
 
     /**
-     * Initializes update
+     * Initializes update.
      * @param sceneNr index of the scene
      */
     public void init(int sceneNr){
@@ -60,7 +84,7 @@ public abstract class Scene {
     }
 
     /**
-     * Initializes update
+     * Initializes update.
      * @param filename filename
      * @param zipFilePath zip path
      * @param musicFile music file path
@@ -99,7 +123,7 @@ public abstract class Scene {
     }
 
     /**
-     * Helper method
+     * Helper method.
      * @return list of all the game objects inside a scene
      */
     public List<GameObject> getAllGameObjects() {
@@ -107,7 +131,7 @@ public abstract class Scene {
     }
 
     /**
-     * Removes an object from the scene, putting it inside a list of object to be removed
+     * Removes an object from the scene, putting it inside a list of object to be removed.
      * @param obj object to be removed
      */
     public void removeGameObject(GameObject obj) {
@@ -115,7 +139,7 @@ public abstract class Scene {
     }
 
     /**
-     * Method to add the game object to the renderer and to the list
+     * Method to add the game object to the renderer and to the list.
      * @param gameObject the object
      */
     public void addGameObject(GameObject gameObject) {
@@ -126,24 +150,28 @@ public abstract class Scene {
         }
     }
 
+    /**
+     * Helper method that adds a created level to the list.
+     * @param name name of the level
+     */
     public void addCreatedLevel(String name) {
         levelsCreated.add(name);
     }
 
     /**
-     * Updates the scene
+     * Updates the scene.
      * @param dTime keeps track of frames
      */
     public abstract void update(double dTime);
 
     /**
-     * Draws on the screen
+     * Draws on the screen.
      * @param g2 graphics handler
      */
     public abstract void draw(Graphics2D g2);
 
     /**
-     * Imports the level
+     * Imports the level.
      * @param filename the file from where we take our serialized level.
      */
     protected abstract void importLvl(String filename, String zipFilePath);

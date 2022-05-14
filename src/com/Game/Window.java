@@ -30,11 +30,11 @@ public class Window extends JFrame implements Runnable {
     private Image doubleBufferImg = null;           //img used to draw things onto and then draw this inside the window
     private Graphics doubleBufferGraphics  = null;      //graphics handler for img
 
-    private final ProgressBar progressBar;
+    private ProgressBar progressBar;
     private TextField textField;
 
     /**
-     * Constructor that sets the window properties
+     * Constructor that sets up the window properties.
      */
     public Window(){
         this.mouseListener = new MouseListener();
@@ -65,7 +65,7 @@ public class Window extends JFrame implements Runnable {
     }
 
     /**
-     * Helper method to get the current scene
+     * Helper method to get the current scene.
      * @return current scene
      */
     public Scene getCurrentScene() {
@@ -73,7 +73,7 @@ public class Window extends JFrame implements Runnable {
     }
 
     /**
-     * Will tell which scene we need to change to
+     * Will tell which scene we need to change to.
      * @param scene index of the Scene we want to change to
      */
     public void changeScene(int scene, int prevSceneNumber, String filename, String zipFilePath, String musicFile, String backgroundPath, String groundPath, boolean importLvl) {
@@ -136,7 +136,7 @@ public class Window extends JFrame implements Runnable {
     }
 
     /**
-     * Creates a window if not created already
+     * Creates a window if not created already.
      * @return the window
      */
     public static Window getWindow(){
@@ -147,7 +147,7 @@ public class Window extends JFrame implements Runnable {
     }
 
     /**
-     * Helper method
+     * Helper method.
      * @return the current scene
      */
     public static Scene getScene() {
@@ -155,7 +155,7 @@ public class Window extends JFrame implements Runnable {
     }
 
     /**
-     * Helper method
+     * Helper method.
      * @return the mouse listener
      */
     public static MouseListener mouseListener() {
@@ -163,7 +163,7 @@ public class Window extends JFrame implements Runnable {
     }
 
     /**
-     * Helper method
+     * Helper method.
      * @return the key listener
      */
     public static KeyListener keyListener() {
@@ -171,7 +171,7 @@ public class Window extends JFrame implements Runnable {
     }
 
     /**
-     * Helper method
+     * Helper method.
      * @return the camera x position
      */
     public static float getWindowCamX() {
@@ -179,7 +179,7 @@ public class Window extends JFrame implements Runnable {
     }
 
     /**
-     * Helper method
+     * Helper method.
      * @return the camera y position
      */
     public static float getWindowCamY() {
@@ -187,7 +187,7 @@ public class Window extends JFrame implements Runnable {
     }
 
     /**
-     * Helper Method
+     * Helper Method.
      * @return the current scene music.
      */
     public static Music getMusic(){
@@ -195,7 +195,7 @@ public class Window extends JFrame implements Runnable {
     }
 
     /**
-     * Helper method
+     * Helper method.
      * @param progressBar the progress bar to be added
      */
     public void addProgressBar(ProgressBar progressBar) {
@@ -203,7 +203,14 @@ public class Window extends JFrame implements Runnable {
     }
 
     /**
-     * Helper method
+     * Helper method.
+     */
+    public void addGUI() {
+        Window.getWindow().add(new PanelGUI());
+    }
+
+    /**
+     * Helper method.
      * @param textField the text field to be added
      */
     public void addTextField(TextField textField) {
@@ -212,7 +219,7 @@ public class Window extends JFrame implements Runnable {
     }
 
     /**
-     * Updates the window/game
+     * Updates the window/game.
      * @param dTime every frame
      */
     public void update(double dTime){
@@ -221,7 +228,7 @@ public class Window extends JFrame implements Runnable {
     }
 
     /**
-     * Used to draw onto the screen
+     * Used to draw on the screen.
      * @param g graphics handler
      */
     public void draw(Graphics g){

@@ -7,7 +7,7 @@ package com.File;
 public abstract class Serialize {
     /**
      * The method which all the components extending this class will have to override.
-     * @param tabSize   number of tabs to be indented correctly
+     * @param tabSize number of tabs to be indented correctly
      * @return  the string to be written into the file
      */
     public abstract String serialize(int tabSize);

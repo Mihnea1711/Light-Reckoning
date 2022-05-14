@@ -18,15 +18,17 @@ import java.util.zip.ZipOutputStream;
  */
 public class SubmitButton extends Button {
     /**
-     * The text attached to the button
+     * The text attached to the button.
      */
     private String textAttached;
+
     /**
-     * Utility buffer for reading the file
+     * Utility buffer for reading the file.
      */
     private static final byte[] BUFFER = new byte[4096 * 1024];
+
     /**
-     * Flag whether we want to create a new level or not
+     * Flag whether we want to create a new level or not.
      */
     private boolean create;
 
@@ -136,7 +138,7 @@ public class SubmitButton extends Button {
     }
 
     /**
-     * Main function of the button
+     * Main function of the button.
      */
     @Override
     public void buttonPressed() {

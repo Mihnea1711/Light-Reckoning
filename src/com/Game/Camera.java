@@ -10,7 +10,7 @@ public class Camera {
     public Pair pos; //position of camera
 
     /**
-     * Constructor
+     * Constructor.
      * @param pos position of camera
      */
     public Camera(Pair pos) {
@@ -18,7 +18,7 @@ public class Camera {
     }
 
     /**
-     * Helper method
+     * Helper method.
      * @return camera x position
      */
     public float getPosX() {
@@ -26,7 +26,7 @@ public class Camera {
     }
 
     /**
-     * Helper method
+     * Helper method.
      * @return camera y position
      */
     public float getPosY() {

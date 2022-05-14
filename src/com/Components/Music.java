@@ -7,7 +7,7 @@ import java.io.File;
 import java.io.IOException;
 
 /**
- * Class for the music file
+ * Class for the music file.
  */
 public class Music extends Component {
 
@@ -55,7 +55,7 @@ public class Music extends Component {
     }
 
     /**
-     * Serialize method for the ground (no need)
+     * Serialize method for the music file (no need).
      * @return nothing
      */
     @Override
@@ -64,7 +64,7 @@ public class Music extends Component {
     }
 
     /**
-     * Copy method for the ground (no need)
+     * Copy method for the music file (no need).
      * @return nothing
      */
     @Override

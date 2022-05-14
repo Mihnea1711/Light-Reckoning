@@ -5,7 +5,7 @@ import com.File.Serialize;
 import com.Utilities.Pair;
 
 /**
- * Holds information about of the object
+ * Holds information about of the object.
  */
 public class Transform extends Serialize {
     public Pair pos;
@@ -13,7 +13,7 @@ public class Transform extends Serialize {
     public float rotation;
 
     /**
-     * Constructor
+     * Constructor.
      * @param pos object position
      */
     public Transform(Pair pos) {
@@ -23,7 +23,7 @@ public class Transform extends Serialize {
     }
 
     /**
-     * Constructor
+     * Constructor.
      * @param pos object position
      * @param scale object scale
      * @param rotation  object rotation
@@ -35,7 +35,7 @@ public class Transform extends Serialize {
     }
 
     /**
-     * Format the print of a transform
+     * Format the print of a transform.
      * @return the transform as a string
      */
     @Override
@@ -44,7 +44,7 @@ public class Transform extends Serialize {
     }
 
     /**
-     * Creates a new object with the same properties, instead of passing a reference around
+     * Creates a new object with the same properties, instead of passing a reference around.
      * @return new object = copy of a transform
      */
     public Transform copy() {
@@ -55,7 +55,7 @@ public class Transform extends Serialize {
     }
 
     /**
-     * Serializes the transform
+     * Serializes the transform.
      * @param tabSize   number of tabs to be indented correctly
      * @return the transform as a string
      */
@@ -81,7 +81,7 @@ public class Transform extends Serialize {
     }
 
     /**
-     * Deserializes the transform
+     * Deserializes the transform.
      * @return a new Transform object with the deserialized properties.
      */
     public static Transform deserialize() {

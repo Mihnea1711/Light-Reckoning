@@ -8,12 +8,18 @@ import com.Components.Sprite;
  */
 public class CloseWindowButton extends Button {
 
+    /**
+     * Constructor.
+     * @param width button width
+     * @param height button height
+     * @param image button image
+     */
     public CloseWindowButton(int width, int height, Sprite image) {
         super(width, height, image, image);
     }
 
     /**
-     * Constructor for the button
+     * Main function of the button.
      */
     @Override
     public void buttonPressed() {

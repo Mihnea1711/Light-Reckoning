@@ -28,7 +28,7 @@ public abstract class Button extends Component {
     private int xBuff, yBuff;
 
     /**
-     * Constructor for the simple button
+     * Constructor for the simple button.
      * @param width button width
      * @param height button height
      * @param Image button non-pressed image
@@ -43,6 +43,7 @@ public abstract class Button extends Component {
 
     /**
      * Constructor for text button.
+     * Variables wrapLength and fontSize, along with xBuff and yBuff are used for centering the text inside the button.
      * @param width button width
      * @param height button height
      * @param Image button non-pressed image
@@ -64,13 +65,9 @@ public abstract class Button extends Component {
     }
 
     /**
-     * main function of the button
-     */
-
-    public abstract void buttonPressed();
-
-    /**
-     * Button update function
+     * Button update function.
+     * Uses debounceLeft, debounceTime and framesLeft, framesForAnimation for the button behaviour.
+     * Variable isSelected is a flag whether the button is selected or not.
      * @param dTime frames
      */
     @Override
@@ -100,27 +97,7 @@ public abstract class Button extends Component {
     }
 
     /**
-     * Button draw function
-     * @param g2 graphics handler
-     */
-    @Override
-    public void draw(Graphics2D g2) {
-        g2.setColor(Color.GREEN);
-        g2.setFont(new Font("Calibri", Font.PLAIN, fontSize));
-        FontMetrics fm = g2.getFontMetrics();
-
-        if(!isSelected) {
-            g2.drawImage(Image.img, (int)gameObject.getPosX(), (int)gameObject.getPosY(), width, height, null);
-        } else {
-            g2.drawImage(SelectedImage.img, (int)gameObject.getPosX(), (int)gameObject.getPosY(), width, height, null);
-        }
-        if(text != null) {
-            drawTextWrapped(fm, g2);
-        }
-    }
-
-    /**
-     * Utility function for drawing the text inside the button
+     * Utility function for drawing the text inside the button.
      * @param fm font metrics
      * @param g2 graphics handler
      */
@@ -148,8 +125,28 @@ public abstract class Button extends Component {
     }
 
     /**
-     * No need for implementation
-     * @param tabSize   number of tabs to be indented correctly
+     * Button draw function.
+     * @param g2 graphics handler
+     */
+    @Override
+    public void draw(Graphics2D g2) {
+        g2.setColor(Color.GREEN);
+        g2.setFont(new Font("Calibri", Font.PLAIN, fontSize));
+        FontMetrics fm = g2.getFontMetrics();
+
+        if(!isSelected) {
+            g2.drawImage(Image.img, (int)gameObject.getPosX(), (int)gameObject.getPosY(), width, height, null);
+        } else {
+            g2.drawImage(SelectedImage.img, (int)gameObject.getPosX(), (int)gameObject.getPosY(), width, height, null);
+        }
+        if(text != null) {
+            drawTextWrapped(fm, g2);
+        }
+    }
+
+    /**
+     * No need for implementation.
+     * @param tabSize number of tabs to be indented correctly
      * @return nothing
      */
     @Override
@@ -158,11 +155,17 @@ public abstract class Button extends Component {
     }
 
     /**
-     * No need for implementation
+     * No need for implementation.
      * @return nothing
      */
     @Override
     public Component copy() {
         return null;
     }
+
+    /**
+     * Main function of the button.
+     * Will be overridden by the subclasses.
+     */
+    public abstract void buttonPressed();
 }

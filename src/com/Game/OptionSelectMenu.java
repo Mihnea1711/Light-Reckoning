@@ -25,7 +25,7 @@ public class OptionSelectMenu extends Scene{
     private SpriteSheet newSprites;
 
     /**
-     * Constructor
+     * Constructor.
      * @param name scene name
      */
     public OptionSelectMenu(String name) {
@@ -121,7 +121,7 @@ public class OptionSelectMenu extends Scene{
     }
 
     /**
-     * Updates the scene
+     * Updates the scene.
      * @param dTime keeps track of frames
      */
     @Override
@@ -134,7 +134,7 @@ public class OptionSelectMenu extends Scene{
     }
 
     /**
-     * Draws on the screen
+     * Draws on the screen.
      * @param g2 graphics handler
      */
     @Override
@@ -154,7 +154,7 @@ public class OptionSelectMenu extends Scene{
     }
 
     /**
-     * Imports the level
+     * Imports the level. No reason to implement.
      *
      * @param filename the file from where we take our serialized level.
      */

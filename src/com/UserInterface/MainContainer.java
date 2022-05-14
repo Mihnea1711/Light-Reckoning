@@ -16,7 +16,7 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * Stores all the blocks and objects (sprites) that can be placed in the game
+ * Stores all the blocks and objects (sprites) that can be placed in the game.
  */
 public class MainContainer extends Component {
     public Sprite containerBg;
@@ -30,7 +30,7 @@ public class MainContainer extends Component {
     private GameObject hotButton = null;
 
     /**
-     * Constructor for the container
+     * Constructor for the container.
      */
     public MainContainer() {
         this.menuItems = new ArrayList<>();
@@ -41,7 +41,7 @@ public class MainContainer extends Component {
     }
 
     /**
-     * initializes the main container with all its tabs and items
+     * Initializes the main container with all its tabs and items.
      */
     public void init() {
         SpriteSheet tabSprites = AssetPool.getSpritesheet("Assets/UI/tabs.png");
@@ -202,7 +202,7 @@ public class MainContainer extends Component {
     }
 
     /**
-     * Helper method to add the properties of the tab objects
+     * Helper method to add the properties of the tab objects.
      * @param pos position to start
      * @param objectSprite object sprite
      * @param buttonNormalSprite button not-pressed sprite
@@ -262,7 +262,7 @@ public class MainContainer extends Component {
     }
 
     /**
-     * Draws the container on the screen
+     * Draws the container on the screen.
      * @param g2 graphics handler
      */
     @Override
@@ -275,7 +275,7 @@ public class MainContainer extends Component {
     }
 
     /**
-     * Does nothing. There is no need for copies of main container
+     * Does nothing. There is no need for copies of main container.
      * @return nothing
      */
     @Override
@@ -286,7 +286,7 @@ public class MainContainer extends Component {
 
     /**
      * Don't need to save, we will be building it anyway.
-     * @param tabSize   number of tabs to be indented correctly
+     * @param tabSize number of tabs to be indented correctly
      * @return nothing
      */
     @Override
@@ -295,7 +295,7 @@ public class MainContainer extends Component {
     }
 
     /**
-     * Sets the current button as active
+     * Sets the current button as active.
      * @param obj the button selected
      */
     public void setHotButton(GameObject obj) {
@@ -303,7 +303,7 @@ public class MainContainer extends Component {
     }
 
     /**
-     * Sets the current tab as active
+     * Sets the current tab as active.
      * @param obj the tab selected
      */
     public void setHotTab(GameObject obj) {

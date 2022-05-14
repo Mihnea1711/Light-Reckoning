@@ -6,14 +6,17 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Class that handles the sprite sheets
+ * Class that handles the sprite sheets.
  */
 public class SpriteSheet {
+    /**
+     * List of the sprites inside a sprite sheet
+     */
     public List<Sprite> sprites;        //sprites attached
     public int tileWidth, tileHeight, spacing;  //properties of the sprites
 
     /**
-     * Constructor for the class
+     * Constructor for the class.
      * @param picFile the file from where this sprite sheet is loading
      * @param tileWidth how big each individual sprite is
      * @param tileHeight how big each individual sprite is

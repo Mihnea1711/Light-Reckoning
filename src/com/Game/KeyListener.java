@@ -7,7 +7,10 @@ import java.awt.event.KeyEvent;
  * Takes care of the key events
  */
 public class KeyListener extends KeyAdapter implements java.awt.event.KeyListener {
-    private boolean keyPressed[] = new boolean[128];        //contains pressed keyboard keys, 128 chars in ascii
+    /**
+     * contains pressed keyboard keys, 128 chars in ascii
+     */
+    private boolean keyPressed[] = new boolean[128];
 
     /**
      * Stores the keys that are currently pressed.

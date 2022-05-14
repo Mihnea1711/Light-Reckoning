@@ -11,7 +11,7 @@ import java.util.zip.ZipEntry;
 import java.util.zip.ZipFile;
 
 /**
- * Parses the json file.
+ * Parses the JSON file.
  * Completely static class.
  */
 public class Parser {
@@ -184,7 +184,7 @@ public class Parser {
     }
 
     /**
-     * Parses the beginning of the object
+     * Parses the beginning of the object.
      * @param name name of the object
      */
     public static void consumeBeginObjectProperty(String name) {
@@ -197,7 +197,7 @@ public class Parser {
     }
 
     /**
-     * Parses the ending of the object
+     * Parses the ending of the object.
      */
     public static void consumeEndObjectProperty() {
         skipWhiteSpaces();
@@ -205,7 +205,7 @@ public class Parser {
     }
 
     /**
-     * Parses a string property line
+     * Parses a string property line.
      * @param name name of the property
      * @return
      */
@@ -217,7 +217,7 @@ public class Parser {
     }
 
     /**
-     * Parses an int property line
+     * Parses an int property line.
      * @param name name of the property
      * @return
      */
@@ -229,7 +229,7 @@ public class Parser {
     }
 
     /**
-     * Parses a float property line
+     * Parses a float property line.
      * @param name name of the property
      * @return
      */
@@ -241,7 +241,7 @@ public class Parser {
     }
 
     /**
-     * Parses a double property line
+     * Parses a double property line.
      * @param name name of the property
      * @return
      */
@@ -253,7 +253,7 @@ public class Parser {
     }
 
     /**
-     * Parses a boolean property line
+     * Parses a boolean property line.
      * @param name name of the property
      * @return
      */
@@ -265,7 +265,7 @@ public class Parser {
     }
 
     /**
-     * Parses the game object
+     * Parses the game object.
      * @return the game object deserialized
      */
     public static GameObject parseGameObject() {
@@ -279,7 +279,7 @@ public class Parser {
     }
 
     /**
-     * Parses the component of an object
+     * Parses the component of an object.
      * @return the component deserialized
      */
     public static Component parseComponent() {

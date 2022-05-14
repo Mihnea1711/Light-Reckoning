@@ -16,7 +16,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * This is the Editor Scene where we can create levels
+ * This is the Editor Scene where we can create levels.
  */
 public class LevelEditorScene extends Scene{
     public GameObject player;
@@ -30,15 +30,13 @@ public class LevelEditorScene extends Scene{
 
     private List<GameObject> buttons;
 
-    private static final byte[] BUFFER = new byte[4096 * 1024];
-
     private float debounceKey = 0.5f;      //every 0.5 sec we will register one key press -> not too much speed when editing
     private float debounceKeyLeft = 0.0f;
 
     private String filename;
 
     /**
-     * Calls the superclass(Scene) constructor
+     * Calls the superclass(Scene) constructor.
      * @param name name of the Scene
      */
     public LevelEditorScene(String name){
@@ -215,7 +213,7 @@ public class LevelEditorScene extends Scene{
     }
 
     /**
-     * Imports the level created with the "filename" name
+     * Imports the level created with the "filename" name.
      * @param filename the file from where we are importing the level
      */
     @Override
@@ -242,7 +240,7 @@ public class LevelEditorScene extends Scene{
     }
 
     /**
-     * Draws into the level editor scene
+     * Draws into the level editor scene.
      * @param g2 graphics handler
      */
     @Override

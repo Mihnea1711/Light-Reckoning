@@ -1,7 +1,7 @@
 package com.Components;
 
 /**
- * Enum for the states of the player
+ * Enum for the states of the player.
  */
 public enum PlayerState {
     Normal,

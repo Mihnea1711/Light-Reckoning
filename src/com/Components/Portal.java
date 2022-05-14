@@ -4,7 +4,7 @@ import com.File.Parser;
 import com.Game.*;
 
 /**
- * Class for the Portal's properties
+ * Class for the Portal's properties.
  */
 public class Portal extends Component {
     public PlayerState stateChanger;        //functionality of the portal
@@ -12,7 +12,7 @@ public class Portal extends Component {
     private BoxBounds bounds;               //reference to the bounds
 
     /**
-     * Constructor for the portal
+     * Constructor for the portal.
      * @param stateChanger functionality of the portal
      */
     public Portal(PlayerState stateChanger) {
@@ -20,7 +20,7 @@ public class Portal extends Component {
     }
 
     /**
-     * Constructor for the portal
+     * Constructor for the portal.
      * @param stateChanger functionality of the portal
      * @param player reference to the player
      */
@@ -43,7 +43,7 @@ public class Portal extends Component {
     }
 
     /**
-     * Updates the state of the player on collision
+     * Updates the state of the player on collision.
      * @param dTime frames
      */
     @Override
@@ -57,8 +57,8 @@ public class Portal extends Component {
     }
 
     /**
-     * Serializes the portal data
-     * @param tabSize   number of tabs to be indented correctly
+     * Serializes the portal data.
+     * @param tabSize number of tabs to be indented correctly
      * @return the portal properties serialized
      */
     @Override

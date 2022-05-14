@@ -11,15 +11,25 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 
 /**
- * Component to add to any game object
- * Contains a picture
+ * Component to add to any game object.
+ * Contains a picture.
  */
 public class Sprite extends Component {
+    /**
+     * the path to the picture file
+     */
     String picFile;
+
+    /**
+     * the actual image
+     */
     public BufferedImage img;   //actual img contained at this picture
     public int width, height;
 
-    public boolean isSubSprite = false; //whether the sprite is its own image or is part of a larger sprite
+    /**
+     * flag whether the sprite is its own image or is part of a larger sprite
+     */
+    public boolean isSubSprite = false;
     public int row, column, index;  //sprite values if it is a subsprite
 
     /**
@@ -56,7 +66,7 @@ public class Sprite extends Component {
     }
 
     /**
-     * Constructor for a sub sprite
+     * Constructor for a sub sprite.
      * @param img   the image of the sprite
      * @param row   row of the sub-sprite
      * @param column    column of the sub-sprite
@@ -75,7 +85,7 @@ public class Sprite extends Component {
     }
 
     /**
-     * Draws the sprite
+     * Draws the sprite.
      * @param g2 graphics handler
      */
     @Override
@@ -91,7 +101,7 @@ public class Sprite extends Component {
     }
 
     /**
-     * Creates a new object sprite instead of passing a reference around
+     * Creates a new object sprite instead of passing a reference around.
      * @return new object = copy of a sprite/ sub-sprite
      */
     @Override
@@ -104,7 +114,7 @@ public class Sprite extends Component {
 
     /**
      * Serializes the sprite.
-     * @param tabSize   number of tabs to be indented correctly
+     * @param tabSize number of tabs to be indented correctly
      * @return the sprite serialized
      */
     @Override
@@ -129,7 +139,7 @@ public class Sprite extends Component {
     }
 
     /**
-     * Deserializes the sprite
+     * Deserializes the sprite.
      * @return a new sprite object with all its deserialized properties
      */
     public static Sprite deserialize() {

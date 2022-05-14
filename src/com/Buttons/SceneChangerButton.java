@@ -13,20 +13,46 @@ import static com.main.Main.conn;
  * Class for the scene changer button.
  */
 public class SceneChangerButton extends Button {
+
     /**
-     * Flag whether we want to import a level or not
+     * Flag whether we want to import a level or not.
      */
     private boolean importLvl;
+
     /**
-     * Current scene index
+     * Current scene index.
      */
     public int sceneIndex;
+
     /**
-     * Previous scene index
+     * Previous scene index.
      */
     public int prevSceneNumber;
 
-    public String filename, zipFilePath, musicFile, backgroundPath, groundPath;
+    /**
+     * Current file name.
+     */
+    public String filename;
+
+    /**
+     * Current zip file name.
+     */
+    public String zipFilePath;
+
+    /**
+     * Current music file name.
+     */
+    public String musicFile;
+
+    /**
+     * Current background path name.
+     */
+    public String backgroundPath;
+
+    /**
+     * Current ground path name.
+     */
+    public String groundPath;
 
     /**
      * Constructor for the scene changer button. (back, arrows, main menu buttons)
@@ -73,7 +99,7 @@ public class SceneChangerButton extends Button {
     }
 
     /**
-     * Constructor for level buttons
+     * Constructor for level buttons.
      * @param width button width
      * @param height button height
      * @param image button image (non-pressed)
@@ -98,7 +124,7 @@ public class SceneChangerButton extends Button {
     }
 
     /**
-     * Main function of the button
+     * Main function of the button.
      */
     @Override
     public void buttonPressed() {

@@ -9,7 +9,7 @@ import java.util.zip.ZipEntry;
 import java.util.zip.ZipFile;
 
 /**
- * Class that stores all the methods needed for a completely working database
+ * Class that stores all the methods needed for a completely working database.
  * Global behaviour.
  */
 public class DataBaseHandler {
@@ -29,7 +29,7 @@ public class DataBaseHandler {
     }
 
     /**
-     * Function to create the table if not created already
+     * Function to create the table if not created already.
      * @param conn the connection to the database
      */
     public static void createTable(Connection conn) {
@@ -90,7 +90,7 @@ public class DataBaseHandler {
     }
 
     /**
-     * Function to get the jumps inside the database
+     * Function to get the jumps inside the database.
      * @param conn connection to the database
      * @param levelName name of the level
      * @return number of jumps for the level
@@ -115,7 +115,7 @@ public class DataBaseHandler {
     }
 
     /**
-     * Function to get the attempts inside the database
+     * Function to get the attempts inside the database.
      * @param conn connection to the database
      * @param levelName name of the level
      * @return number of attempts for the level
@@ -140,7 +140,7 @@ public class DataBaseHandler {
     }
 
     /**
-     * Function to get the max progression inside the database
+     * Function to get the max progression inside the database.
      * @param conn connection to the database
      * @param levelName name of the level
      * @return number of max progression for the level
@@ -165,7 +165,7 @@ public class DataBaseHandler {
     }
 
     /**
-     * Function to get the coins inside the database
+     * Function to get the coins inside the database.
      * @param conn connection to the database
      * @param levelName name of the level
      * @return number of coins for the level
@@ -191,7 +191,7 @@ public class DataBaseHandler {
     }
 
     /**
-     * Function to update the attempts inside the database
+     * Function to update the attempts inside the database.
      * @param conn connection to the database
      * @param levelName name of the level
      */
@@ -215,7 +215,7 @@ public class DataBaseHandler {
     }
 
     /**
-     * Function to update the jumps inside the database
+     * Function to update the jumps inside the database.
      * @param conn connection to the database
      * @param levelName name of the level
      */
@@ -239,7 +239,7 @@ public class DataBaseHandler {
     }
 
     /**
-     * Function to update the counter inside the database
+     * Function to update the counter inside the database.
      * @param conn connection to the database
      * @param levelName name of the level
      * @param counterValue value from the progress bar
@@ -264,7 +264,7 @@ public class DataBaseHandler {
     }
 
     /**
-     * Function to update the coins inside the database
+     * Function to update the coins inside the database.
      * @param conn connection to the database
      * @param levelName name of the level
      * @param collectedCoins number of coins collected
@@ -314,7 +314,7 @@ public class DataBaseHandler {
     }
 
     /**
-     * Function to insert a record inside the database
+     * Function to insert a record inside the database.
      * @param conn connection to the database
      * @param levelName name of the level
      */
@@ -337,7 +337,7 @@ public class DataBaseHandler {
     }
 
     /**
-     * Function to get the jumps for all levels inside the database
+     * Function to get the jumps for all levels inside the database.
      * @param conn connection to the database
      * @return all jumps for all levels
      */
@@ -360,7 +360,7 @@ public class DataBaseHandler {
     }
 
     /**
-     * Function to get the attempts for all levels inside the database
+     * Function to get the attempts for all levels inside the database.
      * @param conn connection to the database
      * @return all attempts for all levels
      */
@@ -383,7 +383,7 @@ public class DataBaseHandler {
     }
 
     /**
-     * Function to get the coins for all levels inside the database
+     * Function to get the coins for all levels inside the database.
      * @param conn connection to the database
      * @return all coins for all levels
      */
@@ -406,7 +406,7 @@ public class DataBaseHandler {
     }
 
     /**
-     * Function to get the completed levels inside the database
+     * Function to get the completed levels inside the database.
      * @param conn connection to the database
      * @return all completed levels
      */

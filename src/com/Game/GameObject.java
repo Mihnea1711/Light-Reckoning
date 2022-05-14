@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Core component for any engine
+ * Core component for any engine.
  */
 public class GameObject extends Serialize {
     private List<Component> componentList;              //list of components attached to the object(each will have update method & draw methods)

@@ -12,7 +12,7 @@ import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 
 /**
- * Contains each of the components attached to the main container
+ * Contains each of the components attached to the main container.
  */
 public class MenuItem extends Component {
     private int x, y, width, height;
@@ -24,7 +24,7 @@ public class MenuItem extends Component {
     private MainContainer parentContainer;      //reference to the main container class
 
     /**
-     * Constructor
+     * Constructor.
      * @param x x position of button
      * @param y y position of button
      * @param width     width of button
@@ -45,7 +45,7 @@ public class MenuItem extends Component {
     }
 
     /**
-     * Constructor
+     * Constructor.
      * @param x x position of button
      * @param y y position of button
      * @param width     width of button
@@ -64,7 +64,7 @@ public class MenuItem extends Component {
     }
 
     /**
-     * It is called after the whole game object is constructed and has all its components attached
+     * It is called after the whole game object is constructed and has all its components attached.
      */
     @Override
     public void start() {
@@ -75,7 +75,7 @@ public class MenuItem extends Component {
     }
 
     /**
-     * Updates the menu items
+     * Updates the menu items.
      * @param dTime frames
      */
     @Override
@@ -104,7 +104,7 @@ public class MenuItem extends Component {
     }
 
     /**
-     * Draws the buttons
+     * Draws the buttons.
      * @param g2 graphics handler
      */
     @Override
@@ -117,7 +117,7 @@ public class MenuItem extends Component {
     }
 
     /**
-     * Creates a new object instead of passing a reference around
+     * Creates a new object instead of passing a reference around.
      * @return a new object with the same properties
      */
     @Override
@@ -128,7 +128,7 @@ public class MenuItem extends Component {
 
     /**
      * Don't need to save, we will be building it anyway.
-     * @param tabSize   number of tabs to be indented correctly
+     * @param tabSize number of tabs to be indented correctly
      * @return nothing
      */
     @Override

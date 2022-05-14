@@ -5,7 +5,7 @@ import com.Game.GameObject;
 import com.Utilities.Pair;
 
 /**
- * Just to differentiate between the box and triangle bounds
+ * Just to differentiate between the box and triangle bounds.
  */
 enum BoundsType {
     Box,
@@ -14,26 +14,26 @@ enum BoundsType {
 }
 
 /**
- * Class for the bounds of the objects
+ * Class for the bounds of the objects.
  */
 public abstract class Bounds extends Component {
     /**
-     * Object type
+     * Object type.
      */
     public BoundsType type;
     /**
-     * Flag whether the object is selected or not
+     * Flag whether the object is selected or not.
      */
     public boolean isSelected;
 
     /**
-     * Abstract because we have different scenarios (Box, Triangle)
+     * Abstract because we have different scenarios (Box, Triangle).
      * @return the width
      */
     abstract public float getWidth();
 
     /**
-     * Abstract because we have different scenarios (Box, Triangle)
+     * Abstract because we have different scenarios (Box, Triangle).
      * @return the height
      */
     abstract public float getHeight();
@@ -46,7 +46,7 @@ public abstract class Bounds extends Component {
     abstract public boolean rayCast(Pair pos);
 
     /**
-     * Checks the collision between 2 objects
+     * Checks the collision between 2 box objects.
      * @param b1 first object bounds
      * @param b2 second object bounds
      * @return true/false

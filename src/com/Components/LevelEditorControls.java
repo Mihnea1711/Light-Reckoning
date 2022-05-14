@@ -47,7 +47,7 @@ public class LevelEditorControls extends Component {
     private List<GameObject> selectedObjects;
 
     /**
-     * Constructor for the grid
+     * Constructor.
      * @param gridWidth width
      * @param gridHeight height
      */
@@ -58,7 +58,7 @@ public class LevelEditorControls extends Component {
     }
 
     /**
-     * If there is a sprite held by the mouse, this function will update its position
+     * If there is a sprite held by the mouse, this function will update its position.
      */
     public void updateSpritePosition() {
         this.worldX = (float)Math.floor((Window.getWindow().mouseListener.x + Window.getWindowCamX() +
@@ -98,7 +98,7 @@ public class LevelEditorControls extends Component {
     }
 
     /**
-     * Creates a box between the coordinates from the parameters
+     * Creates a box between the coordinates from the parameters.
      * @param x start x point
      * @param y start y point
      * @param width width of the box
@@ -155,7 +155,8 @@ public class LevelEditorControls extends Component {
     }
 
     /**
-     * Tracks the mouse and snaps it to the grid.
+     * Update method.
+     * Handles all the functionality inside the level editor.
      * @param dTime frames
      */
     @Override
@@ -258,7 +259,7 @@ public class LevelEditorControls extends Component {
     }
 
     /**
-     * Moves the selected objects
+     * Moves the selected objects.
      * @param direction direction to move the objects
      * @param scale scale for the distance of the moved object.
      */
@@ -284,7 +285,7 @@ public class LevelEditorControls extends Component {
                 break;
         }
 
-        //Computers don't have maximum precision when working with floating numbers. We have to adjust it
+        //Computers don't have maximum precision when working with floating numbers. We have to adjust it.
         for(GameObject obj : selectedObjects) {
             obj.transform.pos.x += distance.x;
             obj.transform.pos.y += distance.y;
@@ -306,7 +307,7 @@ public class LevelEditorControls extends Component {
     }
 
     /**
-     * Duplicates the selected objects
+     * Duplicates the selected objects.
      */
     public void duplicate() {
         for(GameObject obj : selectedObjects) {
@@ -315,7 +316,7 @@ public class LevelEditorControls extends Component {
     }
 
     /**
-     * Draws the objects
+     * Draws the objects.
      * @param g2 graphics handler
      */
     @Override

@@ -21,16 +21,19 @@ import java.util.zip.ZipOutputStream;
  * Class for the button that saves the edits made inside editor.
  */
 public class SaveLevelButton extends Button {
+
     /**
-     * name of the file to be saved
+     * Name of the file to be saved.
      */
     String filename;
+
     /**
-     * List of objects inside the file
+     * List of objects inside the current file.
      */
     List<GameObject> gameObjectList;
+
     /**
-     * Utility buffer for reading the file
+     * Utility buffer used for reading the file.
      */
     private static final byte[] BUFFER = new byte[4096 * 1024];
 

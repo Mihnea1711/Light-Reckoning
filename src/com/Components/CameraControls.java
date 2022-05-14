@@ -7,13 +7,22 @@ import com.Utilities.Constants;
 import java.awt.event.MouseEvent;
 
 /**
- * Class to control to camera movement
+ * Class to control to camera movement.
  */
 public class CameraControls extends Component {
-    private float prevMouseX, prevMouseY;
 
     /**
-     * Constructor for camera controls
+     * Last x position of the mouse.
+     */
+    private float prevMouseX;
+
+    /**
+     * Last y position of the mouse.
+     */
+    private float prevMouseY;
+
+    /**
+     * Constructor for camera controls.
      */
     public CameraControls() {
         prevMouseX = 0.0f;
@@ -44,6 +53,11 @@ public class CameraControls extends Component {
         prevMouseY = Window.getWindow().mouseListener.y + Window.getWindow().mouseListener.dy;
     }
 
+    /**
+     * Copy method.
+     * No need for implementation.
+     * @return nothing
+     */
     @Override
     public Component copy() {
         return null;
@@ -51,7 +65,7 @@ public class CameraControls extends Component {
 
     /**
      * Don't need to save, we will be building it anyway.
-     * @param tabSize   number of tabs to be indented correctly
+     * @param tabSize number of tabs to be indented correctly
      * @return nothing
      */
     @Override

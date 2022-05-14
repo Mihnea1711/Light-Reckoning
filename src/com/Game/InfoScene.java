@@ -140,7 +140,7 @@ public class InfoScene extends Scene{
 
         g2.setColor(Color.WHITE);
         g2.setFont(new Font("Calibri", Font.BOLD, 40));
-        g2.drawString("LEVEL STATS", 530, 160);
+        g2.drawString("GAME STATS", 530, 160);
 
         g2.setFont(new Font("Calibri", Font.PLAIN, 25));
         g2.drawString("Total Attempts:  " + DataBaseHandler.getAllAttempts(conn), 420, 230);
@@ -171,7 +171,7 @@ public class InfoScene extends Scene{
     }
 
     /**
-     * Imports the level
+     * Imports the level. No reason to implement.
      * @param filename the file from where we take our serialized level.
      */
     @Override

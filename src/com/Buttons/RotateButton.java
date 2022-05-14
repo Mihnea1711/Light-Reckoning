@@ -5,16 +5,16 @@ import com.Components.Sprite;
 
 //TODO:: add correct implementation
 /**
- * Class for the rotate buttons inside level editor controls
+ * Class for the rotate buttons inside level editor controls.
  */
 public class RotateButton extends Button {
     /**
-     * Flag for rotation direction
+     * Flag for rotation direction.
      */
-    private boolean rotateRight;
+    private final boolean rotateRight;
 
     /**
-     * Constructor for the rotate button inside the editor
+     * Constructor for the rotate button inside the editor.
      * @param width width of the button
      * @param height height of the button
      * @param image button image when non-clicked
@@ -28,7 +28,7 @@ public class RotateButton extends Button {
     }
 
     /**
-     * Button main function
+     * Button main function.
      */
     @Override
     public void buttonPressed() {
@@ -42,7 +42,7 @@ public class RotateButton extends Button {
 
     /**
      * Copy function for the button, so we don't pass references around.
-     * @return a new rotate button with the same properties
+     * @return a new rotate button with the same properties.
      */
     @Override
     public RotateButton copy() {

@@ -20,7 +20,7 @@ public class TabItem extends Component {
     private MainContainer parentContainer;
 
     /**
-     * Constructor
+     * Constructor.
      * @param x x position of button
      * @param y y position of button
      * @param width width of button
@@ -39,7 +39,7 @@ public class TabItem extends Component {
     }
 
     /**
-     * Updates and keeps track of the hot tabs
+     * Updates and keeps track of the hot tabs.
      * @param dTime frames
      */
     @Override
@@ -55,7 +55,7 @@ public class TabItem extends Component {
     }
 
     /**
-     * Draws the tabs half transparent if not selected and full transparent otherwise
+     * Draws the tabs half transparent if not selected and full transparent otherwise.
      * @param g2 graphics handler
      */
     @Override
@@ -77,7 +77,7 @@ public class TabItem extends Component {
 
     /**
      * Don't need to save, we will be building it anyway.
-     * @param tabSize   number of tabs to be indented correctly
+     * @param tabSize number of tabs to be indented correctly
      * @return nothing
      */
     @Override

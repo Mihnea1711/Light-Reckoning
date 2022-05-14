@@ -11,7 +11,7 @@ import java.awt.Graphics2D;
 import java.awt.geom.Rectangle2D;
 
 /**
- * Class for the bounds of a box(square) objects
+ * Class for the bounds of a box(square) objects.
  */
 public class BoxBounds extends Bounds {
     private float width, height;
@@ -28,7 +28,7 @@ public class BoxBounds extends Bounds {
     public boolean isTrigger;
 
     /**
-     * Constructor for box bounds
+     * Constructor for box bounds.
      * @param width width of bounds
      * @param height height of bounds
      */
@@ -37,7 +37,7 @@ public class BoxBounds extends Bounds {
     }
 
     /**
-     * Constructor for box bounds if we want to create a box bounds with a trigger effect
+     * Constructor for box bounds if we want to create a box bounds with a trigger effect.
      * @param width width of bounds
      * @param height height of bounds
      * @param isTrigger flag for the portal trigger
@@ -47,7 +47,8 @@ public class BoxBounds extends Bounds {
     }
 
     /**
-     * Initialization method for box bounds
+     * Initialization method for box bounds.
+     * Called inside the constructors to simplify it.
      * @param width width of bounds
      * @param height height of bounds
      * @param isTrigger flag for the portal trigger
@@ -63,7 +64,7 @@ public class BoxBounds extends Bounds {
     }
 
     /**
-     * Calculates the centre after the game object is created
+     * This function is called after the game object is created.
      */
     @Override
     public void start() {           //the boxBounds is attached to the game object
@@ -71,19 +72,13 @@ public class BoxBounds extends Bounds {
     }
 
     /**
-     * Calculates the centre of the object
+     * Calculates the centre of the object.
+     * Variables xBuffer, yBuffer are used for the objects that don't respect the standard square properties.
      */
     public void calculateCentre() {
         this.centre.x = this.gameObject.transform.pos.x + this.halfWidth + this.xBuffer;
         this.centre.y = this.gameObject.transform.pos.y + this.halfHeight + this.yBuffer;
     }
-
-    /**
-     * No need to update the bounds
-     * @param dTime frames
-     */
-    @Override
-    public void update(double dTime) {    }
 
     /**
      * Checks the collision between 2 square objects.
@@ -108,7 +103,9 @@ public class BoxBounds extends Bounds {
     }
 
     /**
-     * Resolves the collisions between the player and a box(square)
+     * Resolves the collisions between the player and a box(square).
+     * Checks collision on top and bottom of the player, then left/right.
+     * Small bug, either because the checking order is messed up, either because we need Impulse Collision resolution algorithm.
      * @param player the player
      */
     public void resolveCollision(GameObject player) {
@@ -154,7 +151,7 @@ public class BoxBounds extends Bounds {
     }
 
     /**
-     * Creates a new object with bounds component instead of passing the reference around
+     * Creates a new object with bounds component instead of passing the reference around.
      * @return new object = copy of bounds
      */
     @Override
@@ -208,7 +205,7 @@ public class BoxBounds extends Bounds {
     }
 
     /**
-     * helper method
+     * Helper method.
      * @return width of bounds
      */
     @Override
@@ -217,7 +214,7 @@ public class BoxBounds extends Bounds {
     }
 
     /**
-     * helper method
+     * Helper method.
      * @return height of bounds
      */
     @Override
@@ -237,7 +234,14 @@ public class BoxBounds extends Bounds {
     }
 
     /**
-     * Draws the bounds of the box selected
+     * No need to update the bounds.
+     * @param dTime frames
+     */
+    @Override
+    public void update(double dTime) {    }
+
+    /**
+     * Draws the bounds of the box selected.
      * @param g2 graphics handler
      */
     @Override

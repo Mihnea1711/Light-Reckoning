@@ -1,12 +1,13 @@
 package com.Utilities;
 
 /**
- * Used to get the current time
+ * Used to get the current time.
  */
 public class Time {
     public static double timeStarted = System.nanoTime();       //when initialized this will store the time we are at
 
     /**
+     * Utility method.
      * @return time passed since the function call
      */
     public static double getTime(){

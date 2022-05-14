@@ -10,14 +10,17 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * Should take care of drawing objects relative to the camera or the zIndex
+ * Should take care of drawing objects relative to the camera or the zIndex.
  */
 public class Renderer {
-    Map<Integer, List<GameObject>> gameObjectList;  //game objects to draw mapped to a specific ZIndex
+    /**
+     * game objects to draw mapped to a specific ZIndex
+     */
+    Map<Integer, List<GameObject>> gameObjectList;
     Camera camera;
 
     /**
-     * Constructor with parameters
+     * Constructor with parameters.
      * @param camera camera used for the objects
      */
     public Renderer(Camera camera) {
@@ -26,7 +29,7 @@ public class Renderer {
     }
 
     /**
-     * Submits game objects to the renderer to be drawn every frame
+     * Submits game objects to the renderer to be drawn every frame.
      * @param gameObject the game object
      */
     public void submit(GameObject gameObject) {
@@ -37,7 +40,7 @@ public class Renderer {
     /**
      * Draws the objects relative to (0,0).
      * If the object is UI, we want to draw it wherever it draws itself, so no need for transforms.
-     * @param g2
+     * @param g2 graphics handler
      */
     public void render(Graphics2D g2) {
         int lowestZIndex = Integer.MAX_VALUE;

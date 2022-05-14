@@ -19,6 +19,10 @@ import java.util.List;
  */
 public class Level3Menu extends Scene{
     private GameObject mouseCursor;
+
+    /**
+     * list of the buttons inside the scene
+     */
     private List<GameObject> buttons;
 
     private Sprite logo2;
@@ -146,7 +150,7 @@ public class Level3Menu extends Scene{
     }
 
     /**
-     * Updates the scene
+     * Updates the scene.
      * @param dTime keeps track of frames
      */
     @Override
@@ -158,7 +162,7 @@ public class Level3Menu extends Scene{
     }
 
     /**
-     * Draws on the screen
+     * Draws on the screen.
      * @param g2 graphics handler
      */
     @Override
@@ -174,7 +178,7 @@ public class Level3Menu extends Scene{
     }
 
     /**
-     * Imports the level
+     * Imports the level. No reason to implement.
      * @param filename the file from where we take our serialized level.
      */
     @Override

@@ -5,7 +5,6 @@ import com.Buttons.SubmitButton;
 import com.Components.Ground;
 import com.Components.ParallaxBG;
 import com.Components.Sprite;
-import com.Components.TextField;
 import com.DataStructures.AssetPool;
 import com.DataStructures.Transform;
 import com.Utilities.Constants;
@@ -21,12 +20,28 @@ import java.util.Scanner;
  * The scene where we create a new level, or where we type the level name to import it.
  */
 public class CreateNewLevelMenu extends Scene {
-    private TextField textField;
+    //private TextField textField;
     private SubmitButton button;
     private GameObject mouseCursor;
+
+    /**
+     * list of buttons inside the scene
+     */
     private List<GameObject> buttons;
+
+    /**
+     * this is temporary (used to enter te level name)
+     */
     private Scanner scanner = new Scanner(System.in);
+
+    /**
+     * flag for the text required
+     */
     boolean entered = false;
+
+    /**
+     * flag whether we want to import a level or create a new one
+     */
     boolean importLVL;
 
     private Sprite backButton, submit, text;
@@ -38,7 +53,7 @@ public class CreateNewLevelMenu extends Scene {
     public CreateNewLevelMenu(String name) {
         super.Scene(name);
         this.buttons = new ArrayList<>();
-        this.textField = new TextField(575, 225, 300, 50);
+        //this.textField = new TextField(575, 225, 300, 50);
     }
 
     /**
@@ -56,7 +71,7 @@ public class CreateNewLevelMenu extends Scene {
         mouseCursor = new GameObject("Mouse Cursor", new Transform(new Pair()), 10);
         initBackGrounds();
         initButtons();
-        Window.getWindow().addTextField(textField);
+        //Window.getWindow().addTextField(textField);
         entered = false;
         this.importLVL = importLVL;
     }
@@ -129,7 +144,7 @@ public class CreateNewLevelMenu extends Scene {
     }
 
     /**
-     * Updates the scene
+     * Updates the scene.
      * @param dTime keeps track of frames
      */
     @Override
@@ -148,7 +163,7 @@ public class CreateNewLevelMenu extends Scene {
                 }
                 button.setTextAttached(levelName);
             }
-            button.setTextAttached(textField.getText());
+            //button.setTextAttached(textField.getText());
             entered = true;
         }
 
@@ -159,7 +174,7 @@ public class CreateNewLevelMenu extends Scene {
     }
 
     /**
-     * Draws on the screen
+     * Draws on the screen.
      * @param g2 graphics handler
      */
     @Override
@@ -179,7 +194,7 @@ public class CreateNewLevelMenu extends Scene {
     }
 
     /**
-     * Imports the level
+     * Imports the level. No reason to implement.
      * @param filename the file from where we take our serialized level.
      */
     @Override
