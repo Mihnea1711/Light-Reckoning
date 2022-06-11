@@ -76,7 +76,8 @@ public class Window extends JFrame implements Runnable {
      * Will tell which scene we need to change to.
      * @param scene index of the Scene we want to change to
      */
-    public void changeScene(int scene, int prevSceneNumber, String filename, String zipFilePath, String musicFile, String backgroundPath, String groundPath, boolean importLvl) {
+    public void changeScene(int scene, int prevSceneNumber, String filename, String zipFilePath,
+                            String musicFile, String backgroundPath, String groundPath, boolean importLvl) {
         switch (scene) {
             case 0 -> {
                 isInEditor = true;
